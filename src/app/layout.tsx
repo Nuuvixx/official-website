@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 import SmoothScroller from "@/components/layout/SmoothScroller";
@@ -8,16 +8,7 @@ import NavigationBar from "@/components/layout/NavigationBar";
 import Footer from "@/components/layout/Footer";
 import CommandPalette from "@/components/layout/CommandPalette";
 import CustomCursor from "@/components/layout/CustomCursor";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-});
+import NoiseOverlay from "@/components/layout/NoiseOverlay";
 
 export const metadata: Metadata = {
   title: "Nuuvixx | Infrastructure for the machines that think",
@@ -32,7 +23,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${inter.variable} ${jetbrainsMono.variable} ${GeistSans.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <head>
         <script
@@ -53,6 +44,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <NoiseOverlay />
         <CustomCursor />
         <SmoothScroller>
           <NavigationBar />

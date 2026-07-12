@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, GithubLogo, CaretDoubleDown } from "@phosphor-icons/react";
 import Magnetic from "@/components/ui/Magnetic";
+import TelemetryTerminal from "./TelemetryTerminal";
 import styles from "./home.module.css";
 
 export default function VoidClockHero() {
@@ -13,81 +14,96 @@ export default function VoidClockHero() {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+
+  const h1Text = "Infrastructure for".split(" ");
+  const h1Text2 = "the machines that think.".split(" ");
 
   return (
     <motion.section 
       ref={containerRef}
-      style={{ opacity, scale, y }}
+      style={{ opacity, scale }}
       className={styles.heroSection}
     >
-      <div className={styles.clockContainer}>
-        {/* SVG Concentric Void Clock */}
-        <div className={styles.voidClock}>
-          <svg viewBox="0 0 200 200" className={`${styles.clockSvg} ${styles.spinSlow}`}>
-            {/* Outer rings */}
-            <circle cx="100" cy="100" r="95" className={styles.clockRing} />
-            <circle cx="100" cy="100" r="85" className={styles.clockRingActive} strokeDasharray="4 8" />
-            <circle cx="100" cy="100" r="75" className={styles.clockRing} />
-            
-            {/* Inner rings - counter rotating */}
-            <g className={styles.spinFast} style={{ transformOrigin: '100px 100px' }}>
-              <circle cx="100" cy="100" r="55" className={styles.clockRing} strokeDasharray="1 4" />
-              <circle cx="100" cy="100" r="45" className={styles.clockRingActive} />
-            </g>
-
-            {/* Tick marks */}
-            {Array.from({ length: 12 }).map((_, i) => (
-              <line 
-                key={i}
-                x1="100" y1="15" 
-                x2="100" y2="25" 
-                className={i % 3 === 0 ? styles.clockTickActive : styles.clockTick}
-                transform={`rotate(${i * 30} 100 100)`} 
-              />
-            ))}
-          </svg>
-          <div className={`${styles.metric} ${styles.metricTop}`}>24.5k Stars</div>
-          <div className={`${styles.metric} ${styles.metricRight}`}>890 Contributors</div>
-          <div className={`${styles.metric} ${styles.metricBottom}`}>12.1k Commits</div>
-          <div className={`${styles.metric} ${styles.metricLeft}`}>9 Products</div>
-        </div>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
-          className={styles.heroContent}
-        >
-          <h1 className={styles.heroTitle}>
-            Infrastructure for<br/>
-            <span className={styles.textVolt}>the machines that think.</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
+      <div className={styles.heroGrid}>
+        
+        <div className={styles.heroContent}>
+          <div className={styles.heroTitleContainer}>
+            <div className={styles.heroTitleLine}>
+              {h1Text.map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  transition={{ delay: i * 0.1, type: "spring", stiffness: 100, damping: 20 }}
+                  className={styles.heroTitle}
+                  style={{ marginRight: "0.2em" }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+            <div className={styles.heroTitleLine}>
+              {h1Text2.map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  transition={{ delay: 0.2 + (i * 0.1), type: "spring", stiffness: 100, damping: 20 }}
+                  className={`${styles.heroTitle} ${styles.textVolt}`}
+                  style={{ marginRight: "0.2em" }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, type: "spring", stiffness: 100, damping: 20 }}
+            className={styles.heroSubtitle}
+          >
             Nuuvixx builds the layer beneath the AI systems everyone else is building. Open-source. Production-grade. Built to last.
-          </p>
-          <div className={styles.heroCtas}>
+          </motion.p>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, type: "spring", stiffness: 100, damping: 20 }}
+            className={styles.heroCtas}
+          >
             <Magnetic strength={0.3}>
               <button className={styles.btnPrimary}>
-                Explore the Ecosystem <ArrowRight weight="bold" />
+                Explore Ecosystem <ArrowRight weight="bold" />
               </button>
             </Magnetic>
             <Magnetic strength={0.2}>
               <button className={styles.btnGhost}>
-                <GithubLogo weight="fill" /> View on GitHub
+                <GithubLogo weight="fill" /> GitHub
               </button>
             </Magnetic>
-          </div>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, rotateY: -10 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          transition={{ delay: 0.6, type: "spring", stiffness: 100, damping: 20 }}
+          style={{ perspective: 1000 }}
+        >
+          <TelemetryTerminal />
         </motion.div>
+        
       </div>
       
       {/* Scroll Indicator */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ delay: 1.5, duration: 2, repeat: Infinity }}
-        style={{ position: 'absolute', bottom: 'var(--space-8)', color: 'var(--color-text-tertiary)' }}
+        transition={{ delay: 2, duration: 2, repeat: Infinity }}
+        style={{ position: 'absolute', bottom: 'var(--space-8)', left: '50%', transform: 'translateX(-50%)', color: 'var(--color-text-tertiary)' }}
       >
         <CaretDoubleDown size={24} />
       </motion.div>

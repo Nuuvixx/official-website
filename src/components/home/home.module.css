@@ -1,93 +1,39 @@
 /* src/components/home/home.module.css */
 
-/* --- Void Clock Hero --- */
+/* --- Asymmetric Cinematic Hero --- */
 .heroSection {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: clamp(80px, 12vw, 160px) var(--space-6) var(--space-24);
-  background-image: radial-gradient(circle at center, rgba(232, 184, 75, 0.05) 0%, transparent 50%),
-                    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 24px 24px;
+  padding: var(--space-24) var(--space-6);
+  max-width: var(--container-max);
+  margin: 0 auto;
 }
-.clockContainer {
-  position: relative;
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
   width: 100%;
-  max-width: var(--container-wide);
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  position: relative;
   z-index: 10;
 }
-.voidClock {
-  position: relative;
-  width: min(100%, 600px);
-  aspect-ratio: 1/1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-8);
-}
-.clockSvg {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-}
-.clockRing {
-  fill: none;
-  stroke: var(--color-volt-ghost);
-  stroke-width: 0.2;
-}
-.clockRingActive {
-  fill: none;
-  stroke: var(--color-volt);
-  stroke-width: 0.5;
-  opacity: 0.4;
-}
-.clockTick {
-  stroke: var(--color-text-tertiary);
-  stroke-width: 1;
-}
-.clockTickActive {
-  stroke: var(--color-volt);
-  stroke-width: 1.5;
-}
-.spinFast {
-  animation: spin 30s linear infinite;
-  transform-origin: center;
-}
-.spinSlow {
-  animation: spinReverse 60s linear infinite;
-  transform-origin: center;
-}
-.metric {
-  position: absolute;
-  font-family: var(--font-jetbrains-mono);
-  font-size: var(--font-size-xs);
-  color: var(--color-volt);
-  background: rgba(4, 4, 10, 0.8);
-  backdrop-filter: blur(4px);
-  padding: 4px 12px;
-  border: 1px solid var(--color-volt-dim);
-  border-radius: var(--radius-full);
-  white-space: nowrap;
-  box-shadow: 0 0 15px var(--color-volt-glow);
-  transform: translate(-50%, -50%);
-}
-.metricTop { top: 10%; left: 50%; }
-.metricRight { top: 50%; left: 90%; }
-.metricBottom { top: 90%; left: 50%; }
-.metricLeft { top: 50%; left: 10%; }
-
 .heroContent {
-  text-align: center;
-  max-width: 900px;
-  position: relative;
-  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 600px;
+}
+.heroTitleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.heroTitleLine {
+  overflow: hidden;
+  padding-bottom: 0.1em; /* Prevent clipping of descenders */
 }
 .heroTitle {
   font-family: var(--font-geist-sans);
@@ -95,73 +41,141 @@
   font-weight: 700;
   letter-spacing: var(--tracking-tighter);
   line-height: var(--leading-tight);
-  margin-bottom: var(--space-6);
+  color: var(--color-text-primary);
+  margin: 0;
+  display: inline-block;
 }
 .textVolt {
-  background: linear-gradient(135deg, var(--color-volt), #FFF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-volt);
 }
 .heroSubtitle {
   font-size: var(--font-size-xl);
-  font-family: var(--font-inter);
+  font-family: var(--font-geist-sans);
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-10);
-  max-width: 650px;
-  margin-inline: auto;
   line-height: var(--leading-relaxed);
+  max-width: 500px;
+  margin: 0;
 }
 .heroCtas {
   display: flex;
   gap: var(--space-4);
-  justify-content: center;
+  align-items: center;
 }
 .btnPrimary {
-  background: var(--color-text-primary);
-  color: var(--color-void);
-  border: none;
+  background: transparent;
+  color: var(--color-volt);
+  border: 1px solid var(--color-volt);
   padding: var(--space-3) var(--space-8);
-  border-radius: var(--radius-full);
-  font-weight: 600;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-family: var(--font-geist-sans);
   display: flex;
   align-items: center;
   gap: var(--space-2);
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: var(--shadow-sm);
-  font-family: var(--font-inter);
+  box-shadow: var(--shadow-inset);
 }
 .btnPrimary:hover {
-  transform: scale(1.02);
   background: var(--color-volt);
-  box-shadow: 0 0 20px var(--color-volt-glow);
+  color: var(--color-text-inverse);
 }
 .btnGhost {
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--color-text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: var(--space-3) var(--space-8);
-  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid transparent;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
   font-weight: 500;
+  font-family: var(--font-geist-sans);
   display: flex;
   align-items: center;
   gap: var(--space-2);
   cursor: pointer;
   transition: all 0.2s;
-  font-family: var(--font-inter);
 }
 .btnGhost:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-primary);
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* --- Telemetry Terminal --- */
+.telemetryContainer {
+  background: var(--color-depth-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  height: 450px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
 }
-@keyframes spinReverse {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+.terminalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.terminalDots {
+  display: flex;
+  gap: var(--space-2);
+}
+.terminalDots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-border-subtle);
+}
+.terminalTitle {
+  font-family: var(--font-geist-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  letter-spacing: var(--tracking-wide);
+}
+.terminalBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-family: var(--font-geist-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+.terminalLine {
+  display: flex;
+  gap: var(--space-3);
+}
+.terminalTimestamp {
+  color: var(--color-text-tertiary);
+  user-select: none;
+}
+.typingEffect {
+  border-right: 2px solid var(--color-volt);
+  padding-right: 2px;
+  animation: blink 1s step-end infinite;
+}
+.telemetryOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(9,9,11,0) 0%, rgba(9,9,11,1) 90%);
+  pointer-events: none;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@media (max-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
 }
 
 /* --- Problem Statement --- */

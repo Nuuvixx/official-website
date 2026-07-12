@@ -3,48 +3,28 @@
    ============================== */
 :root {
   /* Backgrounds */
-  --color-void:        #04040A;   /* Deepest black — main bg */
-  --color-depth-1:     #080810;   /* Layer 1 */
-  --color-depth-2:     #0D0D1A;   /* Layer 2 */
-  --color-depth-3:     #111122;   /* Layer 3 */
-  --color-surface:     #16162A;   /* Card surface */
-  --color-surface-raised: #1C1C35; /* Elevated elements */
+  --color-void:        #000000;   /* Absolute Void */
+  --color-depth-1:     #050505;   /* Deep layer */
+  --color-depth-2:     #09090B;   /* Charcoal Ink */
+  --color-surface:     #09090B;   /* Card surface */
+  --color-surface-raised: #121214; /* Elevated elements */
 
   /* Primary — Nuuvixx Volt */
   --color-volt:        #E8B84B;   
   --color-volt-dim:    #B8903A;   
-  --color-volt-glow:   #E8B84B40; 
-  --color-volt-ghost:  #E8B84B12; 
-
-  /* Secondary — Ice */
-  --color-ice:         #7ECFF4;   
-  --color-ice-dim:     #5AB5E0;
-  --color-ice-glow:    #7ECFF420;
-
-  /* Tertiary — Pulse */
-  --color-pulse:       #A78BFA;   
-  --color-pulse-dim:   #7C6BD4;
-  --color-pulse-glow:  #A78BFA20;
-
-  /* Semantic */
-  --color-success:     #22D3A0;
-  --color-warning:     #F59E0B;
-  --color-error:       #F43F5E;
-  --color-info:        #38BDF8;
+  --color-volt-glow:   #E8B84B10; /* Very subtle glow */
+  --color-volt-ghost:  #E8B84B0A; 
 
   /* Text */
-  --color-text-primary:   #F0F0F8;
-  --color-text-secondary: #9090B8;
-  --color-text-tertiary:  #5C5C85;
-  --color-text-inverse:   #04040A;
+  --color-text-primary:   #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  --color-text-tertiary:  #71717A; /* Muted Steel */
+  --color-text-inverse:   #000000;
 
   /* Borders */
-  --color-border:         #1E1E38;
-  --color-border-subtle:  #14142A;
-  --color-border-active:  #E8B84B40;
-
-  /* Grid */
-  --color-grid:           #E8B84B06;
+  --color-border:         #18181B;
+  --color-border-subtle:  rgba(255, 255, 255, 0.08); /* Whisper Border */
+  --color-border-active:  rgba(232, 184, 75, 0.3);
 
   /* Spacing */
   --space-1:   0.25rem;  /* 4px */
@@ -76,15 +56,14 @@
   --font-size-hero: clamp(3rem, 7vw, 6rem); /* 48px-96px */
 
   /* Tracking & Leading */
-  --tracking-tighter: -0.05em;
-  --tracking-tight:   -0.025em;
+  --tracking-tighter: -0.04em;
+  --tracking-tight:   -0.02em;
   --tracking-normal:  0;
-  --tracking-wide:    0.025em;
-  --tracking-widest:  0.1em;
+  --tracking-wide:    0.02em;
   
-  --leading-tight:    1.2;
-  --leading-normal:   1.5;
-  --leading-relaxed:  1.65;
+  --leading-tight:    1.1;
+  --leading-normal:   1.4;
+  --leading-relaxed:  1.6;
 
   /* Layout Grid */
   --grid-cols-desktop: 12;
@@ -96,23 +75,20 @@
   --container-narrow:  860px;
   --container-reading: 680px;
 
-  /* Border Radii */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   12px;
-  --radius-xl:   16px;
-  --radius-2xl:  24px;
-  --radius-3xl:  32px;
+  /* Border Radii (Strict: Sharp or extreme pill) */
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   4px;
+  --radius-xl:   4px;
+  --radius-2xl:  4px;
+  --radius-3xl:  4px;
   --radius-full: 9999px;
 
-  /* Shadows & Glows */
-  --shadow-volt:    0 0 20px var(--color-volt-glow),
-                    0 0 60px var(--color-volt-glow);
-  --shadow-sm:      0 1px 2px rgba(0,0,0,0.4);
-  --shadow-md:      0 4px 16px rgba(0,0,0,0.5);
-  --shadow-lg:      0 8px 32px rgba(0,0,0,0.6);
-  --shadow-xl:      0 24px 64px rgba(0,0,0,0.7);
-  --shadow-inset:   inset 0 1px 0 rgba(255,255,255,0.04);
+  /* Shadows (No outer glows, inset structured depth) */
+  --shadow-sm:      0 1px 2px rgba(0,0,0,0.8);
+  --shadow-md:      0 4px 12px rgba(0,0,0,0.8);
+  --shadow-lg:      0 8px 24px rgba(0,0,0,0.8);
+  --shadow-inset:   inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -131,7 +107,7 @@ body {
   padding: 0;
   background-color: var(--color-void);
   color: var(--color-text-primary);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
   line-height: var(--leading-relaxed);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -142,7 +118,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-weight: 500;
   line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
+  letter-spacing: var(--tracking-tighter);
 }
 
 a {
