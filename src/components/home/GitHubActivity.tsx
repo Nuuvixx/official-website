@@ -2,9 +2,15 @@
 import { motion } from "framer-motion";
 import styles from "./home.module.css";
 
+// Stable hardcoded dataset — no Math.random() to avoid SSR/client hydration mismatch
+const ACTIVITY_DATA = [
+  20, 39, 53, 77, 40, 80, 52, 63, 88, 42, 12, 91, 94, 65, 13, 93, 53, 22, 84, 62,
+  19, 31, 88, 67, 85, 58, 104, 34, 44, 26, 56, 90, 50, 81, 12, 29, 25, 81, 92, 63,
+  108, 100, 69, 54, 14, 90, 75, 12, 75, 83, 37, 105, 109, 104, 24, 14, 45, 75, 96, 79,
+];
+
 export default function GitHubActivity() {
-  // Generate 60 mock data points (resembling a real GitHub commit history)
-  const data = Array.from({ length: 60 }, () => Math.floor(Math.random() * 100) + 10);
+  const data = ACTIVITY_DATA;
 
   return (
     <section className={styles.githubSection}>

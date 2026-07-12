@@ -31,30 +31,32 @@ export default function VoidClockHero() {
           <div className={styles.heroTitleContainer}>
             <div className={styles.heroTitleLine}>
               {h1Text.map((word, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  transition={{ delay: i * 0.1, type: "spring", stiffness: 100, damping: 20 }}
-                  className={styles.heroTitle}
-                  style={{ marginRight: "0.2em" }}
-                >
-                  {word}
-                </motion.span>
+                <span key={i} style={{ overflow: "hidden", display: "inline-block", marginRight: "0.2em", paddingBottom: "0.1em" }}>
+                  <motion.span
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    transition={{ delay: i * 0.1, type: "spring", stiffness: 100, damping: 20 }}
+                    className={styles.heroTitle}
+                    style={{ display: "inline-block" }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
               ))}
             </div>
             <div className={styles.heroTitleLine}>
               {h1Text2.map((word, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  transition={{ delay: 0.2 + (i * 0.1), type: "spring", stiffness: 100, damping: 20 }}
-                  className={`${styles.heroTitle} ${styles.textVolt}`}
-                  style={{ marginRight: "0.2em" }}
-                >
-                  {word}
-                </motion.span>
+                <span key={i} style={{ overflow: "hidden", display: "inline-block", marginRight: "0.2em", paddingBottom: "0.1em" }}>
+                  <motion.span
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    transition={{ delay: 0.2 + (i * 0.1), type: "spring", stiffness: 100, damping: 20 }}
+                    className={`${styles.heroTitle} ${styles.textVolt}`}
+                    style={{ display: "inline-block" }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
               ))}
             </div>
           </div>

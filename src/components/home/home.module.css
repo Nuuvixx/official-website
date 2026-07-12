@@ -32,8 +32,8 @@
   gap: 0;
 }
 .heroTitleLine {
-  overflow: hidden;
-  padding-bottom: 0.1em; /* Prevent clipping of descenders */
+  display: flex;
+  flex-wrap: wrap;
 }
 .heroTitle {
   font-family: var(--font-geist-sans);

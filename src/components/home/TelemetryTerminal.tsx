@@ -1,8 +1,14 @@
 "use client";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import styles from "./home.module.css";
 
 export default function TelemetryTerminal() {
+  const [timeStr, setTimeStr] = useState("00:00:00");
+  useEffect(() => {
+    setTimeStr(new Date().toISOString().split("T")[1].slice(0, 8));
+  }, []);
+  
   const terminalLines = [
     { text: "INIT // Nuuvixx Core Infrastructure", delay: 0 },
     { text: "ESTABLISHING SECURE CHANNEL...", delay: 0.5 },
@@ -32,8 +38,8 @@ export default function TelemetryTerminal() {
             transition={{ delay: line.delay, type: "spring", stiffness: 100, damping: 20 }}
             className={styles.terminalLine}
           >
-            <span className={styles.terminalTimestamp}>
-              [{new Date().toISOString().split("T")[1].slice(0, 8)}]
+            <span className={styles.terminalTimestamp} suppressHydrationWarning>
+              [{timeStr}]
             </span>
             <span className={line.typing ? styles.typingEffect : ""}>{line.text}</span>
           </motion.div>
