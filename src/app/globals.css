@@ -1,40 +1,148 @@
+/* ==============================
+   NUUVIXX DESIGN TOKENS
+   ============================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --color-void:        #04040A;   /* Deepest black — main bg */
+  --color-depth-1:     #080810;   /* Layer 1 */
+  --color-depth-2:     #0D0D1A;   /* Layer 2 */
+  --color-depth-3:     #111122;   /* Layer 3 */
+  --color-surface:     #16162A;   /* Card surface */
+  --color-surface-raised: #1C1C35; /* Elevated elements */
+
+  /* Primary — Nuuvixx Volt */
+  --color-volt:        #E8B84B;   
+  --color-volt-dim:    #B8903A;   
+  --color-volt-glow:   #E8B84B40; 
+  --color-volt-ghost:  #E8B84B12; 
+
+  /* Secondary — Ice */
+  --color-ice:         #7ECFF4;   
+  --color-ice-dim:     #5AB5E0;
+  --color-ice-glow:    #7ECFF420;
+
+  /* Tertiary — Pulse */
+  --color-pulse:       #A78BFA;   
+  --color-pulse-dim:   #7C6BD4;
+  --color-pulse-glow:  #A78BFA20;
+
+  /* Semantic */
+  --color-success:     #22D3A0;
+  --color-warning:     #F59E0B;
+  --color-error:       #F43F5E;
+  --color-info:        #38BDF8;
+
+  /* Text */
+  --color-text-primary:   #F0F0F8;
+  --color-text-secondary: #9090B8;
+  --color-text-tertiary:  #5C5C85;
+  --color-text-inverse:   #04040A;
+
+  /* Borders */
+  --color-border:         #1E1E38;
+  --color-border-subtle:  #14142A;
+  --color-border-active:  #E8B84B40;
+
+  /* Grid */
+  --color-grid:           #E8B84B06;
+
+  /* Spacing */
+  --space-1:   0.25rem;  /* 4px */
+  --space-2:   0.5rem;   /* 8px */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-5:   1.25rem;  /* 20px */
+  --space-6:   1.5rem;   /* 24px */
+  --space-8:   2rem;     /* 32px */
+  --space-10:  2.5rem;   /* 40px */
+  --space-12:  3rem;     /* 48px */
+  --space-16:  4rem;     /* 64px */
+  --space-20:  5rem;     /* 80px */
+  --space-24:  6rem;     /* 96px */
+  --space-32:  8rem;     /* 128px */
+  --space-40:  10rem;    /* 160px */
+
+  /* Typography Scale */
+  --font-size-xs:   0.75rem;  /* 12px */
+  --font-size-sm:   0.875rem; /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg:   1.125rem; /* 18px */
+  --font-size-xl:   1.25rem;  /* 20px */
+  --font-size-2xl:  1.5rem;   /* 24px */
+  --font-size-3xl:  1.875rem; /* 30px */
+  --font-size-4xl:  2.25rem;  /* 36px */
+  --font-size-5xl:  3rem;     /* 48px */
+  --font-size-6xl:  3.75rem;  /* 60px */
+  --font-size-hero: clamp(3rem, 7vw, 6rem); /* 48px-96px */
+
+  /* Tracking & Leading */
+  --tracking-tighter: -0.05em;
+  --tracking-tight:   -0.025em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.025em;
+  --tracking-widest:  0.1em;
+  
+  --leading-tight:    1.2;
+  --leading-normal:   1.5;
+  --leading-relaxed:  1.65;
+
+  /* Layout Grid */
+  --grid-cols-desktop: 12;
+  --grid-cols-tablet:  8;
+  --grid-cols-mobile:  4;
+  --grid-gutter:       var(--space-6);
+  --container-max:     1440px;
+  --container-wide:    1280px;
+  --container-narrow:  860px;
+  --container-reading: 680px;
+
+  /* Border Radii */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-3xl:  32px;
+  --radius-full: 9999px;
+
+  /* Shadows & Glows */
+  --shadow-volt:    0 0 20px var(--color-volt-glow),
+                    0 0 60px var(--color-volt-glow);
+  --shadow-sm:      0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:      0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg:      0 8px 32px rgba(0,0,0,0.6);
+  --shadow-xl:      0 24px 64px rgba(0,0,0,0.7);
+  --shadow-inset:   inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-void);
+  color: var(--color-text-primary);
+  font-family: var(--font-inter), sans-serif;
+  line-height: var(--leading-relaxed);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-geist-sans), sans-serif;
   margin: 0;
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
 a {
@@ -42,8 +150,10 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* Utilities */
+.container {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
 }
