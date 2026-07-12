@@ -1,0 +1,132 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6);
+}
+
+.header {
+  margin-bottom: var(--space-16);
+}
+
+.title {
+  font-family: var(--font-syne);
+  font-size: var(--font-size-5xl);
+  margin-bottom: var(--space-4);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xl);
+  line-height: 1.6;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  position: relative;
+}
+
+.phase {
+  display: flex;
+  gap: var(--space-6);
+  position: relative;
+}
+
+.phaseIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 24px;
+}
+
+.line {
+  position: absolute;
+  top: 24px;
+  bottom: -32px;
+  width: 1px;
+  background-color: var(--color-border);
+}
+
+.phase:last-child .line {
+  display: none;
+}
+
+.dot {
+  background-color: var(--color-surface);
+  z-index: 2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phaseContent {
+  flex: 1;
+  padding-bottom: var(--space-8);
+}
+
+.phaseHeader {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-2);
+}
+
+@media (min-width: 640px) {
+  .phaseHeader {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}
+
+.phaseTitle {
+  font-family: var(--font-syne);
+  font-size: var(--font-size-2xl);
+  margin: 0;
+}
+
+.phaseDate {
+  font-family: var(--font-jetbrains-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-volt);
+}
+
+.phaseDescription {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+  line-height: 1.6;
+}
+
+.itemList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background-color: var(--color-depth-1);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+.item_completed {
+  color: var(--color-text-primary);
+}
+
+.item_in-progress {
+  color: var(--color-text-primary);
+}
+
+.item_pending {
+  color: var(--color-text-tertiary);
+}
