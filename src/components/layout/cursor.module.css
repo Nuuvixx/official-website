@@ -1,0 +1,37 @@
+.cursorRing {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cursorDot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-volt);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* We hide the native cursor on the body when this component mounts */
+:global(.hideNativeCursor) {
+  cursor: none;
+}
+:global(.hideNativeCursor) * {
+  cursor: none !important;
+}
+
+@media (max-width: 768px) {
+  .cursorRing, .cursorDot {
+    display: none !important;
+  }
+}
