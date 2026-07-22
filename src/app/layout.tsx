@@ -3,11 +3,9 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
-import SmoothScroller from "@/components/layout/SmoothScroller";
 import NavigationBar from "@/components/layout/NavigationBar";
 import Footer from "@/components/layout/Footer";
 import CommandPalette from "@/components/layout/CommandPalette";
-import CustomCursor from "@/components/layout/CustomCursor";
 import NoiseOverlay from "@/components/layout/NoiseOverlay";
 
 export const metadata: Metadata = {
@@ -45,15 +43,12 @@ export default function RootLayout({
       </head>
       <body>
         <NoiseOverlay />
-        <CustomCursor />
-        <SmoothScroller>
-          <NavigationBar />
-          <CommandPalette />
-          <main style={{ minHeight: "100vh", paddingTop: "80px" }}>
-            {children}
-          </main>
-          <Footer />
-        </SmoothScroller>
+        <NavigationBar />
+        <CommandPalette />
+        <main style={{ minHeight: "100vh", paddingTop: "80px" }}>
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

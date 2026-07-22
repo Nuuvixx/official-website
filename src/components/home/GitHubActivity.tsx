@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import styles from "./home.module.css";
 
 // Stable hardcoded dataset — no Math.random() to avoid SSR/client hydration mismatch
@@ -10,29 +11,56 @@ const ACTIVITY_DATA = [
 ];
 
 export default function GitHubActivity() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-80px" });
   const data = ACTIVITY_DATA;
 
   return (
-    <section className={styles.githubSection}>
-      <div className={styles.eyebrow}>Live Activity</div>
-      <h2 style={{ fontFamily: "var(--font-syne)", fontSize: "var(--font-size-4xl)", textAlign: "center", marginBottom: "var(--space-4)" }}>We build every day.</h2>
-      <p style={{ color: "var(--color-text-secondary)" }}>Last 60 days of commits across the open-source Nuuvixx ecosystem.</p>
+    <section ref={containerRef} className={styles.githubSection}>
+      <motion.div 
+        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className={styles.eyebrow}
+      >
+        Live Activity
+      </motion.div>
+      <motion.h2 
+        initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "clamp(1.75rem, 4vw, var(--font-size-4xl))", fontWeight: 700, textAlign: "center", marginBottom: "var(--space-4)" }}
+      >
+        We build every day.
+      </motion.h2>
+      <motion.p 
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        style={{ color: "var(--color-text-secondary)" }}
+      >
+        Last 60 days of commits across the open-source Nuuvixx ecosystem.
+      </motion.p>
       
       <div className={styles.activityGrid}>
         {data.map((h, i) => (
           <motion.div
             key={i}
-            initial={{ height: 0 }}
-            whileInView={{ height: `${h}%` }}
-            viewport={{ once: true, margin: "100px" }}
-            transition={{ delay: i * 0.015, duration: 0.6, ease: "easeOut" }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={isInView ? { height: `${h}%`, opacity: 1 } : {}}
+            transition={{ delay: 0.3 + i * 0.012, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className={styles.activityBar}
             title={`${h} commits`}
           />
         ))}
       </div>
       
-      <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-12)", fontFamily: "var(--font-jetbrains-mono)" }}>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+        style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-12)", fontFamily: "var(--font-geist-mono), monospace" }}
+      >
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: "var(--font-size-2xl)", color: "var(--color-volt)", fontWeight: "bold" }}>1,492</div>
           <div style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-tertiary)" }}>Commits (30d)</div>
@@ -41,7 +69,7 @@ export default function GitHubActivity() {
           <div style={{ fontSize: "var(--font-size-2xl)", color: "var(--color-volt)", fontWeight: "bold" }}>5</div>
           <div style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-tertiary)" }}>Active Repos</div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

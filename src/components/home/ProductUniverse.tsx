@@ -29,7 +29,7 @@ export default function ProductUniverse() {
 
   return (
     <section className={styles.universeSection} style={{ minHeight: '120vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', position: 'relative' }}>
-      <h2 style={{ fontFamily: "var(--font-syne)", fontSize: "var(--font-size-4xl)", marginBottom: "var(--space-20)", position: "relative", zIndex: 10 }}>The Nuuvixx Ecosystem</h2>
+      <h2 style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "clamp(1.75rem, 4vw, var(--font-size-4xl))", fontWeight: 700, marginBottom: "var(--space-20)", position: "relative", zIndex: 10 }}>The Nuuvixx Ecosystem</h2>
       <div style={{ position: "relative", width: "100%", height: "600px", display: "flex", alignItems: "center", justifyContent: "center" }}>
         
         {isDesktop ? (
@@ -37,7 +37,7 @@ export default function ProductUniverse() {
         ) : (
           <>
             {/* Central Node */}
-            <div style={{ width: "100px", height: "100px", borderRadius: "50%", background: "var(--color-volt)", boxShadow: "var(--shadow-volt)", zIndex: 10, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", color: "var(--color-void)", fontSize: "var(--font-size-xl)" }}>NX</div>
+            <div style={{ width: "100px", height: "100px", borderRadius: "50%", background: "var(--color-volt)", boxShadow: "var(--shadow-volt)", zIndex: 10, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", color: "#fff", fontSize: "var(--font-size-xl)" }}>NX</div>
 
             {/* Orbiting Products */}
             {products.map((product, i) => (
@@ -52,16 +52,17 @@ export default function ProductUniverse() {
                   position: "absolute",
                   x: product.x,
                   y: product.y,
-                  background: "var(--color-surface)",
-                  border: "1px solid var(--color-border)",
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.06)",
                   padding: "var(--space-6)",
                   borderRadius: "var(--radius-lg)",
                   cursor: "pointer",
                   boxShadow: "var(--shadow-sm)",
+                  backdropFilter: "blur(10px)",
                   transition: "border-color 0.2s, box-shadow 0.2s"
                 }}
               >
-                <div style={{ fontFamily: "var(--font-jetbrains-mono)", color: "var(--color-volt)", fontSize: "var(--font-size-xs)", marginBottom: "var(--space-2)", textTransform: "uppercase" }}>Active</div>
+                <div style={{ fontFamily: "var(--font-geist-mono), monospace", color: "var(--color-volt)", fontSize: "var(--font-size-xs)", marginBottom: "var(--space-2)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Active</div>
                 <div style={{ fontWeight: 600, fontSize: "var(--font-size-lg)" }}>{product.name}</div>
               </motion.div>
             ))}

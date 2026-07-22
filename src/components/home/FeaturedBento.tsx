@@ -1,50 +1,76 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import styles from "./home.module.css";
+import { User, CheckCircle, RocketLaunch, ShareNetwork } from "@phosphor-icons/react";
 
 export default function FeaturedBento() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-80px" });
+
   return (
-    <section className={styles.bentoSection}>
-      <h2 className={styles.bentoHeader}>Flagship Products</h2>
-      
-      <div className={styles.bentoGrid}>
-        {/* Large cell */}
+    <section ref={containerRef} className={styles.flowchartSection}>
+      <div className={styles.flowchartContainer}>
+        
+        {/* Left Side: Typography */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className={`${styles.bentoCard} ${styles.bentoLarge}`}
+          className={styles.flowchartTextContent}
+          initial={{ opacity: 0, x: -40, filter: "blur(4px)" }}
+          animate={isInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className={`${styles.bentoTag} ${styles.tagVolt}`}>[ AgentGovern ]</div>
-          <h3 className={styles.bentoTitle}>Complete governance layer for autonomous agents.</h3>
-          <p className={styles.bentoDesc}>Deploy agents with confidence. Set deterministic boundaries, audit trails, and permission scopes.</p>
+          <h2 className={styles.flowchartTitle}>
+            FLAGSHIP <span className={styles.textRed}>PRODUCTS,</span><br/>
+            BUILT FOR AUTONOMY.
+          </h2>
+          <p className={styles.flowchartDesc}>
+            Deploy agents with confidence. Set deterministic boundaries, trace logic errors, and shape dynamic memory natively at scale.
+          </p>
         </motion.div>
 
-        {/* Medium cell 1 */}
+        {/* Right Side: Flowchart Diagram */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className={`${styles.bentoCard} ${styles.bentoSmall}`}
+          className={styles.flowchartDiagram}
+          initial={{ opacity: 0, x: 40, filter: "blur(8px)" }}
+          animate={isInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className={`${styles.bentoTag} ${styles.tagPulse}`}>[ BugPulse ]</div>
-          <h3 className={styles.bentoTitle}>Real-time agent telemetry.</h3>
-          <p className={styles.bentoDesc}>Trace logic errors across autonomous operations natively.</p>
+          {/* SVG connecting lines with neon red glow */}
+          <svg className={styles.flowLines} viewBox="0 0 500 350">
+             <defs>
+               <filter id="neonRedGlow" x="-20%" y="-20%" width="140%" height="140%">
+                 <feGaussianBlur stdDeviation="4" result="blur" />
+                 <feMerge>
+                   <feMergeNode in="blur" />
+                   <feMergeNode in="SourceGraphic" />
+                 </feMerge>
+               </filter>
+             </defs>
+             
+             {/* Node 1 to Node 2 (Up curve) */}
+             <path d="M 180 175 C 230 175, 230 100, 280 100" fill="none" stroke="#ff3b30" strokeWidth="3" filter="url(#neonRedGlow)" />
+             
+             {/* Node 1 to Node 3 (Down curve) */}
+             <path d="M 180 175 C 230 175, 230 250, 280 250" fill="none" stroke="#ff3b30" strokeWidth="3" filter="url(#neonRedGlow)" />
+          </svg>
+
+          {/* Flow Nodes */}
+          <div className={`${styles.flowNode} ${styles.node1}`}>
+            <User size={20} weight="fill" className={styles.iconRed} />
+            <span>AgentGovern</span>
+          </div>
+          
+          <div className={`${styles.flowNode} ${styles.node2}`}>
+            <RocketLaunch size={20} weight="fill" className={styles.iconRed} />
+            <span>BugPulse</span>
+          </div>
+          
+          <div className={`${styles.flowNode} ${styles.node3}`}>
+            <ShareNetwork size={20} weight="fill" className={styles.iconRed} />
+            <span>ContextForge</span>
+          </div>
         </motion.div>
 
-        {/* Medium cell 2 */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className={`${styles.bentoCard} ${styles.bentoSmall}`}
-        >
-          <div className={`${styles.bentoTag} ${styles.tagIce}`}>[ ContextForge ]</div>
-          <h3 className={styles.bentoTitle}>Dynamic memory shaping.</h3>
-          <p className={styles.bentoDesc}>Semantic routing and context window optimization at scale.</p>
-        </motion.div>
       </div>
     </section>
   );

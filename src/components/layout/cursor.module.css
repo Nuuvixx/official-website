@@ -4,10 +4,11 @@
   left: 0;
   width: 32px;
   height: 32px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
+  mix-blend-mode: difference;
 }
 
 .cursorDot {
@@ -20,6 +21,7 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
+  box-shadow: 0 0 8px rgba(255, 107, 44, 0.4);
 }
 
 /* We hide the native cursor on the body when this component mounts */

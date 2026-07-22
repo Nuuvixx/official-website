@@ -6,11 +6,11 @@ import { OrbitControls, Html, Sphere, Stars } from "@react-three/drei";
 import * as THREE from "three";
 
 const products = [
-  { name: "DriveZen", color: "#CCFF00", radius: 4 },
+  { name: "DriveZen", color: "#FF6B2C", radius: 4 },
   { name: "Synapse", color: "#A0A0B0", radius: 3 },
   { name: "agentchaos", color: "#FF4444", radius: 5 },
-  { name: "BugPulse-CLI", color: "#44AAFF", radius: 3.5 },
-  { name: "BugPulse-mcp", color: "#44AAFF", radius: 3.5 },
+  { name: "BugPulse-CLI", color: "#7ecff4", radius: 3.5 },
+  { name: "BugPulse-mcp", color: "#7ecff4", radius: 3.5 },
 ];
 
 function OrbitingNode({ product, index, total }: { product: any; index: number; total: number }) {
@@ -39,17 +39,18 @@ function OrbitingNode({ product, index, total }: { product: any; index: number; 
       <pointLight color={product.color} intensity={0.5} distance={3} />
       <Html distanceFactor={15}>
         <div style={{
-          background: "rgba(4,4,10,0.8)",
+          background: "rgba(4,4,10,0.85)",
           border: `1px solid ${product.color}`,
           color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-          fontSize: "12px",
-          fontFamily: "var(--font-jetbrains-mono)",
+          padding: "4px 10px",
+          borderRadius: "6px",
+          fontSize: "11px",
+          fontFamily: "var(--font-geist-mono), monospace",
           whiteSpace: "nowrap",
           transform: "translate3d(-50%, -150%, 0)",
-          backdropFilter: "blur(4px)",
-          pointerEvents: "none"
+          backdropFilter: "blur(8px)",
+          pointerEvents: "none",
+          letterSpacing: "0.05em"
         }}>
           {product.name}
         </div>
@@ -66,17 +67,17 @@ function Scene() {
       
       {/* Central Node */}
       <Sphere args={[0.5, 32, 32]}>
-        <meshBasicMaterial color="#CCFF00" />
+        <meshBasicMaterial color="#FF6B2C" />
       </Sphere>
-      <pointLight color="#CCFF00" intensity={2} distance={10} />
+      <pointLight color="#FF6B2C" intensity={2} distance={10} />
       
       <Html distanceFactor={15} center>
         <div style={{
-          color: "black",
+          color: "white",
           fontWeight: "bold",
-          fontFamily: "var(--font-syne)",
           fontSize: "14px",
-          pointerEvents: "none"
+          pointerEvents: "none",
+          textShadow: "0 0 10px rgba(255,107,44,0.5)"
         }}>
           NX
         </div>

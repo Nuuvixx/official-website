@@ -1,64 +1,161 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { WarningCircle, Bug, GitFork } from "@phosphor-icons/react";
+import { useRef, useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+import { WarningCircle, Bug, GitFork, ArrowRight } from "@phosphor-icons/react";
 import styles from "./home.module.css";
+
+const painPoints = [
+  {
+    id: "silent-failures",
+    icon: WarningCircle,
+    title: "Silent Failures",
+    text: "AI agents fail silently in production without proper monitoring and alerts.",
+    linkText: "View Telemetry",
+    color: "#ff7e33", // Vibrant Orange
+  },
+  {
+    id: "fragile-orchestration",
+    icon: GitFork,
+    title: "Fragile Orchestration",
+    text: "Current orchestration frameworks are fragile and break unpredictably at scale.",
+    linkText: "Explore Governance",
+    color: "#4facfe", // Vibrant Sky Blue
+  },
+  {
+    id: "zero-observability",
+    icon: Bug,
+    title: "Zero Observability",
+    text: "Observability doesn't exist at the agent-level, leaving your engineers blind.",
+    linkText: "Fix Observability",
+    color: "#4ade80", // Vibrant Light Green
+  },
+];
 
 export default function ProblemStatement() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "center center"]
-  });
+  // Use state to detect desktop for the horizontal stacking animation
+  const [isDesktop, setIsDesktop] = useState(true);
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
+  
+  useEffect(() => {
+    const checkWidth = () => setIsDesktop(window.innerWidth > 1024);
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return () => window.removeEventListener("resize", checkWidth);
+  }, []);
 
   return (
     <section ref={containerRef} className={styles.problemSection}>
-      <motion.div style={{ opacity, y }} className={styles.eyebrow}>
+      <motion.div
+        initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        className={styles.eyebrow}
+      >
         The Problem
       </motion.div>
-      
-      <motion.h2 style={{ opacity, y }} className={styles.problemQuote}>
-        "Everyone is building AI applications.<br/>
-        Nobody is building AI infrastructure."
+
+      <motion.h2
+        initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+        className={styles.problemQuote}
+      >
+        &ldquo;Everyone is building AI applications.
+        <br />
+        Nobody is building AI infrastructure.&rdquo;
       </motion.h2>
 
-      <div className={styles.painPoints}>
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className={styles.painPoint}
-        >
-          <WarningCircle weight="fill" size={32} />
-          <span>AI agents fail silently in production.</span>
-        </motion.div>
+      <div className={styles.glowCardGrid} style={{ position: "relative" }}>
+        
+        {/* The Burst 'N' Symbol (Only on Desktop for the stack effect) */}
+        {isDesktop && (
+          <motion.div
+            style={{
+               position: "absolute",
+               top: "40%", left: "50%",
+               x: "-50%", y: "-50%",
+               zIndex: 10,
+               pointerEvents: "none",
+               fontSize: "12rem",
+               fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+               fontWeight: "900",
+               color: "#ffffff",
+               textShadow: "0 0 60px rgba(255,107,44,0.8), 0 0 120px rgba(79,172,254,0.8)"
+            }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={isInView ? {
+               opacity: [0, 0, 1, 0, 0],
+               scale: [0, 0, 1.2, 2.5, 2.5]
+            } : {}}
+            transition={{
+               duration: 3.0,
+               times: [0, 0.3, 0.45, 0.7, 1],
+               ease: "easeInOut"
+            }}
+          >
+            N
+          </motion.div>
+        )}
 
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className={styles.painPoint}
-        >
-          <GitFork weight="fill" size={32} />
-          <span>Orchestration frameworks are fragile.</span>
-        </motion.div>
+        {painPoints.map((point, i) => {
+          const Icon = point.icon;
+          
+          // Desktop Stack Animation Logic
+          const desktopX = i === 0 ? "calc(100% + 32px)" : i === 2 ? "calc(-100% - 32px)" : "0px";
+          const desktopRotate = i === 0 ? -6 : i === 2 ? 6 : 0;
+          
+          const desktopAnimate = {
+             opacity: [0, 1, 1, 1],
+             y: [40, 0, 0, 0],
+             x: [desktopX, desktopX, desktopX, "0px"],
+             rotate: [desktopRotate, desktopRotate, desktopRotate, 0],
+             zIndex: [i === 1 ? 5 : 1, i === 1 ? 5 : 1, i === 1 ? 5 : 1, 1],
+             filter: ["blur(10px)", "blur(0px)", "blur(0px)", "blur(0px)"]
+          };
+          
+          // Mobile Stagger Logic
+          const mobileAnimate = {
+             opacity: 1, y: 0, filter: "blur(0px)", x: "0px", rotate: 0
+          };
 
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className={styles.painPoint}
-        >
-          <Bug weight="fill" size={32} />
-          <span>Observability doesn't exist at the agent-level.</span>
-        </motion.div>
+          return (
+            <motion.div
+              key={point.id}
+              className={styles.glowCard}
+              initial={isDesktop ? { opacity: 0 } : { opacity: 0, y: 40, filter: "blur(10px)" }}
+              animate={isInView ? (isDesktop ? desktopAnimate : mobileAnimate) : {}}
+              transition={isDesktop ? {
+                 duration: 3.0,
+                 times: [0, 0.2, 0.6, 1],
+                 ease: "easeInOut"
+              } : {
+                 duration: 1, delay: 0.3 + i * 0.15, ease: [0.22, 1, 0.36, 1]
+              }}
+              style={{
+                "--card-color": point.color,
+              } as React.CSSProperties}
+            >
+              {/* Massive ambient edge glows */}
+              <div className={styles.glowCardTopLeft} />
+              <div className={styles.glowCardBottom} />
+              <div className={styles.glowCardBottomEdge} />
+              
+              <div className={styles.glowCardContent}>
+                <div className={styles.glowCardNeonIcon}>
+                  <Icon weight="bold" size={56} color="#fff" />
+                </div>
+                <h3 className={styles.glowCardTitle}>{point.title}</h3>
+                <p className={styles.glowCardText}>{point.text}</p>
+                <div className={styles.glowCardLink}>
+                  {point.linkText} <ArrowRight weight="bold" size={16} />
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
