@@ -135,11 +135,10 @@
   transform: translateX(-50%);
   width: 900px;
   height: 500px;
-  background: radial-gradient(ellipse at center, rgba(255,107,44,0.12) 0%, rgba(255,60,10,0.04) 50%, transparent 80%);
+  background: radial-gradient(ellipse at center, rgba(255,107,44,0.15) 0%, rgba(255,80,20,0.05) 45%, transparent 70%);
   pointer-events: none;
-  /* Reduced from blur(60px) → blur(30px): halves GPU raster cost */
-  filter: blur(30px);
   z-index: 0;
+  contain: strict;
 }
 .heroGlowOrb {
   position: absolute;
@@ -147,11 +146,10 @@
   right: 10%;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(255,107,44,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(255,107,44,0.1) 0%, transparent 65%);
   pointer-events: none;
-  /* Reduced from blur(80px) → blur(40px): halves GPU raster cost */
-  filter: blur(40px);
   z-index: 0;
+  contain: strict;
 }
 .gridOverlay {
   position: absolute;
@@ -1231,4 +1229,277 @@
 @keyframes robotBreathe {
   0% { transform: scale(1); filter: brightness(0.8); }
   100% { transform: scale(1.03); filter: brightness(1.1); }
+}
+
+/* ============================================================
+   MOBILE GRADIENT BACKGROUND (Hero — replaces Spline on mobile)
+   ============================================================ */
+.heroMobileBg {
+  display: none;
+}
+
+/* ============================================================
+   VISION LAYER — MOBILE 2×2 GRID
+   ============================================================ */
+/* Hidden by default — shown only on mobile */
+.visionMobileGrid {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 480px;
+  padding: 0 var(--space-4);
+}
+
+.visionMobileCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: rgba(10, 8, 20, 0.8);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 20px;
+  padding: var(--space-5);
+  box-shadow:
+    0 0 0 1px rgba(139, 92, 246, 0.06) inset,
+    0 8px 24px rgba(0, 0, 0, 0.4);
+  /* Accent glow via box-shadow tinted to card color */
+  position: relative;
+  overflow: hidden;
+}
+
+.visionMobileCard::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, var(--vision-color, #a78bfa) 0%, transparent 70%);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.visionMobileLabel {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.visionMobileSub {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   FEATURED BENTO — MOBILE PRODUCT PILLS
+   ============================================================ */
+/* Hidden by default — shown only on mobile */
+.flowchartMobilePills {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.flowchartPill {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: rgba(10, 10, 14, 0.8);
+  border: 1px solid rgba(255, 59, 48, 0.25);
+  border-radius: 14px;
+  padding: var(--space-4) var(--space-5);
+  color: #fff;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: var(--font-size-base);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 59, 48, 0.06);
+}
+
+.pillArrow {
+  margin-left: auto;
+  color: rgba(255, 59, 48, 0.6);
+  font-size: var(--font-size-lg);
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* ── TABLET (≤ 1024px) — already mostly handled, ensure sections have padding ── */
+@media (max-width: 1024px) {
+  .heroSection {
+    padding: var(--space-20) var(--space-6);
+  }
+  .heroContent {
+    margin-top: 0;
+  }
+}
+
+/* ── MOBILE (≤ 768px) — major layout simplification ── */
+@media (max-width: 768px) {
+  /* Hero */
+  .heroSection {
+    padding: var(--space-16) var(--space-5);
+    min-height: 100svh;
+  }
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  .heroContent {
+    max-width: 100%;
+    margin-top: 0;
+  }
+  .heroTitle {
+    font-size: clamp(2.4rem, 9vw, 3.8rem);
+  }
+  .heroSubtitle {
+    font-size: var(--font-size-base);
+    max-width: 100%;
+  }
+  .heroCtas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btnPrimary,
+  .btnGhost {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Mobile hero background gradient (Spline replacement) */
+  .heroMobileBg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(255, 107, 44, 0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Problem Statement */
+  .problemSection {
+    padding: var(--space-16) var(--space-4);
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  .glowCardGrid {
+    gap: var(--space-5);
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .glowCard {
+    min-height: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .glowCardContent {
+    padding: var(--space-6) var(--space-5);
+    box-sizing: border-box;
+  }
+  .glowCardTitle {
+    font-size: 1.35rem;
+    word-break: break-word;
+  }
+  .glowCardText {
+    word-break: break-word;
+  }
+
+  /* Vision Layer — hide desktop orbital, show mobile grid */
+  .orbitalContainer {
+    display: none;
+  }
+  .visionMobileGrid {
+    display: grid;
+  }
+  .visionSection {
+    padding: var(--space-16) var(--space-4);
+    gap: var(--space-10);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .visionTitle {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    padding: 0 var(--space-4);
+  }
+
+  /* FeaturedBento — hide desktop SVG, show mobile pills */
+  .flowchartSection {
+    padding: var(--space-16) var(--space-4);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .flowchartContainer {
+    gap: var(--space-10);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .flowchartDiagram {
+    display: none;
+  }
+  .flowchartMobilePills {
+    display: flex;
+  }
+  .flowchartTitle {
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
+  .flowchartDesc {
+    font-size: var(--font-size-base);
+    max-width: 100%;
+  }
+
+  /* Engineering Philosophy */
+  .philosophySection {
+    padding: var(--space-16) var(--space-4);
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  .principleCard {
+    padding: var(--space-6) var(--space-5);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* GitHub Activity */
+  .githubSection {
+    padding: var(--space-16) var(--space-5);
+  }
+  .activityGrid {
+    gap: 3px;
+    overflow: hidden;
+    width: 100%;
+  }
+  .activityBar {
+    width: 8px;
+    flex-shrink: 0;
+  }
+}
+
+/* ── SMALL MOBILE (≤ 480px) — edge case tweaks ── */
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: clamp(2rem, 10vw, 3.2rem);
+  }
+  .visionMobileGrid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+  .introText {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+  .glowCardNeonIcon svg {
+    width: 40px;
+    height: 40px;
+  }
 }

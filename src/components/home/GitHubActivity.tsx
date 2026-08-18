@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./home.module.css";
 
@@ -10,14 +10,27 @@ const ACTIVITY_DATA = [
   108, 100, 69, 54, 14, 90, 75, 12, 75, 83, 37, 105, 109, 104, 24, 14, 45, 75, 96, 79,
 ];
 
+// Mobile: last 28 days subset
+const MOBILE_DATA = ACTIVITY_DATA.slice(-28);
+
 export default function GitHubActivity() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-80px" });
-  const data = ACTIVITY_DATA;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const data = isMobile ? MOBILE_DATA : ACTIVITY_DATA;
+  const label = isMobile ? "Last 28 days of commits." : "Last 60 days of commits across the open-source Nuuvixx ecosystem.";
 
   return (
     <section ref={containerRef} className={styles.githubSection}>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -25,41 +38,53 @@ export default function GitHubActivity() {
       >
         Live Activity
       </motion.div>
-      <motion.h2 
+      <motion.h2
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "clamp(1.75rem, 4vw, var(--font-size-4xl))", fontWeight: 700, textAlign: "center", marginBottom: "var(--space-4)" }}
+        style={{
+          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+          fontSize: "clamp(1.75rem, 4vw, var(--font-size-4xl))",
+          fontWeight: 700,
+          textAlign: "center",
+          marginBottom: "var(--space-4)",
+        }}
       >
         We build every day.
       </motion.h2>
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0, y: 16 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-        style={{ color: "var(--color-text-secondary)" }}
+        style={{ color: "var(--color-text-secondary)", textAlign: "center", maxWidth: 480, margin: "0 auto" }}
       >
-        Last 60 days of commits across the open-source Nuuvixx ecosystem.
+        {label}
       </motion.p>
-      
+
       <div className={styles.activityGrid}>
         {data.map((h, i) => (
           <motion.div
             key={i}
             initial={{ height: 0, opacity: 0 }}
             animate={isInView ? { height: `${h}%`, opacity: 1 } : {}}
-            transition={{ delay: 0.2 + i * 0.008, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.2 + i * 0.012, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className={styles.activityBar}
             title={`${h} commits`}
           />
         ))}
       </div>
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
-        style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-12)", fontFamily: "var(--font-geist-mono), monospace" }}
+        style={{
+          marginTop: "var(--space-8)",
+          display: "flex",
+          gap: "var(--space-12)",
+          fontFamily: "var(--font-geist-mono), monospace",
+          justifyContent: "center",
+        }}
       >
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: "var(--font-size-2xl)", color: "var(--color-volt)", fontWeight: "bold" }}>1,492</div>

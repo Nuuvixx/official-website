@@ -35,16 +35,18 @@ export default function ProblemStatement() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   
-  // Use state to detect desktop for the horizontal stacking animation
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  
   useEffect(() => {
+    setMounted(true);
     const checkWidth = () => setIsDesktop(window.innerWidth > 1024);
     checkWidth();
     window.addEventListener("resize", checkWidth);
     return () => window.removeEventListener("resize", checkWidth);
   }, []);
+
+  const useDesktopAnimation = mounted && isDesktop;
 
   return (
     <section ref={containerRef} className={styles.problemSection}>
@@ -71,7 +73,7 @@ export default function ProblemStatement() {
       <div className={styles.glowCardGrid} style={{ position: "relative" }}>
         
         {/* The Burst 'N' Symbol (Only on Desktop for the stack effect) */}
-        {isDesktop && (
+        {useDesktopAnimation && (
           <motion.div
             style={{
                position: "absolute",
@@ -115,23 +117,23 @@ export default function ProblemStatement() {
              zIndex: [i === 1 ? 5 : 1, i === 1 ? 5 : 1, i === 1 ? 5 : 1, 1],
           };
 
-          // Mobile Stagger Logic
+          // Mobile Stagger Logic (clean vertical entrance with no horizontal offset)
           const mobileAnimate = {
-             opacity: 1, y: 0, x: "0px", rotate: 0
+             opacity: 1, y: 0, x: 0, rotate: 0
           };
 
           return (
             <motion.div
               key={point.id}
               className={styles.glowCard}
-              initial={isDesktop ? { opacity: 0 } : { opacity: 0, y: 30 }}
-              animate={isInView ? (isDesktop ? desktopAnimate : mobileAnimate) : {}}
-              transition={isDesktop ? {
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? (useDesktopAnimation ? desktopAnimate : mobileAnimate) : {}}
+              transition={useDesktopAnimation ? {
                  duration: 1.8,
                  times: [0, 0.2, 0.6, 1],
                  ease: "easeInOut"
               } : {
-                 duration: 0.7, delay: 0.25 + i * 0.12, ease: [0.22, 1, 0.36, 1]
+                 duration: 0.6, delay: 0.15 + i * 0.1, ease: [0.22, 1, 0.36, 1]
               }}
               style={{
                 "--card-color": point.color,

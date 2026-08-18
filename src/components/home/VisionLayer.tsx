@@ -2,14 +2,42 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./home.module.css";
-import { Users } from "@phosphor-icons/react";
+import { Users, TrendUp, Cube, Globe } from "@phosphor-icons/react";
 
 /**
  * Performance note: blur() filters have been removed from all entrance
- * animations. Animating filter: blur() forces the browser to repaint on
- * every frame and cannot be offloaded to the GPU compositor. We use only
+ * animations. Animating filter: blur() forces browser repaints on every
+ * frame and cannot be offloaded to the GPU compositor. We use only
  * opacity + transform (y/x) which run entirely on the compositor thread.
  */
+
+const mobileFeatures = [
+  {
+    icon: Globe,
+    label: "AI Applications",
+    sub: "Agents, Copilots, Workflows",
+    color: "#a78bfa",
+  },
+  {
+    icon: Cube,
+    label: "Nuuvixx Layer",
+    sub: "Governance & Orchestration",
+    color: "#d8b4fe",
+  },
+  {
+    icon: TrendUp,
+    label: "Observability",
+    sub: "Real-time Telemetry",
+    color: "#818cf8",
+  },
+  {
+    icon: Users,
+    label: "Cloud Infra",
+    sub: "Compute, Storage, Networking",
+    color: "#c4b5fd",
+  },
+];
+
 export default function VisionLayer() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-120px" });
@@ -27,6 +55,7 @@ export default function VisionLayer() {
         We are the layer that makes AI production-ready.
       </motion.h2>
 
+      {/* ── DESKTOP: Orbital globe + floating cards ── */}
       <div className={styles.orbitalContainer}>
         {/* Central 3D Glowing Sphere with orbital rings */}
         <div className={styles.orbitalCenter}>
@@ -37,7 +66,6 @@ export default function VisionLayer() {
           <div className={styles.globeGlow} />
         </div>
 
-        {/* Floating Cards — opacity+transform only, no blur */}
         {/* Top Left: AI Applications */}
         <motion.div
           className={`${styles.floatingCard} ${styles.cardTopLeft}`}
@@ -115,6 +143,29 @@ export default function VisionLayer() {
             <div className={`${styles.userAvatar} ${styles.avatar3}`}><Users size={12} weight="fill" /></div>
           </div>
         </motion.div>
+      </div>
+
+      {/* ── MOBILE: 2×2 feature card grid ── */}
+      <div className={styles.visionMobileGrid}>
+        {mobileFeatures.map((f, i) => {
+          const Icon = f.icon;
+          return (
+            <motion.div
+              key={f.label}
+              className={styles.visionMobileCard}
+              style={{ "--vision-color": f.color } as React.CSSProperties}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Icon size={28} weight="duotone" style={{ color: f.color }} />
+              <div>
+                <div className={styles.visionMobileLabel}>{f.label}</div>
+                <div className={styles.visionMobileSub}>{f.sub}</div>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
     </section>

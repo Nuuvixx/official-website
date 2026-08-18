@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, GithubLogo, CaretDoubleDown } from "@phosphor-icons/react";
 import Magnetic from "@/components/ui/Magnetic";
 import TelemetryTerminal from "./TelemetryTerminal";
@@ -8,7 +8,9 @@ import dynamic from "next/dynamic";
 import styles from "./home.module.css";
 
 /**
- * Spline is lazy-loaded so it never blocks the hero paint.
+ * Spline lazy-loaded — only ever rendered on desktop.
+ * On mobile we skip it entirely to avoid loading a 2MB WebGL runtime
+ * on a device CPU that can't handle it without stuttering.
  */
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
@@ -28,14 +30,15 @@ export default function VoidClockHero() {
   const isHeroInView = useInView(containerRef, { amount: 0.1 });
   const [showIntro, setShowIntro] = useState(true);
   const [introPhase, setIntroPhase] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+  // Detect mobile — skip heavy 3D/terminal on small screens
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   // Tightened intro sequence
   useEffect(() => {
@@ -94,13 +97,7 @@ export default function VoidClockHero() {
             <motion.div
               className={styles.introText}
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={
-                introPhase >= 2
-                  ? { opacity: 1, scale: 1 }
-                  : introPhase >= 1
-                  ? { opacity: 1, scale: 1 }
-                  : {}
-              }
+              animate={introPhase >= 1 ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className={styles.introLetter}>N</span>
@@ -136,28 +133,34 @@ export default function VoidClockHero() {
       </AnimatePresence>
 
       {/* MAIN HERO */}
-      <motion.section
+      <section
         ref={containerRef}
-        style={{ opacity, scale }}
         className={styles.heroSection}
       >
-        {/* Robot Background — completely paused/hidden when hero is out of viewport to free GPU */}
-        <div
-          className={styles.robotBgContainer}
-          style={{ display: isHeroInView ? "block" : "none" }}
-        >
-          <motion.div
-            initial={{ x: "0vw", y: "0vh" }}
-            animate={!showIntro ? { x: "24vw", y: "-15vh" } : { x: "0vw", y: "0vh" }}
-            transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            style={{ width: "140vw", height: "115vh", position: "absolute", left: "-20vw" }}
+        {/* Robot Background — DESKTOP ONLY: lazy-loaded Spline 3D */}
+        {!isMobile && (
+          <div
+            className={styles.robotBgContainer}
+            style={{ display: isHeroInView ? "block" : "none" }}
           >
-            <Spline
-              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-              style={{ width: "100%", height: "100%" }}
-            />
-          </motion.div>
-        </div>
+            <motion.div
+              initial={{ x: "0vw", y: "0vh" }}
+              animate={!showIntro ? { x: "24vw", y: "-15vh" } : { x: "0vw", y: "0vh" }}
+              transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              style={{ width: "140vw", height: "115vh", position: "absolute", left: "-20vw" }}
+            >
+              <Spline
+                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                style={{ width: "100%", height: "100%" }}
+              />
+            </motion.div>
+          </div>
+        )}
+
+        {/* Mobile gradient background — lightweight replacement for Spline */}
+        {isMobile && (
+          <div className={styles.heroMobileBg} />
+        )}
 
         {/* Background glow effects */}
         <div className={styles.heroGlowTop} />
@@ -208,12 +211,12 @@ export default function VoidClockHero() {
               transition={{ delay: 0.75, duration: 0.6 }}
               className={styles.heroCtas}
             >
-              <Magnetic strength={0.3}>
+              <Magnetic strength={isMobile ? 0 : 0.3}>
                 <button className={styles.btnPrimary}>
                   Explore Ecosystem <ArrowRight weight="bold" />
                 </button>
               </Magnetic>
-              <Magnetic strength={0.2}>
+              <Magnetic strength={isMobile ? 0 : 0.2}>
                 <button className={styles.btnGhost}>
                   <GithubLogo weight="fill" /> GitHub
                 </button>
@@ -221,14 +224,17 @@ export default function VoidClockHero() {
             </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
-            animate={!showIntro ? { opacity: 1, scale: 1, y: 0 } : {}}
-            transition={{ delay: 1.0, type: "spring", stiffness: 80, damping: 20 }}
-            style={{ perspective: 1000, zIndex: 10, marginTop: "8vh" }}
-          >
-            <TelemetryTerminal />
-          </motion.div>
+          {/* Terminal — DESKTOP ONLY */}
+          {!isMobile && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              animate={!showIntro ? { opacity: 1, scale: 1, y: 0 } : {}}
+              transition={{ delay: 1.0, type: "spring", stiffness: 80, damping: 20 }}
+              style={{ perspective: 1000, zIndex: 10, marginTop: "8vh" }}
+            >
+              <TelemetryTerminal />
+            </motion.div>
+          )}
         </div>
 
         {/* Scroll Indicator */}
@@ -246,7 +252,7 @@ export default function VoidClockHero() {
         >
           <CaretDoubleDown size={24} />
         </motion.div>
-      </motion.section>
+      </section>
     </>
   );
 }
