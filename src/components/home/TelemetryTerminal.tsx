@@ -41,17 +41,18 @@ export default function TelemetryTerminal() {
     setTimeStr(new Date().toISOString().split("T")[1].slice(0, 8));
   }, []);
 
-  // N intro animation phases inside terminal - DELAYED BY 6.2s TO WAIT FOR FULL PAGE INTRO AND ROBOT SLIDE
+  // N intro animation phases inside terminal
+  // Synced with faster hero intro (1.8s) + snappy robot slide (~0.1s delay + 0.7s dur)
   useEffect(() => {
-    const delay = 6000; // wait for full-page intro (3.2s) + robot sliding (2.8s)
+    const delay = 1800;
     const timers = [
-      setTimeout(() => setNPhase(1), delay + 400),     // N appears big
-      setTimeout(() => setNPhase(2), delay + 1800),     // N glitches/pulses
-      setTimeout(() => setNPhase(3), delay + 2400),     // N fades out
+      setTimeout(() => setNPhase(1), delay + 200),
+      setTimeout(() => setNPhase(2), delay + 800),
+      setTimeout(() => setNPhase(3), delay + 1200),
       setTimeout(() => {
-        setShowNIntro(false);                   // Remove N overlay
-        setBootStarted(true);                   // Start boot sequence
-      }, delay + 3000),
+        setShowNIntro(false);
+        setBootStarted(true);
+      }, delay + 1600),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);

@@ -49,18 +49,18 @@ export default function ProblemStatement() {
   return (
     <section ref={containerRef} className={styles.problemSection}>
       <motion.div
-        initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className={styles.eyebrow}
       >
         The Problem
       </motion.div>
 
       <motion.h2
-        initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
-        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-        transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 36 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         className={styles.problemQuote}
       >
         &ldquo;Everyone is building AI applications.
@@ -109,30 +109,29 @@ export default function ProblemStatement() {
           
           const desktopAnimate = {
              opacity: [0, 1, 1, 1],
-             y: [40, 0, 0, 0],
+             y: [30, 0, 0, 0],
              x: [desktopX, desktopX, desktopX, "0px"],
              rotate: [desktopRotate, desktopRotate, desktopRotate, 0],
              zIndex: [i === 1 ? 5 : 1, i === 1 ? 5 : 1, i === 1 ? 5 : 1, 1],
-             filter: ["blur(10px)", "blur(0px)", "blur(0px)", "blur(0px)"]
           };
-          
+
           // Mobile Stagger Logic
           const mobileAnimate = {
-             opacity: 1, y: 0, filter: "blur(0px)", x: "0px", rotate: 0
+             opacity: 1, y: 0, x: "0px", rotate: 0
           };
 
           return (
             <motion.div
               key={point.id}
               className={styles.glowCard}
-              initial={isDesktop ? { opacity: 0 } : { opacity: 0, y: 40, filter: "blur(10px)" }}
+              initial={isDesktop ? { opacity: 0 } : { opacity: 0, y: 30 }}
               animate={isInView ? (isDesktop ? desktopAnimate : mobileAnimate) : {}}
               transition={isDesktop ? {
-                 duration: 3.0,
+                 duration: 1.8,
                  times: [0, 0.2, 0.6, 1],
                  ease: "easeInOut"
               } : {
-                 duration: 1, delay: 0.3 + i * 0.15, ease: [0.22, 1, 0.36, 1]
+                 duration: 0.7, delay: 0.25 + i * 0.12, ease: [0.22, 1, 0.36, 1]
               }}
               style={{
                 "--card-color": point.color,

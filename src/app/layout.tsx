@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
+import SmoothScroller from "@/components/layout/SmoothScroller";
 import NavigationBar from "@/components/layout/NavigationBar";
 import Footer from "@/components/layout/Footer";
 import CommandPalette from "@/components/layout/CommandPalette";
@@ -43,12 +44,14 @@ export default function RootLayout({
       </head>
       <body>
         <NoiseOverlay />
-        <NavigationBar />
-        <CommandPalette />
-        <main style={{ minHeight: "100vh", paddingTop: "80px" }}>
-          {children}
-        </main>
-        <Footer />
+        <SmoothScroller>
+          <NavigationBar />
+          <CommandPalette />
+          <main style={{ minHeight: "100vh", paddingTop: "80px" }}>
+            {children}
+          </main>
+          <Footer />
+        </SmoothScroller>
       </body>
     </html>
   );

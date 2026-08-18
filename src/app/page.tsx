@@ -1,7 +1,6 @@
 import VoidClockHero from "@/components/home/VoidClockHero";
 import ProblemStatement from "@/components/home/ProblemStatement";
 import VisionLayer from "@/components/home/VisionLayer";
-import ProductUniverse from "@/components/home/ProductUniverse";
 import FeaturedBento from "@/components/home/FeaturedBento";
 import EngineeringPhilosophy from "@/components/home/EngineeringPhilosophy";
 import GitHubActivity from "@/components/home/GitHubActivity";
@@ -12,7 +11,6 @@ export default function Home() {
       <VoidClockHero />
       <ProblemStatement />
       <VisionLayer />
-      <ProductUniverse />
       <FeaturedBento />
       <EngineeringPhilosophy />
       <GitHubActivity />
