@@ -121,7 +121,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Lenis handles smooth scrolling — removing CSS scroll-behavior prevents double-interpolation jitter */
 }
 
 body {

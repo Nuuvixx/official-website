@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./home.module.css";
-import { User, CheckCircle, RocketLaunch, ShareNetwork } from "@phosphor-icons/react";
+import { User, RocketLaunch, ShareNetwork } from "@phosphor-icons/react";
 
 export default function FeaturedBento() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,9 +15,9 @@ export default function FeaturedBento() {
         {/* Left Side: Typography */}
         <motion.div 
           className={styles.flowchartTextContent}
-          initial={{ opacity: 0, x: -40, filter: "blur(4px)" }}
-          animate={isInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, x: -30 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <h2 className={styles.flowchartTitle}>
             FLAGSHIP <span className={styles.textRed}>PRODUCTS,</span><br/>
@@ -31,15 +31,15 @@ export default function FeaturedBento() {
         {/* Right Side: Flowchart Diagram */}
         <motion.div 
           className={styles.flowchartDiagram}
-          initial={{ opacity: 0, x: 40, filter: "blur(8px)" }}
-          animate={isInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, x: 30 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* SVG connecting lines with neon red glow */}
           <svg className={styles.flowLines} viewBox="0 0 500 350">
              <defs>
                <filter id="neonRedGlow" x="-20%" y="-20%" width="140%" height="140%">
-                 <feGaussianBlur stdDeviation="4" result="blur" />
+                 <feGaussianBlur stdDeviation="3" result="blur" />
                  <feMerge>
                    <feMergeNode in="blur" />
                    <feMergeNode in="SourceGraphic" />

@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, GithubLogo, CaretDoubleDown } from "@phosphor-icons/react";
 import Magnetic from "@/components/ui/Magnetic";
 import TelemetryTerminal from "./TelemetryTerminal";
@@ -9,8 +9,6 @@ import styles from "./home.module.css";
 
 /**
  * Spline is lazy-loaded so it never blocks the hero paint.
- * The loading=eager on the img placeholder ensures the static visual
- * shows instantly while the 3D runtime boots in the background.
  */
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
@@ -27,6 +25,7 @@ const Spline = dynamic(() => import("@splinetool/react-spline"), {
 
 export default function VoidClockHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isHeroInView = useInView(containerRef, { amount: 0.1 });
   const [showIntro, setShowIntro] = useState(true);
   const [introPhase, setIntroPhase] = useState(0);
 
@@ -38,8 +37,7 @@ export default function VoidClockHero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
 
-  // Tightened intro: 300 → show, 1000 → glitch, 1400 → expand, 1800 → done
-  // (was 300 / 1800 / 2400 / 3200 — saves 1.4s)
+  // Tightened intro sequence
   useEffect(() => {
     const timers = [
       setTimeout(() => setIntroPhase(1), 300),
@@ -143,8 +141,11 @@ export default function VoidClockHero() {
         style={{ opacity, scale }}
         className={styles.heroSection}
       >
-        {/* Robot Background — lazy-loaded Spline 3D */}
-        <div className={styles.robotBgContainer}>
+        {/* Robot Background — completely paused/hidden when hero is out of viewport to free GPU */}
+        <div
+          className={styles.robotBgContainer}
+          style={{ display: isHeroInView ? "block" : "none" }}
+        >
           <motion.div
             initial={{ x: "0vw", y: "0vh" }}
             animate={!showIntro ? { x: "24vw", y: "-15vh" } : { x: "0vw", y: "0vh" }}

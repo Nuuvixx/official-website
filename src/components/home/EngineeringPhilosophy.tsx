@@ -11,22 +11,22 @@ const principles = [
 
 export default function EngineeringPhilosophy() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const isInView = useInView(containerRef, { once: true, margin: "-80px" });
 
   return (
     <section ref={containerRef} className={styles.philosophySection}>
       <motion.h2 
-        initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
-        animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={styles.philosophyHeader}
       >
         Engineering Philosophy
       </motion.h2>
       <motion.p 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
         style={{ textAlign: "center", color: "var(--color-text-secondary)", marginBottom: "var(--space-16)", fontSize: "var(--font-size-lg)" }}
       >
         How we build systems that last.
@@ -35,17 +35,17 @@ export default function EngineeringPhilosophy() {
         {principles.map((p, i) => (
           <motion.div
             key={p.num}
-            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-            animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ 
-              duration: 1, 
-              delay: 0.2 + i * 0.15, 
+              duration: 0.6, 
+              delay: 0.15 + i * 0.1, 
               ease: [0.22, 1, 0.36, 1] 
             }}
             className={styles.glowCard}
             style={{ "--card-color": p.color } as React.CSSProperties}
           >
-            {/* Massive ambient edge glows from Problem section */}
+            {/* Ambient edge glows */}
             <div className={styles.glowCardTopLeft} />
             <div className={styles.glowCardBottom} />
             <div className={styles.glowCardBottomEdge} />
