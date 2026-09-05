@@ -2,12 +2,12 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import styles from "./home.module.css";
-import { User, RocketLaunch, ShareNetwork } from "@phosphor-icons/react";
+import { Cpu, Storefront, Bug } from "@phosphor-icons/react";
 
 const nodes = [
-  { icon: User, label: "AgentGovern", color: "#ff3b30" },
-  { icon: RocketLaunch, label: "BugPulse", color: "#ff6b47" },
-  { icon: ShareNetwork, label: "ContextForge", color: "#ff3b30" },
+  { icon: Cpu, label: "AgentVerse", color: "#FF6B2C", href: "https://agentverse.nuuvixx.com" },
+  { icon: Storefront, label: "AgentStore", color: "#E5252A", href: "https://agentstore.nuuvixx.com" },
+  { icon: Bug, label: "BugPulse", color: "#FF6B47", href: "https://bugpulse.nuuvixx.com" },
 ];
 
 export default function FeaturedBento() {
@@ -26,11 +26,11 @@ export default function FeaturedBento() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <h2 className={styles.flowchartTitle}>
-            FLAGSHIP <span className={styles.textRed}>PRODUCTS,</span><br/>
+            THREE ECOSYSTEM <span className={styles.textRed}>PILLARS,</span><br/>
             BUILT FOR AUTONOMY.
           </h2>
           <p className={styles.flowchartDesc}>
-            Deploy agents with confidence. Set deterministic boundaries, trace logic errors, and shape dynamic memory natively at scale.
+            Build and execute in <strong>AgentVerse</strong>, discover verified agent manifests in <strong>AgentStore</strong>, and trace live telemetry with <strong>BugPulse</strong>.
           </p>
         </motion.div>
 
@@ -51,21 +51,21 @@ export default function FeaturedBento() {
                 </feMerge>
               </filter>
             </defs>
-            <path d="M 180 175 C 230 175, 230 100, 280 100" fill="none" stroke="#ff3b30" strokeWidth="3" filter="url(#neonRedGlow)" />
-            <path d="M 180 175 C 230 175, 230 250, 280 250" fill="none" stroke="#ff3b30" strokeWidth="3" filter="url(#neonRedGlow)" />
+            <path d="M 180 175 C 230 175, 230 100, 280 100" fill="none" stroke="#FF6B2C" strokeWidth="3" filter="url(#neonRedGlow)" />
+            <path d="M 180 175 C 230 175, 230 250, 280 250" fill="none" stroke="#E5252A" strokeWidth="3" filter="url(#neonRedGlow)" />
           </svg>
-          <div className={`${styles.flowNode} ${styles.node1}`}>
-            <User size={20} weight="fill" className={styles.iconRed} />
-            <span>AgentGovern</span>
-          </div>
-          <div className={`${styles.flowNode} ${styles.node2}`}>
-            <RocketLaunch size={20} weight="fill" className={styles.iconRed} />
+          <a href="https://agentverse.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.flowNode} ${styles.node1}`}>
+            <Cpu size={20} weight="fill" style={{ color: "#FF6B2C" }} />
+            <span>AgentVerse</span>
+          </a>
+          <a href="https://agentstore.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.flowNode} ${styles.node2}`}>
+            <Storefront size={20} weight="fill" style={{ color: "#E5252A" }} />
+            <span>AgentStore</span>
+          </a>
+          <a href="https://bugpulse.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.flowNode} ${styles.node3}`}>
+            <Bug size={20} weight="fill" style={{ color: "#FF6B47" }} />
             <span>BugPulse</span>
-          </div>
-          <div className={`${styles.flowNode} ${styles.node3}`}>
-            <ShareNetwork size={20} weight="fill" className={styles.iconRed} />
-            <span>ContextForge</span>
-          </div>
+          </a>
         </motion.div>
 
         {/* Mobile-only: stacked product pills */}
@@ -73,8 +73,11 @@ export default function FeaturedBento() {
           {nodes.map((node, i) => {
             const Icon = node.icon;
             return (
-              <motion.div
+              <motion.a
                 key={node.label}
+                href={node.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.flowchartPill}
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -83,7 +86,7 @@ export default function FeaturedBento() {
                 <Icon size={20} weight="fill" style={{ color: node.color }} />
                 <span>{node.label}</span>
                 <span className={styles.pillArrow}>→</span>
-              </motion.div>
+              </motion.a>
             );
           })}
         </div>

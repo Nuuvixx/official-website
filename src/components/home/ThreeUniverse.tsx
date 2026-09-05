@@ -6,11 +6,11 @@ import { OrbitControls, Html, Sphere, Stars } from "@react-three/drei";
 import * as THREE from "three";
 
 const products = [
-  { name: "DriveZen", color: "#CCFF00", radius: 4 },
+  { name: "AgentVerse", color: "#FF6B2C", radius: 4 },
+  { name: "AgentStore", color: "#E5252A", radius: 4.5 },
+  { name: "BugPulse", color: "#FF6B47", radius: 3.5 },
+  { name: "DriveZen", color: "#CCFF00", radius: 3 },
   { name: "Synapse", color: "#A0A0B0", radius: 3 },
-  { name: "agentchaos", color: "#FF4444", radius: 5 },
-  { name: "BugPulse-CLI", color: "#44AAFF", radius: 3.5 },
-  { name: "BugPulse-mcp", color: "#44AAFF", radius: 3.5 },
 ];
 
 function OrbitingNode({ product, index, total }: { product: typeof products[0]; index: number; total: number }) {

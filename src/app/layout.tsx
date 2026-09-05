@@ -12,6 +12,11 @@ import NoiseOverlay from "@/components/layout/NoiseOverlay";
 export const metadata: Metadata = {
   title: "Nuuvixx | Infrastructure for the machines that think",
   description: "Nuuvixx builds the layer beneath the AI systems everyone else is building. Open-source. Production-grade.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

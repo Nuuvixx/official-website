@@ -70,12 +70,22 @@
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   font-weight: 900;
   letter-spacing: 0.02em;
-  color: #fff;
   font-size: var(--font-size-2xl);
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  text-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+.logoText {
+  color: var(--color-volt);
+  text-shadow: 0 0 16px rgba(255, 107, 44, 0.3);
+}
+
+.logoImage {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
 }
 
 .logoDot {

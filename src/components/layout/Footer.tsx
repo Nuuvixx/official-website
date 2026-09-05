@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./footer.module.css";
 
 export default function Footer() {
@@ -10,7 +11,14 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.brand}>
           <div className={styles.logo}>
-            NUUVIXX <span className={styles.logoDot}></span>
+            <Image
+              src="/logo.png"
+              alt="Nuuvixx Logo"
+              width={28}
+              height={28}
+              className={styles.logoImage}
+            />
+            <span className={styles.logoText}>NUUVIXX</span>
           </div>
           <p className={styles.tagline}>Infrastructure for the machines that think. Open-source, production-grade.</p>
         </div>
@@ -18,9 +26,9 @@ export default function Footer() {
         <div className={styles.col}>
           <h4 className={styles.colTitle}>Ecosystem</h4>
           <div className={styles.links}>
-            <Link href="/projects#agentgovern" className={`${styles.link} ${styles.linkVolt}`}>AgentGovern</Link>
-            <Link href="/projects#bugpulse" className={`${styles.link} ${styles.linkVolt}`}>BugPulse</Link>
-            <Link href="/projects#contextforge" className={`${styles.link} ${styles.linkVolt}`}>ContextForge</Link>
+            <Link href="https://agentverse.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.link} ${styles.linkVolt}`}>AgentVerse</Link>
+            <Link href="https://agentstore.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.link} ${styles.linkVolt}`}>AgentStore</Link>
+            <Link href="https://bugpulse.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.link} ${styles.linkVolt}`}>BugPulse</Link>
             <Link href="/labs" className={`${styles.link} ${styles.linkVolt}`}>Nuuvixx Labs</Link>
           </div>
         </div>

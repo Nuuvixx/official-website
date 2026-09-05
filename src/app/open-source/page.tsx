@@ -7,11 +7,11 @@ export const metadata = {
 };
 
 const repos = [
-  { name: "DriveZen", description: "Automotive/Drive infrastructure placeholder", language: "Python" },
-  { name: "Synapse", description: "Core data routing and network connection layer", language: "JavaScript" },
-  { name: "agentchaos", description: "Chaos engineering framework for AI agent swarms", language: "Python" },
+  { name: "AgentVerse-OS", description: "Core enterprise console and operating system for autonomous agents", language: "TypeScript" },
+  { name: "AgentStore-Registry", description: "Verified agent package registry and manifest audit toolchain", language: "TypeScript" },
   { name: "BugPulse-CLI", description: "Command-line interface for real-time agent telemetry", language: "TypeScript" },
   { name: "BugPulse-mcp", description: "Model Context Protocol integration for BugPulse", language: "TypeScript" },
+  { name: "agentchaos", description: "Chaos engineering framework for AI agent swarms", language: "Python" },
 ];
 
 export default function OpenSourcePage() {

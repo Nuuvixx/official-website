@@ -13,7 +13,7 @@ export default function ContactPage() {
         <header className={styles.hero}>
           <h1 className={styles.title}>Let's talk infrastructure.</h1>
           <p className={styles.subtitle}>
-            Whether you're looking to integrate BugPulse, contribute to our core, or explore partnerships.
+            Whether you're looking to build on AgentVerse, publish to AgentStore, integrate BugPulse, or explore enterprise partnerships.
           </p>
         </header>
 

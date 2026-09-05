@@ -27,7 +27,8 @@ const phases = [
     date: "Q2 - Q3 2026",
     description: "Making the infrastructure production-grade for enterprise AI teams.",
     items: [
-      { name: "AgentGovern compliance modules", status: "in-progress" },
+      { name: "AgentVerse enterprise governance & security manifests", status: "in-progress" },
+      { name: "AgentStore 1-click package installer", status: "completed" },
       { name: "BugPulse CI/CD integration", status: "completed" },
       { name: "DriveZen persistent state sync", status: "in-progress" },
       { name: "Synapse pub/sub architecture", status: "pending" },

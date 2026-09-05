@@ -8,11 +8,11 @@ import { useEffect, useState } from "react";
 const ThreeUniverse = dynamic(() => import("./ThreeUniverse"), { ssr: false });
 
 const products = [
-  { name: "DriveZen", x: -200, y: -150 },
-  { name: "Synapse", x: 200, y: -180 },
-  { name: "agentchaos", x: -280, y: 100 },
-  { name: "BugPulse-CLI", x: 250, y: 120 },
-  { name: "BugPulse-mcp", x: 0, y: 250 },
+  { name: "AgentVerse", x: -220, y: -150 },
+  { name: "AgentStore", x: 220, y: -160 },
+  { name: "BugPulse", x: 0, y: 220 },
+  { name: "DriveZen", x: -260, y: 110 },
+  { name: "Synapse", x: 260, y: 120 },
 ];
 
 export default function ProductUniverse() {

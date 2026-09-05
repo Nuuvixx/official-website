@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MagnifyingGlass, Sparkle, ArrowRight, X } from "@phosphor-icons/react";
 import styles from "./command-palette.module.css";
 
-const MOCK_AI_RESPONSE = "Nuuvixx is an open-source AI engineering organization. We build production-grade AI infrastructure, including tools like AgentGovern for AI governance, BugPulse for bug detection, and ContextForge for context management. How else can I assist you?";
+const MOCK_AI_RESPONSE = "Nuuvixx is an open-source AI engineering organization. We build production-grade AI infrastructure across three primary platforms: AgentVerse (agent OS & runtime), AgentStore (verified agent marketplace), and BugPulse (real-time telemetry & bug triage). How else can I assist you?";
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);

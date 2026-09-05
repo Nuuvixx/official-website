@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,6 +8,7 @@ import { List, X } from "@phosphor-icons/react";
 import styles from "./navigation-bar.module.css";
 
 const links = [
+  { href: "/projects", label: "Products" },
   { href: "/manifesto", label: "Manifesto" },
   { href: "/about", label: "About" },
   { href: "/open-source", label: "Open Source" },
@@ -34,7 +36,15 @@ export default function NavigationBar() {
         <nav className={styles.nav}>
           <div className={styles.container}>
             <Link href="/" className={styles.logo}>
-              NUUVIXX <span className={styles.logoDot}></span>
+              <Image
+                src="/logo.png"
+                alt="Nuuvixx Logo"
+                width={28}
+                height={28}
+                className={styles.logoImage}
+                priority
+              />
+              <span className={styles.logoText}>NUUVIXX</span>
             </Link>
 
             {/* Desktop nav links */}
