@@ -16,25 +16,25 @@ const mobileFeatures = [
     icon: Globe,
     label: "AI Applications",
     sub: "Agents, Copilots, Workflows",
-    color: "#a78bfa",
+    color: "#ef4444",
   },
   {
     icon: Cube,
     label: "Nuuvixx Layer",
     sub: "Governance & Orchestration",
-    color: "#d8b4fe",
+    color: "#f97316",
   },
   {
     icon: TrendUp,
     label: "Observability",
     sub: "Real-time Telemetry",
-    color: "#818cf8",
+    color: "#f59e0b",
   },
   {
     icon: Users,
     label: "Cloud Infra",
     sub: "Compute, Storage, Networking",
-    color: "#c4b5fd",
+    color: "#fbbf24",
   },
 ];
 
@@ -94,11 +94,11 @@ export default function VisionLayer() {
           <div className={styles.cardHeader}>[ The Nuuvixx Layer ]</div>
           <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)", marginBottom: "8px" }}>Governance & Orchestration</div>
           <div className={styles.barChart}>
-            <div className={styles.bar} style={{ height: "20%" }} />
-            <div className={styles.bar} style={{ height: "30%" }} />
-            <div className={styles.bar} style={{ height: "50%" }} />
-            <div className={styles.bar} style={{ height: "70%" }} />
-            <div className={styles.bar} style={{ height: "100%" }} />
+            <div className={`${styles.bar} ${styles.bar1}`} style={{ height: "20%" }} />
+            <div className={`${styles.bar} ${styles.bar2}`} style={{ height: "35%" }} />
+            <div className={`${styles.bar} ${styles.bar3}`} style={{ height: "55%" }} />
+            <div className={`${styles.bar} ${styles.bar4}`} style={{ height: "75%" }} />
+            <div className={`${styles.bar} ${styles.bar5}`} style={{ height: "100%" }} />
           </div>
         </motion.div>
 
@@ -114,13 +114,19 @@ export default function VisionLayer() {
           <div className={styles.areaChart}>
             <svg viewBox="0 0 100 50" preserveAspectRatio="none" className={styles.areaSvg}>
               <defs>
-                <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#a78bfa" stopOpacity="0" />
+                <linearGradient id="areaGradient" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#ef4444" stopOpacity="0.75" />
+                  <stop offset="50%" stopColor="#f97316" stopOpacity="0.75" />
+                  <stop offset="100%" stopColor="#fbbf24" stopOpacity="0.75" />
+                </linearGradient>
+                <linearGradient id="areaStroke" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#ef4444" />
+                  <stop offset="50%" stopColor="#f97316" />
+                  <stop offset="100%" stopColor="#fef08a" />
                 </linearGradient>
               </defs>
               <path d="M0,50 L0,40 L20,35 L40,40 L60,20 L80,30 L100,10 L100,50 Z" fill="url(#areaGradient)" />
-              <path d="M0,40 L20,35 L40,40 L60,20 L80,30 L100,10" fill="none" stroke="#d8b4fe" strokeWidth="2" />
+              <path d="M0,40 L20,35 L40,40 L60,20 L80,30 L100,10" fill="none" stroke="url(#areaStroke)" strokeWidth="2.5" />
             </svg>
           </div>
         </motion.div>
