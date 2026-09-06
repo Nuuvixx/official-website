@@ -41,13 +41,18 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   height: 1px;
-  width: 200%;
-  background: linear-gradient(90deg, transparent, var(--color-volt), transparent);
-  opacity: 0.8;
-  animation: scanline 6s linear infinite;
-  box-shadow: 0 0 10px var(--color-volt);
+  background: linear-gradient(90deg, transparent 0%, var(--color-volt) 50%, transparent 100%);
+  opacity: 0.7;
+  box-shadow: 0 0 12px var(--color-volt);
   z-index: 2;
+  animation: glowBreathe 4s ease-in-out infinite alternate;
+}
+
+@keyframes glowBreathe {
+  0% { opacity: 0.4; box-shadow: 0 0 8px var(--color-volt); }
+  100% { opacity: 0.85; box-shadow: 0 0 16px var(--color-volt); }
 }
 
 .container {
@@ -126,26 +131,41 @@
 }
 
 .link {
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   font-size: var(--font-size-base);
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: color 0.25s ease, padding-left 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   width: fit-content;
   position: relative;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  padding-left: 0;
+}
+
+/* Stable hit area buffer ensures mouse cursor never exits the hover boundary during transition */
+.link::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: -12px;
+  right: -24px;
+  pointer-events: auto;
 }
 
 .link::before {
   content: "→";
   position: absolute;
-  left: -20px;
+  left: 0;
   opacity: 0;
   color: inherit;
-  transition: all 0.3s ease;
-  transform: translateX(-10px);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(-6px);
+  pointer-events: none;
 }
 
 .link:hover {
-  transform: translateX(20px);
+  padding-left: 18px;
   color: #fff;
 }
 
@@ -221,7 +241,4 @@
   }
 }
 
-@keyframes scanline {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(50%); }
-}
+
