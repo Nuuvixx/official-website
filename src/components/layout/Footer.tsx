@@ -29,7 +29,7 @@ export default function Footer() {
             <Link href="https://agentverse.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.link} ${styles.linkVolt}`}>AgentVerse</Link>
             <Link href="https://agentstore.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.link} ${styles.linkVolt}`}>AgentStore</Link>
             <Link href="https://bugpulse.nuuvixx.com" target="_blank" rel="noopener noreferrer" className={`${styles.link} ${styles.linkVolt}`}>BugPulse</Link>
-            <Link href="/labs" className={`${styles.link} ${styles.linkVolt}`}>Nuuvixx Labs</Link>
+            <Link href="https://github.com/ritinpaul/CareerOS" target="_blank" rel="noopener noreferrer" className={`${styles.link} ${styles.linkVolt}`}>CareerOS</Link>
           </div>
         </div>
 

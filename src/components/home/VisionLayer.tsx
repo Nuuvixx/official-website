@@ -79,7 +79,15 @@ export default function VisionLayer() {
             <div className={styles.radarCircle1} />
             <div className={styles.radarCircle2} />
             <div className={styles.radarCircle3} />
-            <div className={styles.radarLine} />
+            <motion.div
+              className={styles.radarAssembly}
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 24, ease: "linear" }}
+            >
+              <div className={styles.radarSweep} />
+              <div className={styles.radarLine} />
+            </motion.div>
+            <div className={styles.radarCenterDot} />
             <div className={styles.radarDot} />
           </div>
         </motion.div>

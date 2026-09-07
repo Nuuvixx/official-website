@@ -36,6 +36,16 @@ const products = [
     accentColor: "#FF6B47",
     highlights: ["Real-Time Execution Tracing", "Automated Issue Triage & Assignment", "Slack / Email / Webhook Ingestion", "GitHub Issue Sync"],
   },
+  {
+    id: "careeros",
+    name: "CareerOS",
+    tagline: "The Open-Source, AI-Powered Career Operating System",
+    description: "Manage your engineering career pipeline like a high-velocity sales funnel with AI ATS keyword scoring, gap analysis, automated networking outreach, and interview prep bots.",
+    url: "https://github.com/ritinpaul/CareerOS",
+    badge: "CAREER AGENTS",
+    accentColor: "#38bdf8",
+    highlights: ["AI ATS Resume Matcher & Scorer", "Automated Cold Email & Outreach Gen", "AI Mock Interviewer & Feedback", "pgvector Semantic Career Vault"],
+  },
 ];
 
 export default function ProjectsPage() {

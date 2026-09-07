@@ -857,6 +857,7 @@
 .radarChart {
   position: relative;
   flex-grow: 1;
+  min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -864,6 +865,10 @@
 .radarCircle1, .radarCircle2, .radarCircle3 {
   position: absolute;
   border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 .radarCircle1 { 
   width: 30px; height: 30px; 
@@ -877,25 +882,72 @@
   width: 90px; height: 90px; 
   border: 1px solid rgba(239, 68, 68, 0.4); 
 }
+.radarAssembly {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  margin-top: -45px;
+  margin-left: -45px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform-origin: center center;
+}
+.radarSweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg at 50% 50%, rgba(255, 107, 44, 0.22) 0deg, rgba(251, 191, 36, 0.08) 30deg, transparent 55deg, transparent 360deg);
+  pointer-events: none;
+}
 .radarLine {
   position: absolute;
+  top: 50%;
+  left: 50%;
   width: 45px;
   height: 2px;
-  background: linear-gradient(90deg, #fbbf24, #ff6b2c, transparent);
-  transform-origin: left center;
-  animation: radarSpin 4s linear infinite;
+  margin-top: -1px;
+  background: linear-gradient(90deg, #fbbf24 10%, #ff6b2c 70%, transparent 100%);
+  transform-origin: 0% 50%;
+  box-shadow: 0 0 6px rgba(255, 107, 44, 0.6);
+  pointer-events: none;
+}
+.radarCenterDot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  margin-left: -2px;
+  background: #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #fbbf24;
+  pointer-events: none;
 }
 .radarDot {
   position: absolute;
+  top: calc(50% - 18px);
+  left: calc(50% + 18px);
   width: 6px;
   height: 6px;
   background: #fff;
   border-radius: 50%;
-  box-shadow: 0 0 10px #fbbf24, 0 0 20px #ff6b2c;
-  top: 30%; left: 60%;
+  box-shadow: 0 0 8px #fbbf24, 0 0 16px #ff6b2c;
+  animation: radarBlip 2.4s ease-in-out infinite alternate;
 }
 @keyframes radarSpin {
-  100% { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes radarBlip {
+  0% { transform: scale(0.85); opacity: 0.4; }
+  50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 10px #fff, 0 0 18px #ff6b2c; }
+  100% { transform: scale(0.85); opacity: 0.4; }
 }
 
 /* Bar Chart */
@@ -1223,7 +1275,8 @@
 }
 
 /* ============================
-   GITHUB ACTIVITY
+/* ============================
+   GITHUB ACTIVITY (LEGACY)
    ============================ */
 .githubSection {
   min-height: 80vh;
@@ -1252,6 +1305,433 @@
   box-shadow: 0 0 15px rgba(255,107,44,0.4);
   transform: scaleY(1.05);
   transform-origin: bottom;
+}
+
+/* ============================
+   LIVE TELEMETRY MESH
+   ============================ */
+.telemetrySection {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-24) var(--space-6) var(--space-24);
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.telemetryAmbientGlow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 650px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(255, 107, 44, 0.12) 0%, rgba(229, 37, 42, 0.05) 50%, transparent 80%);
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.telemetryEyebrowWrapper {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 6px 14px;
+  background: rgba(255, 107, 44, 0.08);
+  border: 1px solid rgba(255, 107, 44, 0.25);
+  border-radius: 9999px;
+  margin-bottom: var(--space-6);
+  backdrop-filter: blur(8px);
+}
+
+.telemetryStatusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+  animation: pulseOperational 2s ease-in-out infinite;
+}
+
+@keyframes pulseOperational {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+.telemetryEyebrow {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-volt);
+  text-transform: uppercase;
+}
+
+.telemetrySystemState {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.08em;
+  padding-left: var(--space-2);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.telemetryTitle {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw, var(--font-size-5xl));
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.telemetrySubtitle {
+  position: relative;
+  z-index: 1;
+  color: var(--color-text-secondary);
+  text-align: center;
+  max-width: 640px;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  margin: 0 auto var(--space-12);
+}
+
+/* 4 Metrics Cards */
+.telemetryMetricsGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  width: 100%;
+  margin-bottom: var(--space-8);
+  box-sizing: border-box;
+}
+
+.telemetryMetricCard {
+  background: rgba(20, 20, 24, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.telemetryMetricCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 107, 44, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(255, 107, 44, 0.1);
+}
+
+.metricIconBox {
+  margin-bottom: var(--space-3);
+  display: inline-flex;
+}
+
+.metricValue {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.metricLabel {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 4px;
+}
+
+.metricSub {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-geist-mono), monospace;
+}
+
+/* Terminal Window */
+.telemetryTerminalWindow {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: rgba(12, 12, 15, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  box-sizing: border-box;
+}
+
+.terminalTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(20, 20, 25, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.terminalControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminalDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dotRed { background: #ef4444; }
+.dotYellow { background: #f59e0b; }
+.dotGreen { background: #10b981; }
+
+.terminalTitle {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 6px;
+}
+
+.terminalTabs {
+  display: flex;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.terminalTabBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.terminalTabBtn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tabActive {
+  background: rgba(255, 107, 44, 0.2) !important;
+  color: #ff7e33 !important;
+  border: 1px solid rgba(255, 107, 44, 0.35);
+}
+
+.terminalLiveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-volt);
+  letter-spacing: 0.08em;
+}
+
+.livePulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-volt);
+  animation: livePing 1.6s ease-in-out infinite;
+}
+
+@keyframes livePing {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.4); }
+}
+
+/* Streaming Log Rows */
+.terminalLogStream {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 320px;
+  min-height: 240px;
+  overflow-y: hidden;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.terminalLogRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.logTimestamp {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11.5px;
+  flex-shrink: 0;
+}
+
+.logSubsystem {
+  color: #ff8a4c;
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.logArrow {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.logMessage {
+  color: rgba(255, 255, 255, 0.85);
+  flex: 1;
+  min-width: 260px;
+}
+
+.logBadge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  flex-shrink: 0;
+}
+
+/* Regional Nodes Bar */
+.terminalNodesBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(8, 8, 10, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.nodesBarLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.08em;
+}
+
+.nodesList {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nodeItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+}
+
+.nodeIndicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 6px #4ade80;
+}
+
+.nodeName {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.nodePing {
+  color: #4ade80;
+  font-weight: 600;
+}
+
+/* Footer CTA buttons */
+.telemetryFooterActions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.telemetryPrimaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #FF6B2C 0%, #E5252A 100%);
+  color: #fff;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(255, 107, 44, 0.35);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.telemetryPrimaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 107, 44, 0.55);
+}
+
+.telemetrySecondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.telemetrySecondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 /* ============================
@@ -1543,6 +2023,28 @@
     width: 8px;
     flex-shrink: 0;
   }
+
+  /* Live Telemetry Mobile */
+  .telemetrySection {
+    padding: var(--space-16) var(--space-4) var(--space-20);
+  }
+  .telemetryMetricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+  .terminalTopBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .terminalTabs {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .terminalNodesBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* ── SMALL MOBILE (≤ 480px) — edge case tweaks ── */
@@ -1560,5 +2062,17 @@
   .glowCardNeonIcon svg {
     width: 40px;
     height: 40px;
+  }
+  .telemetryMetricsGrid {
+    grid-template-columns: 1fr;
+  }
+  .telemetryFooterActions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .telemetryPrimaryBtn, .telemetrySecondaryBtn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
   }
 }
