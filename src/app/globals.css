@@ -59,6 +59,16 @@
   --space-40:  10rem;
 
   /* Typography Scale */
+  --font-heading:        var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body:           var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-code:           var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Font Aliases (to ensure complete consistency across legacy classes) */
+  --font-syne:           var(--font-heading);
+  --font-space-grotesk:  var(--font-heading);
+  --font-inter:          var(--font-body);
+  --font-jetbrains-mono: var(--font-code);
+
   --font-size-xs:   0.75rem;
   --font-size-sm:   0.875rem;
   --font-size-base: 1rem;

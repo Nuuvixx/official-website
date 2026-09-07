@@ -8,6 +8,7 @@ import NavigationBar from "@/components/layout/NavigationBar";
 import Footer from "@/components/layout/Footer";
 import CommandPalette from "@/components/layout/CommandPalette";
 import NoiseOverlay from "@/components/layout/NoiseOverlay";
+import PixelTrailCursor from "@/components/layout/PixelTrailCursor";
 
 export const metadata: Metadata = {
   title: "Nuuvixx | Infrastructure for the machines that think",
@@ -49,6 +50,7 @@ export default function RootLayout({
       </head>
       <body>
         <NoiseOverlay />
+        <PixelTrailCursor />
         <SmoothScroller>
           <NavigationBar />
           <CommandPalette />

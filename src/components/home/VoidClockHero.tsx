@@ -217,9 +217,14 @@ export default function VoidClockHero() {
                 </button>
               </Magnetic>
               <Magnetic strength={isMobile ? 0 : 0.2}>
-                <button className={styles.btnGhost}>
+                <a
+                  href="https://github.com/Nuuvixx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.btnGhost}
+                >
                   <GithubLogo weight="fill" /> GitHub
-                </button>
+                </a>
               </Magnetic>
             </motion.div>
           </div>

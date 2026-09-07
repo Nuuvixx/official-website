@@ -1,19 +1,27 @@
 .main {
-  min-height: 100vh;
-  padding: var(--space-24) var(--space-6);
+  position: relative;
+  min-height: calc(100vh - 80px);
+  padding: var(--space-8) var(--space-6) var(--space-32);
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+  background-color: var(--color-void);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
 .hero {
-  margin-bottom: var(--space-16);
-  padding-top: var(--space-12);
+  margin-bottom: var(--space-12);
+  padding-top: var(--space-6);
 }
 
 .title {
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, var(--font-size-5xl));
   font-weight: 800;
   margin-bottom: var(--space-4);
@@ -23,7 +31,7 @@
 }
 
 .subtitle {
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   font-size: var(--font-size-xl);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
@@ -36,7 +44,7 @@
 }
 
 .lead {
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(1.35rem, 2.5vw, 1.85rem);
   font-weight: 700;
   color: var(--color-text-primary);
@@ -50,7 +58,7 @@
 }
 
 .section h2 {
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-heading);
   font-size: var(--font-size-2xl);
   font-weight: 700;
   margin-bottom: var(--space-4);
@@ -60,6 +68,7 @@
 
 .section p,
 .leadSection p {
+  font-family: var(--font-body);
   font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
@@ -70,7 +79,9 @@
 
 .blockquote {
   border-left: 3px solid var(--color-volt);
-  background: rgba(255, 107, 44, 0.04);
+  background: rgba(255, 107, 44, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   padding: var(--space-6) var(--space-8);
   margin: var(--space-10) 0;
@@ -81,3 +92,18 @@
   text-align: left;
   max-width: 960px;
 }
+
+@media (max-width: 768px) {
+  .main {
+    padding: var(--space-6) var(--space-4) var(--space-20);
+  }
+  .hero {
+    margin-bottom: var(--space-8);
+    padding-top: var(--space-4);
+  }
+  .blockquote {
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--font-size-lg);
+  }
+}
+

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { MagnifyingGlass, Sparkle, ArrowRight, X } from "@phosphor-icons/react";
 import styles from "./command-palette.module.css";
@@ -7,6 +8,7 @@ import styles from "./command-palette.module.css";
 const MOCK_AI_RESPONSE = "Nuuvixx is an open-source AI engineering organization. We build production-grade AI infrastructure across three primary platforms: AgentVerse (agent OS & runtime), AgentStore (verified agent marketplace), and BugPulse (real-time telemetry & bug triage). How else can I assist you?";
 
 export default function CommandPalette() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"search" | "ai">("search");
   const [query, setQuery] = useState("");
@@ -127,9 +129,9 @@ export default function CommandPalette() {
                 <div className={styles.results}>
                   <div className={styles.resultGroup}>
                     <div className={styles.groupLabel}>Quick Links</div>
-                    <button className={styles.resultItem}>Read the Manifesto</button>
-                    <button className={styles.resultItem}>View all Projects</button>
-                    <button className={styles.resultItem}>GitHub Repository</button>
+                    <button className={styles.resultItem} onClick={() => { router.push("/manifesto"); setOpen(false); }}>Read the Manifesto</button>
+                    <button className={styles.resultItem} onClick={() => { router.push("/projects"); setOpen(false); }}>View all Projects</button>
+                    <button className={styles.resultItem} onClick={() => { window.open("https://github.com/Nuuvixx", "_blank"); setOpen(false); }}>GitHub Repository</button>
                   </div>
                 </div>
               )}
