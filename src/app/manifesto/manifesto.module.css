@@ -6,7 +6,7 @@
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
-  background-color: var(--color-void);
+  background-color: transparent;
 }
 
 .content {
@@ -79,9 +79,10 @@
 
 .blockquote {
   border-left: 3px solid var(--color-volt);
-  background: rgba(255, 107, 44, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: #08080B;
+  background-image: linear-gradient(135deg, rgba(255, 107, 44, 0.08) 0%, rgba(255, 107, 44, 0.02) 100%);
+  position: relative;
+  z-index: 1;
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   padding: var(--space-6) var(--space-8);
   margin: var(--space-10) 0;

@@ -1,5 +1,6 @@
 import styles from "./contact.module.css";
 import { PaperPlaneRight, GithubLogo, XLogo } from "@phosphor-icons/react/dist/ssr";
+import ContactForm from "@/components/contact/ContactForm";
 
 export const metadata = {
   title: "Contact — Nuuvixx",
@@ -48,23 +49,9 @@ export default function ContactPage() {
           </div>
 
           {/* Right: Email & Message Form */}
-          <form className={styles.form}>
-            <div className={styles.formGroup}>
-              <label htmlFor="name">Name</label>
-              <input type="text" id="name" placeholder="Alan Turing" required />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" placeholder="alan@example.com" required />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="message">Message</label>
-              <textarea id="message" rows={5} placeholder="How can we help?" required></textarea>
-            </div>
-            <button type="submit" className={styles.submitBtn}>
-              Send Message <PaperPlaneRight weight="bold" />
-            </button>
-          </form>
+          <div className={styles.formWrapper}>
+            <ContactForm />
+          </div>
         </div>
       </div>
     </main>

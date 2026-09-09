@@ -6,7 +6,7 @@
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
-  background-color: var(--color-void);
+  background-color: transparent;
 }
 
 .content {
@@ -62,11 +62,12 @@
 /* Glassmorphic Repo Card */
 .repoCard {
   position: relative;
-  background: linear-gradient(
+  background-color: #08080B;
+  background-image: linear-gradient(
     140deg,
     rgba(255, 255, 255, 0.07) 0%,
     rgba(255, 255, 255, 0.02) 40%,
-    rgba(12, 12, 16, 0.6) 100%
+    rgba(12, 12, 16, 0.85) 100%
   );
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -150,11 +151,12 @@
   text-align: center;
   padding: var(--space-16) var(--space-8);
   margin-bottom: var(--space-16);
-  background: linear-gradient(
+  background-color: #08080B;
+  background-image: linear-gradient(
     140deg,
     rgba(255, 255, 255, 0.06) 0%,
     rgba(255, 255, 255, 0.02) 40%,
-    rgba(12, 12, 16, 0.6) 100%
+    rgba(12, 12, 16, 0.85) 100%
   );
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);

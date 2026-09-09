@@ -1,0 +1,100 @@
+.gridContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  --cursor-x: -1000px;
+  --cursor-y: -1000px;
+  contain: strict;
+}
+
+/* 1. Baseline delicate grid visible across the entire screen — lighter, softer warm orange tint */
+.baseGrid {
+  position: absolute;
+  inset: 0;
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 142, 76, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 142, 76, 0.12) 1px, transparent 1px);
+  background-position: 0 0;
+  transform: translateZ(0);
+}
+
+/* 2. Cursor glow layer container */
+.glowContainer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+
+.glowContainer.glowActive {
+  opacity: 1;
+}
+
+/* Soft, balanced ambient orange spotlight (toned down from harsh glare) */
+.ambientGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--cursor-x) var(--cursor-y),
+    rgba(255, 125, 60, 0.12) 0%,
+    rgba(255, 115, 50, 0.05) 40%,
+    rgba(255, 107, 44, 0.01) 65%,
+    transparent 85%
+  );
+  transform: translateZ(0);
+}
+
+/* Luminous orange grid lines around cursor — refined brightness for smooth, elegant glow */
+.glowingGridLines {
+  position: absolute;
+  inset: 0;
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 130, 60, 0.65) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 130, 60, 0.65) 1px, transparent 1px);
+  background-position: 0 0;
+  -webkit-mask-image: radial-gradient(
+    320px circle at var(--cursor-x) var(--cursor-y),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.65) 40%,
+    rgba(0, 0, 0, 0.15) 70%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    320px circle at var(--cursor-x) var(--cursor-y),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.65) 40%,
+    rgba(0, 0, 0, 0.15) 70%,
+    transparent 100%
+  );
+  transform: translateZ(0);
+}
+
+/* Soft golden-amber intersection nodes */
+.glowingVertices {
+  position: absolute;
+  inset: 0;
+  background-size: 48px 48px;
+  background-image: radial-gradient(circle at 0.5px 0.5px, rgba(255, 175, 55, 0.75) 1.6px, transparent 1.6px);
+  background-position: 0 0;
+  -webkit-mask-image: radial-gradient(
+    220px circle at var(--cursor-x) var(--cursor-y),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.45) 50%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    220px circle at var(--cursor-x) var(--cursor-y),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.45) 50%,
+    transparent 100%
+  );
+  transform: translateZ(0);
+}

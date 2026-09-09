@@ -11,6 +11,7 @@ const painPoints = [
     title: "Silent Failures",
     text: "AI agents fail silently in production without proper monitoring and alerts.",
     linkText: "View Telemetry",
+    href: "https://bugpulse.nuuvixx.com",
     color: "#ff7e33", // Vibrant Orange
   },
   {
@@ -19,6 +20,7 @@ const painPoints = [
     title: "Fragile Orchestration",
     text: "Current orchestration frameworks are fragile and break unpredictably at scale.",
     linkText: "Explore Governance",
+    href: "https://agentverse.nuuvixx.com",
     color: "#4facfe", // Vibrant Sky Blue
   },
   {
@@ -27,6 +29,7 @@ const painPoints = [
     title: "Zero Observability",
     text: "Observability doesn't exist at the agent-level, leaving your engineers blind.",
     linkText: "Fix Observability",
+    href: "https://bugpulse.nuuvixx.com",
     color: "#4ade80", // Vibrant Light Green
   },
 ];
@@ -150,9 +153,16 @@ export default function ProblemStatement() {
                 </div>
                 <h3 className={styles.glowCardTitle}>{point.title}</h3>
                 <p className={styles.glowCardText}>{point.text}</p>
-                <div className={styles.glowCardLink}>
-                  {point.linkText} <ArrowRight weight="bold" size={16} />
-                </div>
+                <a
+                  href={point.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.glowCardLink}
+                  aria-label={`${point.linkText} — ${point.title}`}
+                >
+                  <span>{point.linkText}</span>
+                  <ArrowRight weight="bold" size={16} />
+                </a>
               </div>
             </motion.div>
           );
