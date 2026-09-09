@@ -24,27 +24,49 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (status === "submitting") return;
+    // Honeypot check - if filled, silently succeed without sending
+    if (formData.honey) {
+      setStatus("success");
+      return;
+    }
 
     setStatus("submitting");
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/contact", {
+      // Submit directly to FormSubmit from the client browser with native CORS support
+      const res = await fetch("https://formsubmit.co/ajax/a3c37453dab00c97742f6c64dbfdce28", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `New Contact Submission from ${formData.name} - Nuuvixx`,
+          _template: "table",
+          _captcha: "false",
+        }),
       });
 
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to send message.");
+        throw new Error(data.message || "Failed to send message.");
       }
 
-      setNeedsActivation(Boolean(data.needsActivation));
+      if (data.success === "false" || data.success === false) {
+        if (data.message && data.message.toLowerCase().includes("activation")) {
+          setNeedsActivation(true);
+          setStatus("success");
+          return;
+        }
+        throw new Error(data.message || "Failed to send message.");
+      }
+
+      setNeedsActivation(false);
       setStatus("success");
     } catch (err: unknown) {
       console.error("Failed to submit contact form:", err);
