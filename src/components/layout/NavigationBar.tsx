@@ -8,21 +8,17 @@ import { List, X } from "@phosphor-icons/react";
 import styles from "./navigation-bar.module.css";
 
 const links = [
+  { href: "/studio", label: "Studio", highlight: true },
+  { href: "/labs", label: "Labs" },
   { href: "/projects", label: "Products" },
   { href: "/manifesto", label: "Manifesto" },
   { href: "/about", label: "About" },
-  { href: "/open-source", label: "Open Source" },
   { href: "/contact", label: "Contact" },
 ];
 
 export default function NavigationBar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Close on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -49,15 +45,19 @@ export default function NavigationBar() {
 
             {/* Desktop nav links */}
             <div className={styles.links}>
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`${styles.link} ${pathname === link.href ? styles.activeLink : ""}`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {links.map((link) => {
+                const isActive = pathname === link.href || (link.href === "/studio" && pathname.startsWith("/studio"));
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`${styles.link} ${isActive ? styles.activeLink : ""} ${link.highlight ? styles.studioHighlight : ""}`}
+                  >
+                    {link.highlight && <span className={styles.liveDot} />}
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
 
             {/* Mobile hamburger button */}
@@ -84,23 +84,40 @@ export default function NavigationBar() {
             transition={{ duration: 0.25, ease: "easeInOut" }}
           >
             <nav className={styles.mobileNav}>
-              {links.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <Link
-                    href={link.href}
-                    className={`${styles.mobileLink} ${pathname === link.href ? styles.mobileLinkActive : ""}`}
-                    onClick={() => setMenuOpen(false)}
+              {links.map((link, i) => {
+                const isActive = pathname === link.href || (link.href === "/studio" && pathname.startsWith("/studio"));
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <span className={styles.mobileLinkNum}>0{i + 1}</span>
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={link.href}
+                      className={`${styles.mobileLink} ${isActive ? styles.mobileLinkActive : ""}`}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <span className={styles.mobileLinkNum}>0{i + 1}</span>
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Link
+                  href="/studio/work"
+                  className={styles.mobileLink}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span className={styles.mobileLinkNum}>07</span>
+                  Proof of Work &amp; Tools
+                </Link>
+              </motion.div>
             </nav>
 
             {/* Bottom tagline */}
@@ -108,7 +125,7 @@ export default function NavigationBar() {
               className={styles.mobileMenuTagline}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.35, duration: 0.4 }}
+              transition={{ delay: 0.45, duration: 0.4 }}
             >
               Infrastructure for the machines that think.
             </motion.p>

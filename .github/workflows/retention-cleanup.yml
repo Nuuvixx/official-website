@@ -1,0 +1,35 @@
+name: Automated 90-Day Retention Cleanup
+
+on:
+  schedule:
+    # Run once daily at 03:00 UTC (off-peak hours)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    name: Purge Expired Inquiries (>90 Days)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --omit=dev
+
+      - name: Run Retention Cleanup Runner
+        env:
+          RETENTION_DATABASE_URL: ${{ secrets.RETENTION_DATABASE_URL }}
+          DATABASE_CA_CERT: ${{ secrets.DATABASE_CA_CERT }}
+        run: node scripts/retention-cleanup.mjs

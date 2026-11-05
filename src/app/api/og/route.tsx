@@ -71,7 +71,7 @@ export async function GET(request: Request) {
               color: '#8A8F98',
             }}
           >
-            Open-source AI Infrastructure
+            Open-source AI Infrastructure &amp; Commercial Studio
           </div>
         </div>
       ),
@@ -80,8 +80,9 @@ export async function GET(request: Request) {
         height: 630,
       }
     );
-  } catch (e: any) {
-    console.log(`${e.message}`);
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : 'Unknown error';
+    console.log(message);
     return new Response(`Failed to generate the image`, {
       status: 500,
     });

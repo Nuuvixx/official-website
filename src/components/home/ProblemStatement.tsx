@@ -1,8 +1,21 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { motion, useInView } from "framer-motion";
 import { WarningCircle, Bug, GitFork, ArrowRight } from "@phosphor-icons/react";
 import styles from "./home.module.css";
+
+function subscribeWindow(callback: () => void) {
+  window.addEventListener("resize", callback);
+  return () => window.removeEventListener("resize", callback);
+}
+
+function getDesktopSnapshot() {
+  return window.innerWidth > 1024;
+}
+
+function getServerDesktopSnapshot() {
+  return false;
+}
 
 const painPoints = [
   {
@@ -38,18 +51,8 @@ export default function ProblemStatement() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   
-  const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const checkWidth = () => setIsDesktop(window.innerWidth > 1024);
-    checkWidth();
-    window.addEventListener("resize", checkWidth);
-    return () => window.removeEventListener("resize", checkWidth);
-  }, []);
-
-  const useDesktopAnimation = mounted && isDesktop;
+  const isDesktop = useSyncExternalStore(subscribeWindow, getDesktopSnapshot, getServerDesktopSnapshot);
+  const useDesktopAnimation = isDesktop;
 
   return (
     <section ref={containerRef} className={styles.problemSection}>

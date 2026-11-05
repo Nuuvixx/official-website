@@ -11,8 +11,8 @@ import NoiseOverlay from "@/components/layout/NoiseOverlay";
 import RouteInteractiveGrid from "@/components/layout/RouteInteractiveGrid";
 
 export const metadata: Metadata = {
-  title: "Nuuvixx | Infrastructure for the machines that think",
-  description: "Nuuvixx builds the layer beneath the AI systems everyone else is building. Open-source. Production-grade.",
+  title: "Nuuvixx | AI Infrastructure & Commercial Engineering Studio",
+  description: "Nuuvixx builds the layer beneath modern AI systems: open-source agent infrastructure in Nuuvixx Labs, and high-impact commercial engineering divisions in Nuuvixx Studio.",
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",
@@ -38,11 +38,12 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Nuuvixx",
-              "url": "https://nuuvixx.dev",
-              "logo": "https://nuuvixx.dev/logo.png",
-              "description": "Infrastructure for the machines that think. Open-source, production-grade AI engineering organization.",
+              "url": "https://nuuvixx.com",
+              "logo": "https://nuuvixx.com/logo.png",
+              "description": "Infrastructure for the machines that think. Open-source agent infrastructure (Nuuvixx Labs) and commercial engineering divisions (Nuuvixx Studio).",
               "sameAs": [
-                "https://github.com/Nuuvixx"
+                "https://github.com/Nuuvixx",
+                "https://x.com/nuuvixx"
               ]
             })
           }}

@@ -108,6 +108,23 @@
   border: 1px solid rgba(255, 107, 44, 0.15);
 }
 
+.studioHighlight {
+  color: var(--color-volt) !important;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-volt);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-volt);
+  display: inline-block;
+}
+
 /* Hamburger button — hidden on desktop */
 .hamburger {
   display: none;

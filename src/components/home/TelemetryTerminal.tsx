@@ -38,11 +38,13 @@ export default function TelemetryTerminal() {
   const [bootStarted, setBootStarted] = useState(false);
 
   useEffect(() => {
-    setTimeStr(new Date().toISOString().split("T")[1].slice(0, 8));
+    const t = setTimeout(() => {
+      setTimeStr(new Date().toISOString().split("T")[1].slice(0, 8));
+    }, 0);
+    return () => clearTimeout(t);
   }, []);
 
   // N intro animation phases inside terminal
-  // Synced with faster hero intro (1.8s) + snappy robot slide (~0.1s delay + 0.7s dur)
   useEffect(() => {
     const delay = 1800;
     const timers = [
@@ -65,8 +67,8 @@ export default function TelemetryTerminal() {
     const line = BOOT_SEQUENCE[currentLineIdx];
 
     if (line.text === "") {
-      setDisplayedLines(prev => [...prev, { text: "", status: line.status, done: true }]);
       const t = setTimeout(() => {
+        setDisplayedLines(prev => [...prev, { text: "", status: line.status, done: true }]);
         setCurrentLineIdx(prev => prev + 1);
         setCurrentCharIdx(0);
       }, 120);
@@ -77,7 +79,10 @@ export default function TelemetryTerminal() {
     const speed = isProgress ? 6 : line.status === "input" ? 35 : 18;
 
     if (currentCharIdx === 0) {
-      setDisplayedLines(prev => [...prev, { text: "", status: line.status, done: false }]);
+      const t = setTimeout(() => {
+        setDisplayedLines(prev => [...prev, { text: "", status: line.status, done: false }]);
+      }, 0);
+      return () => clearTimeout(t);
     }
 
     if (currentCharIdx < line.text.length) {
@@ -92,13 +97,15 @@ export default function TelemetryTerminal() {
       }, speed);
       return () => clearTimeout(t);
     } else {
-      setDisplayedLines(prev => {
-        const updated = [...prev];
-        updated[updated.length - 1] = { ...updated[updated.length - 1], done: true };
-        return updated;
-      });
       const pauseAfter = line.status === "success" ? 350 : line.status === "warn" ? 450 : 150;
       const t = setTimeout(() => {
+        setDisplayedLines(prev => {
+          const updated = [...prev];
+          if (updated.length > 0) {
+            updated[updated.length - 1] = { ...updated[updated.length - 1], done: true };
+          }
+          return updated;
+        });
         setCurrentLineIdx(prev => prev + 1);
         setCurrentCharIdx(0);
       }, pauseAfter);

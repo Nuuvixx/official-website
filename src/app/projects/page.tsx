@@ -56,7 +56,6 @@ const products = [
 export default function ProjectsPage() {
   return (
     <main className={styles.main}>
-
       <div className={styles.content}>
         {/* Page Header - Left-aligned for site-wide consistency */}
         <header className={styles.hero}>

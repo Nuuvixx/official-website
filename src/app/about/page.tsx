@@ -8,12 +8,11 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <main className={styles.main}>
-
       <div className={styles.content}>
         <header className={styles.hero}>
           <h1 className={styles.title}>About Nuuvixx</h1>
           <p className={styles.subtitle}>
-            We build production-grade AI infrastructure.
+            We build production-grade AI infrastructure and commercial engineering solutions.
           </p>
         </header>
 
@@ -30,7 +29,8 @@ export default function AboutPage() {
           <h2>Our Mission</h2>
           <p>
             To provide developers and enterprises with the open-source building blocks necessary 
-            to govern, orchestrate, and observe autonomous systems at scale.
+            to govern, orchestrate, and observe autonomous systems at scale, while providing high-stakes 
+            commercial engineering divisions in Nuuvixx Studio.
           </p>
         </section>
 
