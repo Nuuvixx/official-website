@@ -13,14 +13,6 @@ export const metadata: Metadata = {
   description: "Explore five scoped Nuuvixx Studio services and try the browser-based diagnostic tools behind them.",
 };
 
-const status: Record<string, string> = {
-  commerce: "Pilot ready",
-  secure: "Local MVP",
-  creative: "Local MVP",
-  trade: "Pilot ready",
-  bids: "Local MVP",
-};
-
 export default function StudioOverviewPage() {
   return (
     <main className={styles.main}>
@@ -41,20 +33,15 @@ export default function StudioOverviewPage() {
           <p>Every demonstration uses sample data or files you supply locally. A service engagement is scoped separately.</p>
         </div>
         <div className={styles.serviceList}>
-          {STUDIO_SERVICES.map((service, index) => (
+          {STUDIO_SERVICES.map((service) => (
             <article key={service.id} className={styles.service}>
               <div className={styles.serviceCopy}>
-                <span className={styles.meta}>{String(index + 1).padStart(2, "0")} / {status[service.slug]} / {service.division}</span>
                 <h3>{service.name}</h3>
                 <p className={styles.tagline}>{service.tagline}</p>
                 <p>{service.description}</p>
-                <dl>
-                  <div><dt>Best for</dt><dd>{service.targetAudience[0]}</dd></div>
-                  <div><dt>What you can try</dt><dd>{service.deliverables[0]}</dd></div>
-                </dl>
                 <div className={styles.actions}>
-                  <Link href={`/studio/${service.slug}`} className={styles.primary}>Explore service <ArrowUpRight size={16} /></Link>
-                  <Link href={`/studio/${service.slug}#intake`} className={styles.textLink}>Request a scoped review</Link>
+                  <Link href={`/studio/${service.slug}`} className={styles.primary}>See how it works <ArrowUpRight size={16} /></Link>
+                  <Link href={`/studio/${service.slug}#intake`} className={styles.textLink}>Discuss a project</Link>
                 </div>
               </div>
               <figure className={`${styles.serviceImage} ${imageGlow.frame}`}>

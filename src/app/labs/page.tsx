@@ -10,17 +10,17 @@ export const metadata: Metadata = {
 
 const projects = [
   {
-    name: "AgentVerse", icon: Network, status: "Public interface preview",
+    name: "AgentVerse", icon: Network, category: "Agent workflows",
     description: "An agent workflow and console project with a public interface preview.",
     links: [{ label: "Visit public interface", href: "https://agentverse.nuuvixx.com" }],
   },
   {
-    name: "AgentStore", icon: Blocks, status: "Public catalog preview",
+    name: "AgentStore", icon: Blocks, category: "Agent catalog",
     description: "A public catalog interface for exploring agent manifests.",
     links: [{ label: "Visit public catalog", href: "https://agentstore.nuuvixx.com" }],
   },
   {
-    name: "BugPulse", icon: Bug, status: "Public source repositories",
+    name: "BugPulse", icon: Bug, category: "Developer tools",
     description: "Public CLI and MCP integration repositories for a bug triage workflow.",
     links: [
       { label: "CLI repository", href: "https://github.com/Nuuvixx/BugPulse-CLI" },
@@ -40,13 +40,12 @@ export default function LabsPage() {
       </header>
 
       <section className={styles.projectList} aria-label="Labs projects">
-        {projects.map((project, index) => {
+        {projects.map((project) => {
           const Icon = project.icon;
           return (
             <article key={project.name} className={styles.project}>
-              <div className={styles.projectIndex}>{String(index + 1).padStart(2,"0")}</div>
               <div className={styles.projectBody}>
-                <div className={styles.projectHeading}><Icon size={30} strokeWidth={1.5} aria-hidden="true" /><span>{project.status}</span></div>
+                <div className={styles.projectHeading}><Icon size={30} strokeWidth={1.5} aria-hidden="true" /><span>{project.category}</span></div>
                 <h2>{project.name}</h2>
                 <p>{project.description}</p>
                 <div className={styles.links}>

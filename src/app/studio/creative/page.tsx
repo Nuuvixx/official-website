@@ -20,7 +20,7 @@ export default function NuuvixxCreativePage() {
       <header className={styles.hero}>
         <div className={styles.eyebrow}>
           <Video size={14} />
-          <span>{service.division}</span>
+          <span>{service.name}</span>
         </div>
         <h1 className={styles.heroTitle}>
           Structured creative briefs and <br />
@@ -91,16 +91,16 @@ export default function NuuvixxCreativePage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionEyebrow}>Deliverables &amp; Scope</div>
-          <h2 className={styles.sectionTitle}>Engineered creative deliverables with zero ambiguity.</h2>
+          <h2 className={styles.sectionTitle}>What the brief builder produces.</h2>
           <p className={styles.sectionSubtitle}>
-            High-resolution master files, aspect-ratio variations (9:16, 1:1, 16:9), and platform-compliant metadata.
+            Create a scene outline and production cues from the details you provide. Finished media is a separate engagement.
           </p>
         </div>
 
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-success)" }}>
-              <span>Included in every package</span>
+              <span>Available here</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.deliverables.map((del, idx) => (
@@ -109,18 +109,12 @@ export default function NuuvixxCreativePage() {
                   <span>{del}</span>
                 </li>
               ))}
-              {service.scopeAndExclusions.included.map((inc, idx) => (
-                <li key={`inc-${idx}`} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
-                  <span>{inc}</span>
-                </li>
-              ))}
             </ul>
           </div>
 
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-error)" }}>
-              <span>Explicit exclusions</span>
+              <span>Current limits</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.scopeAndExclusions.excluded.map((exc, idx) => (
@@ -169,7 +163,7 @@ export default function NuuvixxCreativePage() {
               </p>
             </div>
             <a href="#intake" className={styles.primaryCta} style={{ marginTop: "8px" }}>
-              <span>Book Creative Package</span>
+              <span>Discuss a creative project</span>
               <ArrowRight size={15} />
             </a>
           </div>
@@ -188,10 +182,10 @@ export default function NuuvixxCreativePage() {
       {/* Intake */}
       <section id="intake" className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>Direct Intake</div>
-          <h2 className={styles.sectionTitle}>Initiate Nuuvixx Creative brief.</h2>
+          <div className={styles.sectionEyebrow}>Start a project</div>
+          <h2 className={styles.sectionTitle}>Tell us about your campaign.</h2>
           <p className={styles.sectionSubtitle} style={{ margin: "0 auto" }}>
-            Share your product URL and campaign goals. We will reply with sample creative angles and production timelines.
+            Share the product, audience and goal. We will review what you need and discuss the scope.
           </p>
         </div>
 

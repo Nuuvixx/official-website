@@ -9,7 +9,7 @@ import SecureCodeAuditorDemo from "@/components/studio/demos/SecureCodeAuditorDe
 const service = STUDIO_SERVICES.find((s) => s.slug === "secure")!;
 
 export const metadata: Metadata = {
-  title: "Nuuvixx Secure — Code Security Audits for AI SaaS & Vibe-Coded Apps",
+  title: "Nuuvixx Secure — Scoped code security review",
   description: "Try five local static checks for common Next.js and Supabase code risks, or request a permissioned review.",
 };
 
@@ -20,11 +20,11 @@ export default function NuuvixxSecurePage() {
       <header className={styles.hero}>
         <div className={styles.eyebrow}>
           <ShieldCheck size={14} />
-          <span>{service.division}</span>
+          <span>{service.name}</span>
         </div>
         <h1 className={styles.heroTitle}>
           Scoped code security checks for <br />
-          <span className={styles.textVolt}>AI SaaS and modern stacks.</span>
+          <span className={styles.textVolt}>Next.js and Supabase projects.</span>
         </h1>
         <p className={styles.heroSubtitle}>
           {service.description}
@@ -58,7 +58,7 @@ export default function NuuvixxSecurePage() {
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle}>
               <CheckCircle2 size={20} color="var(--color-orange)" />
-              <span>Who we protect</span>
+              <span>Who this is for</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.targetAudience.map((target, idx) => (
@@ -73,7 +73,7 @@ export default function NuuvixxSecurePage() {
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle}>
               <AlertTriangle size={20} color="var(--color-orange)" />
-              <span>Vulnerabilities we eliminate</span>
+              <span>Patterns the checker flags</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.primaryProblems.map((prob, idx) => (
@@ -91,16 +91,16 @@ export default function NuuvixxSecurePage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionEyebrow}>Deliverables &amp; Scope</div>
-          <h2 className={styles.sectionTitle}>Engineered security deliverables with zero ambiguity.</h2>
+          <h2 className={styles.sectionTitle}>What the review can cover.</h2>
           <p className={styles.sectionSubtitle}>
-            Concrete Pull Requests, verified RLS migration scripts, and executive summaries for compliance.
+            The browser tool shows five defined patterns. A deeper code review and any fixes are scoped with your team.
           </p>
         </div>
 
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-success)" }}>
-              <span>Included in every audit</span>
+              <span>Available here</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.deliverables.map((del, idx) => (
@@ -109,18 +109,12 @@ export default function NuuvixxSecurePage() {
                   <span>{del}</span>
                 </li>
               ))}
-              {service.scopeAndExclusions.included.map((inc, idx) => (
-                <li key={`inc-${idx}`} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
-                  <span>{inc}</span>
-                </li>
-              ))}
             </ul>
           </div>
 
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-error)" }}>
-              <span>Explicit exclusions</span>
+              <span>Current limits</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.scopeAndExclusions.excluded.map((exc, idx) => (
@@ -169,7 +163,7 @@ export default function NuuvixxSecurePage() {
               </p>
             </div>
             <a href="#intake" className={styles.primaryCta} style={{ marginTop: "8px" }}>
-              <span>Book Security Review</span>
+              <span>Discuss a security review</span>
               <ArrowRight size={15} />
             </a>
           </div>
@@ -188,8 +182,8 @@ export default function NuuvixxSecurePage() {
       {/* Intake */}
       <section id="intake" className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>Direct Intake</div>
-          <h2 className={styles.sectionTitle}>Initiate Nuuvixx Secure review.</h2>
+          <div className={styles.sectionEyebrow}>Start a project</div>
+          <h2 className={styles.sectionTitle}>Tell us what needs reviewing.</h2>
           <p className={styles.sectionSubtitle} style={{ margin: "0 auto" }}>
             Share your repository framework and security goals. An engineer will respond with an NDA and scoping brief.
           </p>

@@ -100,7 +100,7 @@ export const STUDIO_SERVICES: CommercialService[] = [
     id: "trade-intelligence", slug: "trade", name: "Trade Intelligence",
     division: "Trade document reconciliation", badge: "TRADE", accentColor: "#F56B25",
     tagline: "Compare structured shipment records for discrepancies.",
-    description: "A local pilot compares commercial invoice and packing-list data for item, HS-code and weight differences, then produces a CSV variance report for human review.",
+    description: "The browser tool compares commercial invoice and packing-list data for item, HS-code and weight differences, then produces a CSV variance report for human review.",
     targetAudience: ["Export documentation teams", "Suppliers comparing shipment paperwork", "Operations teams checking invoice and packing-list data"],
     primaryProblems: ["Mismatched item details", "HS-code differences", "Weight and quantity variances"],
     deliverables: ["Field-level discrepancy matrix", "CSV variance export", "Human review of flagged records when scoped"],
@@ -114,10 +114,10 @@ export const STUDIO_SERVICES: CommercialService[] = [
       { step: "03", title: "Review exceptions", description: "Export a matrix for an operations specialist." },
     ],
     introPricing: quote,
-    futureRoadmap: "OCR and customs integrations are not part of the current pilot.",
+    futureRoadmap: "OCR and customs integrations are not part of the current tool.",
     faqs: [
       { question: "Does this clear shipments through customs?", answer: "No. It flags document inconsistencies for human review." },
-      { question: "Can it read scanned paperwork?", answer: "The current pilot works with structured input; scanned-document OCR is not available." },
+      { question: "Can it read scanned paperwork?", answer: "The current tool works with structured input; scanned-document OCR is not available." },
     ],
   },
   {

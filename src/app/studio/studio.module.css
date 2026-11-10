@@ -1,5 +1,5 @@
 .studioMain {
-  background-color: var(--color-canvas);
+  background: radial-gradient(ellipse 48% 15% at 79% 4%, rgba(245, 107, 37, 0.075), transparent 84%), var(--color-canvas);
   min-height: 100vh;
   padding: calc(72px + var(--space-8)) 24px 120px;
   max-width: var(--container-wide);
@@ -359,6 +359,8 @@
   border-color: var(--color-ink);
 }
 
+.faqHeader { margin: 0; }
+
 .faqQuestion {
   width: 100%;
   display: flex;
@@ -375,12 +377,21 @@
   text-align: left;
 }
 
+.faqQuestion:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -3px; }
+.faqChevron { color: var(--color-muted); flex-shrink: 0; transition: transform 0.2s ease, color 0.2s ease; }
+.faqQuestion[data-state="open"] .faqChevron { transform: rotate(180deg); color: var(--color-accent-text); }
+.faqContent { overflow: hidden; }
+
 .faqAnswer {
   padding: 0 var(--space-6) var(--space-4);
   color: var(--color-muted);
   font-family: var(--font-sans);
   font-size: 0.88rem;
   line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faqChevron { transition: none; }
 }
 
 /* Scope and Exclusions list */

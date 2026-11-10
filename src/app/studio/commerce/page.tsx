@@ -20,7 +20,7 @@ export default function CommerceRescuePage() {
       <header className={styles.hero}>
         <div className={styles.eyebrow}>
           <ShoppingCart size={14} />
-          <span>{service.division}</span>
+          <span>{service.name}</span>
         </div>
         <h1 className={styles.heroTitle}>
           Check product feeds for <br />
@@ -91,16 +91,16 @@ export default function CommerceRescuePage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionEyebrow}>Deliverables &amp; Scope</div>
-          <h2 className={styles.sectionTitle}>Engineered deliverables with zero ambiguity.</h2>
+          <h2 className={styles.sectionTitle}>What the feed check provides.</h2>
           <p className={styles.sectionSubtitle}>
-            We provide concrete code, proxy endpoints, and documented fixes. Here is what is strictly included and excluded.
+            Review the current checks and report exports. Any remediation work is defined separately after we inspect the issue.
           </p>
         </div>
 
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-success)" }}>
-              <span>Included in every remediation</span>
+              <span>Available here</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.deliverables.map((del, idx) => (
@@ -109,18 +109,12 @@ export default function CommerceRescuePage() {
                   <span>{del}</span>
                 </li>
               ))}
-              {service.scopeAndExclusions.included.map((inc, idx) => (
-                <li key={`inc-${idx}`} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
-                  <span>{inc}</span>
-                </li>
-              ))}
             </ul>
           </div>
 
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-error)" }}>
-              <span>Explicit exclusions</span>
+              <span>Current limits</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.scopeAndExclusions.excluded.map((exc, idx) => (
@@ -175,7 +169,7 @@ export default function CommerceRescuePage() {
               </div>
             </div>
             <a href="#intake" className={styles.primaryCta} style={{ marginTop: "8px" }}>
-              <span>Book Catalog Audit</span>
+              <span>Discuss a feed review</span>
               <ArrowRight size={15} />
             </a>
           </div>
@@ -194,8 +188,8 @@ export default function CommerceRescuePage() {
       {/* Commercial Qualification Form */}
       <section id="intake" className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>Direct Intake</div>
-          <h2 className={styles.sectionTitle}>Initiate Commerce Rescue engagement.</h2>
+          <div className={styles.sectionEyebrow}>Start a project</div>
+          <h2 className={styles.sectionTitle}>Tell us about your feed issue.</h2>
           <p className={styles.sectionSubtitle} style={{ margin: "0 auto" }}>
             Provide your store URL and primary feed symptoms. An engineer will inspect your feed headers and respond with next steps.
           </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDown } from "lucide-react";
 import styles from "@/app/studio/studio.module.css";
 
@@ -10,38 +10,21 @@ interface FaqItem {
 }
 
 export default function FaqAccordion({ items }: { items: FaqItem[] }) {
-  const [openIdx, setOpenIdx] = useState<number | null>(0);
-
-  const toggle = (idx: number) => {
-    setOpenIdx(openIdx === idx ? null : idx);
-  };
-
   return (
-    <div className={styles.faqList}>
-      {items.map((item, idx) => {
-        const isOpen = openIdx === idx;
-        return (
-          <div key={item.question} className={styles.faqItem}>
-            <button
-              onClick={() => toggle(idx)}
-              className={styles.faqQuestion}
-              aria-expanded={isOpen}
-            >
+    <Accordion.Root type="single" collapsible defaultValue="question-0" className={styles.faqList}>
+      {items.map((item, index) => (
+        <Accordion.Item key={item.question} value={`question-${index}`} className={styles.faqItem}>
+          <Accordion.Header className={styles.faqHeader}>
+            <Accordion.Trigger className={styles.faqQuestion}>
               <span>{item.question}</span>
-              <ChevronDown
-                size={18}
-                style={{
-                  transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                  transition: "transform 0.2s ease",
-                  color: isOpen ? "var(--color-orange)" : "var(--color-muted)",
-                  flexShrink: 0,
-                }}
-              />
-            </button>
-            {isOpen && <div className={styles.faqAnswer}>{item.answer}</div>}
-          </div>
-        );
-      })}
-    </div>
+              <ChevronDown size={18} aria-hidden="true" className={styles.faqChevron} />
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content className={styles.faqContent}>
+            <div className={styles.faqAnswer}>{item.answer}</div>
+          </Accordion.Content>
+        </Accordion.Item>
+      ))}
+    </Accordion.Root>
   );
 }

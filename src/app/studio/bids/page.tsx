@@ -20,7 +20,7 @@ export default function BidIntelligencePage() {
       <header className={styles.hero}>
         <div className={styles.eyebrow}>
           <FileText size={14} />
-          <span>{service.division}</span>
+          <span>{service.name}</span>
         </div>
         <h1 className={styles.heroTitle}>
           Tender opportunity briefs and <br />
@@ -91,16 +91,16 @@ export default function BidIntelligencePage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionEyebrow}>Deliverables &amp; Scope</div>
-          <h2 className={styles.sectionTitle}>Engineered bid deliverables with zero ambiguity.</h2>
+          <h2 className={styles.sectionTitle}>What the tender check provides.</h2>
           <p className={styles.sectionSubtitle}>
-            Mandatory criteria matrices, disqualification trap checklists, and submission timelines delivered within 24 hours.
+            Extract selected requirements with source lines and export a checklist for your team to verify.
           </p>
         </div>
 
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-success)" }}>
-              <span>Included in every brief</span>
+              <span>Available here</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.deliverables.map((del, idx) => (
@@ -109,18 +109,12 @@ export default function BidIntelligencePage() {
                   <span>{del}</span>
                 </li>
               ))}
-              {service.scopeAndExclusions.included.map((inc, idx) => (
-                <li key={`inc-${idx}`} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
-                  <span>{inc}</span>
-                </li>
-              ))}
             </ul>
           </div>
 
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-error)" }}>
-              <span>Explicit exclusions</span>
+              <span>Current limits</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.scopeAndExclusions.excluded.map((exc, idx) => (
@@ -169,7 +163,7 @@ export default function BidIntelligencePage() {
               </p>
             </div>
             <a href="#intake" className={styles.primaryCta} style={{ marginTop: "8px" }}>
-              <span>Commission Bid Brief</span>
+              <span>Discuss a tender review</span>
               <ArrowRight size={15} />
             </a>
           </div>
@@ -188,10 +182,10 @@ export default function BidIntelligencePage() {
       {/* Intake */}
       <section id="intake" className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>Direct Intake</div>
-          <h2 className={styles.sectionTitle}>Initiate Bid Intelligence brief.</h2>
+          <div className={styles.sectionEyebrow}>Start a project</div>
+          <h2 className={styles.sectionTitle}>Tell us about the tender.</h2>
           <p className={styles.sectionSubtitle} style={{ margin: "0 auto" }}>
-            Upload or link the RFP tender documentation. An engineer will inspect the scope and confirm delivery timing.
+            Describe the document and the requirements you need reviewed. We will discuss the scope before work begins.
           </p>
         </div>
 

@@ -20,7 +20,7 @@ export default function TradeIntelligencePage() {
       <header className={styles.hero}>
         <div className={styles.eyebrow}>
           <Scale size={14} />
-          <span>{service.division}</span>
+          <span>{service.name}</span>
         </div>
         <h1 className={styles.heroTitle}>
           Structured trade document <br />
@@ -31,7 +31,7 @@ export default function TradeIntelligencePage() {
         </p>
         <div className={styles.heroCtas}>
           <a href="#intake" className={styles.primaryCta}>
-            <span>Initiate Document Reconciliation Pilot</span>
+            <span>Discuss document reconciliation</span>
             <ArrowRight size={15} strokeWidth={2.2} />
           </a>
           <a href="#demo" className={styles.secondaryCta}>
@@ -91,16 +91,16 @@ export default function TradeIntelligencePage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionEyebrow}>Deliverables &amp; Scope</div>
-          <h2 className={styles.sectionTitle}>Engineered reconciliation deliverables with zero ambiguity.</h2>
+          <h2 className={styles.sectionTitle}>What the comparison covers.</h2>
           <p className={styles.sectionSubtitle}>
-            Multi-way comparison matrices, line-item discrepancy tables, and clean structured exports.
+            Compare structured invoice and packing-list fields, then review the differences before any operational decision.
           </p>
         </div>
 
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-success)" }}>
-              <span>Included in every audit</span>
+              <span>Available here</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.deliverables.map((del, idx) => (
@@ -109,18 +109,12 @@ export default function TradeIntelligencePage() {
                   <span>{del}</span>
                 </li>
               ))}
-              {service.scopeAndExclusions.included.map((inc, idx) => (
-                <li key={`inc-${idx}`} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
-                  <span>{inc}</span>
-                </li>
-              ))}
             </ul>
           </div>
 
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle} style={{ color: "var(--color-error)" }}>
-              <span>Explicit exclusions</span>
+              <span>Current limits</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.scopeAndExclusions.excluded.map((exc, idx) => (
@@ -169,7 +163,7 @@ export default function TradeIntelligencePage() {
               </p>
             </div>
             <a href="#intake" className={styles.primaryCta} style={{ marginTop: "8px" }}>
-              <span>Book Trade Pilot</span>
+              <span>Discuss a trade project</span>
               <ArrowRight size={15} />
             </a>
           </div>
@@ -188,10 +182,10 @@ export default function TradeIntelligencePage() {
       {/* Intake */}
       <section id="intake" className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>Direct Intake</div>
-          <h2 className={styles.sectionTitle}>Initiate Trade Intelligence pilot.</h2>
+          <div className={styles.sectionEyebrow}>Start a project</div>
+          <h2 className={styles.sectionTitle}>Tell us about your documents.</h2>
           <p className={styles.sectionSubtitle} style={{ margin: "0 auto" }}>
-            Share your document formats and monthly shipment volume. An engineer will respond with pilot scoping.
+            Describe the formats and discrepancies you need checked. We will review the request and agree on a scope.
           </p>
         </div>
 

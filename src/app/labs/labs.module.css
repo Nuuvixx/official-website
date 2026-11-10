@@ -1,4 +1,4 @@
-.main { max-width:var(--container-max); margin:auto; padding:0 clamp(20px,3.5vw,48px) 88px; }
+.main { max-width:var(--container-max); margin:auto; padding:0 clamp(20px,3.5vw,48px) 88px; background:radial-gradient(ellipse 43% 15% at 82% 3%,rgba(245,107,37,.07),transparent 84%); }
 .eyebrow { color:var(--color-accent-text); font:700 .75rem var(--font-sans); letter-spacing:.04em; }
 .hero { padding:clamp(76px,9vw,128px) 0; max-width:920px; }
 .hero h1 { font:400 clamp(3.8rem,6vw,6.5rem)/.98 var(--font-serif); margin:20px 0; }
@@ -7,7 +7,6 @@
 .studioLink { display:inline-flex; align-items:center; gap:9px; border-bottom:1px solid var(--color-ink); margin-top:28px; padding-bottom:6px; font-weight:700; }
 .projectList { border-top:1px solid var(--color-rule); }
 .project { display:grid; grid-template-columns:2fr 7fr 3fr; gap:30px; border-bottom:1px solid var(--color-rule); padding:clamp(48px,6vw,84px) 0; }
-.projectIndex { color:var(--color-accent-text); font:400 clamp(4.5rem,8vw,8rem)/.85 var(--font-serif); }
 .projectBody { grid-column:2/4; max-width:800px; }
 .projectHeading { display:flex; align-items:center; gap:15px; color:var(--color-accent-text); font-size:.78rem; font-weight:700; }
 .projectHeading svg { color:var(--color-ink); }
@@ -22,4 +21,4 @@
 .contact h2 { color:var(--color-on-dark); margin-bottom:0; }
 .contact .eyebrow { color:var(--color-on-dark-muted); }
 .contact a { display:inline-flex; align-items:center; gap:8px; flex:none; border-radius:4px; padding:12px 18px; background:var(--color-on-dark); color:var(--color-ink); font-weight:700; }
-@media(max-width:767px) { .hero { padding:58px 0; } .hero h1 { font-size:clamp(3.1rem,12vw,4.5rem); } .project { grid-template-columns:1fr; gap:14px; padding:48px 0; } .projectBody { grid-column:1; } .projectIndex { font-size:3rem; } .research { grid-template-columns:1fr; } .contact { flex-direction:column; align-items:stretch; } .contact a { justify-content:center; } }
+@media(max-width:767px) { .hero { padding:58px 0; } .hero h1 { font-size:clamp(3.1rem,12vw,4.5rem); } .project { grid-template-columns:1fr; gap:14px; padding:48px 0; } .projectBody { grid-column:1; } .research { grid-template-columns:1fr; } .contact { flex-direction:column; align-items:stretch; } .contact a { justify-content:center; } }
