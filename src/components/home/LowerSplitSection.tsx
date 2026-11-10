@@ -5,6 +5,7 @@ import { parseProductFeed } from "@/lib/commerce/parsers";
 import { validateProductFeed } from "@/lib/commerce/validator";
 import { SAMPLE_BROKEN_CSV_FEED } from "@/lib/commerce/sampleFeeds";
 import { SERVICE_VISUALS } from "@/data/serviceVisuals";
+import imageGlow from "@/styles/service-image-glow.module.css";
 import styles from "./lower-split-section.module.css";
 
 const sampleName = "example-catalog-with-errors.csv";
@@ -58,7 +59,7 @@ export default function LowerSplitSection() {
         </div>
 
         <div className={styles.work}>
-          <figure className={styles.workImage}>
+          <figure className={`${styles.workImage} ${imageGlow.frame}`}>
             <Image src={SERVICE_VISUALS.commerce.src} alt={SERVICE_VISUALS.commerce.alt} width={1200} height={800} sizes="(max-width: 767px) 100vw, 48vw" />
           </figure>
           <div className={styles.workCopy}>

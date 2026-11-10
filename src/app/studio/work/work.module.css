@@ -11,7 +11,7 @@
 .projects { border-top:1px solid var(--color-rule); }
 .project { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:clamp(30px,5vw,80px); padding:clamp(60px,7vw,100px) 0; border-bottom:1px solid var(--color-rule); align-items:center; }
 .copy { grid-column:span 5; }
-.visual { grid-column:7/-1; margin:0; overflow:hidden; background:var(--color-surface); border:1px solid var(--color-rule); }
+.visual { grid-column:7/-1; margin:0; }
 .project:nth-child(even) .visual { grid-column:1/7; grid-row:1; }
 .project:nth-child(even) .copy { grid-column:8/-1; }
 .visual img { width:100%; height:auto; display:block; }

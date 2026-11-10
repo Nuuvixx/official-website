@@ -16,7 +16,7 @@
 .sectionLead p,.inquiry p { color:var(--color-muted); font-size:1.05rem; line-height:1.55; }
 .service { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); align-items:center; gap:clamp(30px,5vw,72px); border-top:1px solid var(--color-rule); padding:clamp(48px,6vw,84px) 0; }
 .serviceCopy { grid-column:span 6; }
-.serviceImage { grid-column:8/-1; margin:0; background:var(--color-surface); overflow:hidden; border:1px solid var(--color-rule); }
+.serviceImage { grid-column:8/-1; margin:0; }
 .service:nth-child(even) .serviceImage { grid-column:1/6; grid-row:1; }
 .service:nth-child(even) .serviceCopy { grid-column:7/-1; }
 .serviceImage img { width:100%; height:auto; display:block; }

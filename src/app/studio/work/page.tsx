@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SERVICE_VISUALS } from "@/data/serviceVisuals";
+import imageGlow from "@/styles/service-image-glow.module.css";
 import styles from "./work.module.css";
 
 export const metadata: Metadata = {
@@ -40,7 +41,7 @@ export default function StudioWorkPage() {
               <div className={styles.scope}><strong>Technical scope</strong><span>{project.scope}</span></div>
               <Link href={project.href} className={styles.projectLink}>Open working tool <ArrowUpRight size={17} /></Link>
             </div>
-            <figure className={styles.visual}>
+            <figure className={`${styles.visual} ${imageGlow.frame}`}>
               <Image src={SERVICE_VISUALS[project.image].src} alt={SERVICE_VISUALS[project.image].alt} width={1200} height={800} sizes="(max-width: 767px) 100vw, 48vw" />
             </figure>
           </article>

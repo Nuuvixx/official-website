@@ -1,0 +1,33 @@
+.frame {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(8px, 0.9vw, 12px);
+  background: radial-gradient(
+    ellipse 76% 86% at 69% 48%,
+    #f2c9a5 0%,
+    #f7deca 52%,
+    #f8eee5 100%
+  );
+  box-shadow: 0 0 0 1px rgba(163, 78, 27, 0.1), 0 18px 42px rgba(163, 78, 27, 0.1);
+}
+
+.frame::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -18px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(232, 130, 49, 0.3) 0%,
+    rgba(242, 177, 120, 0.2) 52%,
+    rgba(242, 177, 120, 0) 78%
+  );
+  filter: blur(18px);
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

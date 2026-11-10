@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { STUDIO_SERVICES } from "@/data/studioServices";
 import { SERVICE_VISUALS } from "@/data/serviceVisuals";
+import imageGlow from "@/styles/service-image-glow.module.css";
 import CommercialInquiryForm from "@/components/studio/CommercialInquiryForm";
 import styles from "./services-landing.module.css";
 
@@ -56,7 +57,7 @@ export default function StudioOverviewPage() {
                   <Link href={`/studio/${service.slug}#intake`} className={styles.textLink}>Request a scoped review</Link>
                 </div>
               </div>
-              <figure className={styles.serviceImage}>
+              <figure className={`${styles.serviceImage} ${imageGlow.frame}`}>
                 <Image src={SERVICE_VISUALS[service.slug].src} alt={SERVICE_VISUALS[service.slug].alt} width={1200} height={800} sizes="(max-width: 767px) 100vw, 45vw" />
               </figure>
             </article>
