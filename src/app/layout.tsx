@@ -1,18 +1,34 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { Instrument_Serif, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-import SmoothScroller from "@/components/layout/SmoothScroller";
 import NavigationBar from "@/components/layout/NavigationBar";
 import Footer from "@/components/layout/Footer";
-import CommandPalette from "@/components/layout/CommandPalette";
-import NoiseOverlay from "@/components/layout/NoiseOverlay";
-import RouteInteractiveGrid from "@/components/layout/RouteInteractiveGrid";
+
+const instrumentSerif = Instrument_Serif({
+  weight: ["400"],
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-ibm-plex-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Nuuvixx | AI Infrastructure & Commercial Engineering Studio",
-  description: "Nuuvixx builds the layer beneath modern AI systems: open-source agent infrastructure in Nuuvixx Labs, and high-impact commercial engineering divisions in Nuuvixx Studio.",
+  title: "Nuuvixx | Product & Engineering Studio",
+  description: "Nuuvixx designs and builds practical software, specialized commercial engineering solutions in Nuuvixx Studio, and open-source infrastructure in Nuuvixx Labs.",
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",
@@ -28,7 +44,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${instrumentSerif.variable} ${dmSans.variable} ${ibmPlexMono.variable}`}
     >
       <head>
         <script
@@ -40,7 +56,7 @@ export default function RootLayout({
               "name": "Nuuvixx",
               "url": "https://nuuvixx.com",
               "logo": "https://nuuvixx.com/logo.png",
-              "description": "Infrastructure for the machines that think. Open-source agent infrastructure (Nuuvixx Labs) and commercial engineering divisions (Nuuvixx Studio).",
+              "description": "Product & Engineering Studio. Specialized commercial solutions (Nuuvixx Studio) and open-source autonomous agent infrastructure (Nuuvixx Labs).",
               "sameAs": [
                 "https://github.com/Nuuvixx",
                 "https://x.com/nuuvixx"
@@ -50,16 +66,12 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <NoiseOverlay />
-        <RouteInteractiveGrid />
-        <SmoothScroller>
+          <a className="skipLink" href="#main-content">Skip to content</a>
           <NavigationBar />
-          <CommandPalette />
-          <main style={{ minHeight: "100vh", paddingTop: "80px" }}>
+          <div id="main-content" style={{ minHeight: "100vh" }} tabIndex={-1}>
             {children}
-          </main>
+          </div>
           <Footer />
-        </SmoothScroller>
       </body>
     </html>
   );

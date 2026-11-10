@@ -18,7 +18,7 @@ export default function ContactPage() {
 
       <div className={styles.container}>
         <div className={styles.grid}>
-          {/* Left Column: Direct Links & Commercial Turnaround */}
+              {/* Direct links and project intake */}
           <div className={styles.leftColumn || styles.contactInfo}>
             <header className={styles.hero}>
               <h1 className={styles.title}>Let&apos;s talk engineering.</h1>
@@ -49,13 +49,9 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div style={{ marginTop: "40px", padding: "20px", background: "rgba(255, 255, 255, 0.03)", borderRadius: "12px", border: "1px solid rgba(255, 255, 255, 0.08)" }}>
-              <div style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.8rem", color: "var(--color-volt)", fontWeight: 700, textTransform: "uppercase", marginBottom: "8px" }}>
-                Commercial Turnaround
-              </div>
-              <p style={{ fontSize: "0.85rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
-                All commercial project submissions are reviewed by a senior engineer within 24 business hours. Preliminary diagnostic scopes provided before any billing commitments.
-              </p>
+            <div style={{ marginTop: "40px", padding: "20px", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+              <h2>What happens next</h2>
+              <p>Tell us the problem, the system involved, and your timeline. We will review your request and agree on a practical scope before work begins.</p>
             </div>
           </div>
 

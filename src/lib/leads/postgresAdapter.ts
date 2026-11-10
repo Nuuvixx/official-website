@@ -37,9 +37,13 @@ function getSslConfig(connectionString: string): PoolConfig["ssl"] {
 function getPool(): Pool {
   if (poolInstance) return poolInstance;
 
-  const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+  const connectionString =
+    process.env.APP_DATABASE_URL ||
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    process.env.SUPABASE_DATABASE_URL;
   if (!connectionString) {
-    throw new Error("PostgreSQL connection string missing (DATABASE_URL or POSTGRES_URL).");
+    throw new Error("PostgreSQL connection string missing (APP_DATABASE_URL, DATABASE_URL, POSTGRES_URL, or SUPABASE_DATABASE_URL).");
   }
 
   const config: PoolConfig = {

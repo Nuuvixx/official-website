@@ -1,0 +1,4 @@
+id	title	description	link	image_link	availability	price	brand	gtin
+TSV-BOOTS-01	Hiking Boots Brown Waterproof	Durable hiking boots for rugged trail exploration.	https://example.com/boots	http://example.com/boots.jpg	in stock	120.00 USD	Acme	012345678909
+TSV-SHIRT-02		Casual cotton shirt in blue.	https://example.com/shirt	https://example.com/shirt.jpg	out_of_stock	25.00	Acme	
+TSV-SOCKS-03	Wool Trail Socks 3-Pack	Breathable merino wool trail socks for winter hiking.	https://example.com/socks	https://example.com/socks.jpg	in_stock	15.00 USD	Acme	00012345678905

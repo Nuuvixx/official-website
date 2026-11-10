@@ -1,0 +1,4 @@
+id,title,description,link,image_link,availability,price,brand,gtin
+SKU-CLEAN-01,Merino Wool Trail Socks,Heavyweight thermal wool socks for alpine trekking.,https://example.com/socks,https://example.com/images/socks.jpg,in_stock,24.00 USD,AlpinePro,00012345678905
+SKU-CLEAN-02,Alpine Hydration Flask 1L,Double-wall vacuum insulated stainless steel water bottle.,https://example.com/flask,https://example.com/images/flask.jpg,in_stock,34.50 USD,AlpinePro,012345678905
+SKU-CLEAN-03,Lightweight Camp Trowel,Anodized aluminum ultralight leave-no-trace trowel.,https://example.com/trowel,https://example.com/images/trowel.jpg,in_stock,18.00 USD,AlpinePro,9780201379624

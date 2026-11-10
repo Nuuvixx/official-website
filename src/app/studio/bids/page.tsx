@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, CheckCircle, Warning, FileText } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, CheckCircle2, AlertTriangle, FileText } from "lucide-react";
 import styles from "../studio.module.css";
 import { STUDIO_SERVICES } from "@/data/studioServices";
 import CommercialInquiryForm from "@/components/studio/CommercialInquiryForm";
@@ -9,8 +9,8 @@ import BidRequirementsDemo from "@/components/studio/demos/BidRequirementsDemo";
 const service = STUDIO_SERVICES.find((s) => s.slug === "bids")!;
 
 export const metadata: Metadata = {
-  title: "Nuuvixx Bid Intelligence — Tender Parsing & Qualification Briefs for Suppliers",
-  description: "Extract mandatory RFP qualification clauses, submission deadlines, and compliance matrices from 100-page tender documents in 24 hours.",
+  title: "Nuuvixx Bid Intelligence — Tender Parsing & Qualification Briefs",
+  description: "Extract selected deadlines and requirements from tender text with source-line references and a CSV checklist.",
 };
 
 export default function BidIntelligencePage() {
@@ -19,22 +19,23 @@ export default function BidIntelligencePage() {
       {/* Hero */}
       <header className={styles.hero}>
         <div className={styles.eyebrow}>
-          <FileText size={14} weight="fill" />
-          {"// "} {service.division}
+          <FileText size={14} />
+          <span>{service.division}</span>
         </div>
         <h1 className={styles.heroTitle}>
-          Tender Opportunity Briefs &amp; <br />
-          <span className={styles.textVolt}>Mandatory Qualification Extraction.</span>
+          Tender opportunity briefs and <br />
+          <span className={styles.textVolt}>mandatory criteria extraction.</span>
         </h1>
         <p className={styles.heroSubtitle}>
           {service.description}
         </p>
         <div className={styles.heroCtas}>
           <a href="#intake" className={styles.primaryCta}>
-            Commission Tender Brief ({service.introPricing.range}) <ArrowRight size={16} weight="bold" />
+            <span>Request a tender brief</span>
+            <ArrowRight size={15} strokeWidth={2.2} />
           </a>
           <a href="#demo" className={styles.secondaryCta}>
-            Try Live RFP Parser
+            <span>Try the local tender parser</span>
           </a>
         </div>
       </header>
@@ -42,10 +43,10 @@ export default function BidIntelligencePage() {
       {/* Interactive Tool Section */}
       <section id="demo" className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.sectionEyebrow}>{"// LIVE INTERACTIVE TOOL"}</div>
-          <h2 className={styles.sectionTitle}>Interactive Tender Clause Parser &amp; Matrix Extractor</h2>
+          <div className={styles.sectionEyebrow}>RFP Intelligence</div>
+          <h2 className={styles.sectionTitle}>Interactive tender parser &amp; matrix extractor.</h2>
           <p className={styles.sectionSubtitle}>
-            Run our RFP intelligence pipeline against a real-world municipal transit RFP excerpt to see how mandatory pass/fail criteria and hidden disqualification traps are surfaced.
+            Try the parser with a bundled tender excerpt. It highlights selected requirements for a human reviewer; it cannot decide eligibility.
           </p>
         </div>
         <BidRequirementsDemo />
@@ -56,8 +57,8 @@ export default function BidIntelligencePage() {
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle}>
-              <CheckCircle size={22} weight="fill" color="var(--color-volt)" />
-              Who Bid Intelligence Is Built For
+              <CheckCircle2 size={20} color="var(--color-orange)" />
+              <span>Who we serve</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.targetAudience.map((target, idx) => (
@@ -71,8 +72,8 @@ export default function BidIntelligencePage() {
 
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle}>
-              <Warning size={22} weight="fill" color="#CCFF00" />
-              Why Suppliers Waste Hundreds of Bid Hours
+              <AlertTriangle size={20} color="var(--color-orange)" />
+              <span>Bid risks we eliminate</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.primaryProblems.map((prob, idx) => (
@@ -89,28 +90,28 @@ export default function BidIntelligencePage() {
       {/* Deliverables & Transparent Scope */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.sectionEyebrow}>{"// DELIVERABLES & PROCUREMENT BOUNDARIES"}</div>
-          <h2 className={styles.sectionTitle}>Actionable Tender Briefs &amp; Compliance Spreadsheets</h2>
+          <div className={styles.sectionEyebrow}>Deliverables &amp; Scope</div>
+          <h2 className={styles.sectionTitle}>Engineered bid deliverables with zero ambiguity.</h2>
           <p className={styles.sectionSubtitle}>
-            We provide structured, clause-by-clause response matrices and executive go/no-go verdicts so your team never bids on an unwinnable tender.
+            Mandatory criteria matrices, disqualification trap checklists, and submission timelines delivered within 24 hours.
           </p>
         </div>
 
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
-            <h3 className={styles.boxTitle} style={{ color: "#00e676" }}>
-              Included in Every Tender Package
+            <h3 className={styles.boxTitle} style={{ color: "var(--color-success)" }}>
+              <span>Included in every brief</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.deliverables.map((del, idx) => (
                 <li key={idx} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "#00e676", fontWeight: 700 }}>✓</span>
+                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
                   <span>{del}</span>
                 </li>
               ))}
               {service.scopeAndExclusions.included.map((inc, idx) => (
                 <li key={`inc-${idx}`} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "#00e676", fontWeight: 700 }}>✓</span>
+                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
                   <span>{inc}</span>
                 </li>
               ))}
@@ -118,20 +119,17 @@ export default function BidIntelligencePage() {
           </div>
 
           <div className={styles.boxCard}>
-            <h3 className={styles.boxTitle} style={{ color: "#ff6b6b" }}>
-              Procurement Disclaimers &amp; Exclusions
+            <h3 className={styles.boxTitle} style={{ color: "var(--color-error)" }}>
+              <span>Explicit exclusions</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.scopeAndExclusions.excluded.map((exc, idx) => (
                 <li key={idx} className={styles.scopeExcludedItem}>
-                  <span style={{ color: "#ff6b6b", fontWeight: 700 }}>✗</span>
+                  <span style={{ color: "var(--color-error)", fontWeight: 700 }}>✗</span>
                   <span>{exc}</span>
                 </li>
               ))}
             </ul>
-            <div style={{ marginTop: "24px", padding: "16px", background: "rgba(255,255,255,0.03)", borderRadius: "8px", fontSize: "0.8rem", color: "var(--color-text-secondary)" }}>
-              <strong>No Contract Award Guarantees:</strong> Tender decisions are made solely by procurement authorities. Nuuvixx provides requirement extraction and risk analysis. We do not guarantee bid awards.
-            </div>
           </div>
         </div>
       </section>
@@ -139,10 +137,10 @@ export default function BidIntelligencePage() {
       {/* Process */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.sectionEyebrow}>{"// 24-HOUR ANALYSIS CYCLE"}</div>
-          <h2 className={styles.sectionTitle}>From 100-Page RFP to Actionable Matrix</h2>
+          <div className={styles.sectionEyebrow}>Our Process</div>
+          <h2 className={styles.sectionTitle}>From tender text to a review checklist.</h2>
           <p className={styles.sectionSubtitle}>
-            Rapid analysis designed to give your bid writers the maximum available time before deadlines.
+            Review extracted requirements against their source lines, then export a checklist for your team.
           </p>
         </div>
 
@@ -157,24 +155,22 @@ export default function BidIntelligencePage() {
         </div>
       </section>
 
-      {/* Pricing & Future Roadmap */}
+      {/* Pricing */}
       <section className={styles.section}>
-        <div className={styles.boxCard} style={{ borderColor: "rgba(204, 255, 0, 0.4)", background: "rgba(204, 255, 0, 0.04)" }}>
+        <div className={styles.boxCard}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "24px" }}>
             <div>
-              <span className={styles.sectionEyebrow}>FIXED-SCOPE PACKAGES</span>
-              <h3 style={{ fontSize: "1.8rem", color: "#ffffff", marginTop: "4px" }}>
-                {service.introPricing.range} <span style={{ fontSize: "1rem", color: "var(--color-text-secondary)", fontWeight: 400 }}>/ {service.introPricing.model}</span>
+              <span className={styles.sectionEyebrow}>Scope and pricing</span>
+              <h3 style={{ fontSize: "1.8rem", color: "var(--color-ink)", marginTop: "4px", fontFamily: "var(--font-serif)", fontWeight: 400 }}>
+                {service.introPricing.range} <span style={{ fontSize: "1rem", color: "var(--color-muted)", fontFamily: "var(--font-sans)" }}>/ {service.introPricing.model}</span>
               </h3>
-              <p style={{ color: "var(--color-text-secondary)", fontSize: "0.95rem", maxWidth: "600px", marginTop: "8px" }}>
+              <p style={{ color: "var(--color-muted)", fontSize: "0.95rem", maxWidth: "600px", marginTop: "8px", lineHeight: 1.5 }}>
                 {service.introPricing.note}
               </p>
-              <div style={{ marginTop: "16px", fontSize: "0.85rem", color: "var(--color-volt)" }}>
-                <strong>Automated Portal Scanner Roadmap:</strong> {service.futureRoadmap}
-              </div>
             </div>
-            <a href="#intake" className={styles.primaryCta} style={{ marginTop: "12px", background: "#CCFF00", color: "#000000" }}>
-              Commission Tender Brief →
+            <a href="#intake" className={styles.primaryCta} style={{ marginTop: "8px" }}>
+              <span>Commission Bid Brief</span>
+              <ArrowRight size={15} />
             </a>
           </div>
         </div>
@@ -183,26 +179,26 @@ export default function BidIntelligencePage() {
       {/* FAQ */}
       <section className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>{"// PROCUREMENT QUESTIONS"}</div>
-          <h2 className={styles.sectionTitle}>Frequently Asked Bid Intelligence Questions</h2>
+          <div className={styles.sectionEyebrow}>Questions &amp; Answers</div>
+          <h2 className={styles.sectionTitle}>Frequently asked procurement questions.</h2>
         </div>
         <FaqAccordion items={service.faqs} />
       </section>
 
-      {/* Commercial Qualification Form */}
+      {/* Intake */}
       <section id="intake" className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>{"// SUBMIT TENDER FOR REVIEW"}</div>
-          <h2 className={styles.sectionTitle}>Commission Tender Opportunity Brief</h2>
+          <div className={styles.sectionEyebrow}>Direct Intake</div>
+          <h2 className={styles.sectionTitle}>Initiate Bid Intelligence brief.</h2>
           <p className={styles.sectionSubtitle} style={{ margin: "0 auto" }}>
-            Provide the tender title, agency link, or deadline. Our procurement analysts will review document scope and confirm turnaround within 24 hours.
+            Upload or link the RFP tender documentation. An engineer will inspect the scope and confirm delivery timing.
           </p>
         </div>
 
         <div style={{ maxWidth: "780px", margin: "0 auto" }}>
           <CommercialInquiryForm
             defaultService="bid-intelligence"
-            sourceContext="Bid Intelligence Product Page"
+            sourceContext="Bid Intelligence Page"
           />
         </div>
       </section>

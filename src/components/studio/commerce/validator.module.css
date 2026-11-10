@@ -1,4 +1,5 @@
 .validatorContainer {
+  --color-text-secondary: var(--color-on-dark-muted);
   background: rgba(18, 18, 20, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
@@ -298,7 +299,7 @@
   align-items: center;
   gap: 6px;
   background: var(--color-volt, #ff5500);
-  color: #ffffff;
+  color: var(--color-ink);
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 0.82rem;
@@ -393,7 +394,7 @@
 
 .badgeDisapproved {
   background: rgba(255, 77, 79, 0.15);
-  color: #ff4d4f;
+  color: #ffb2b3;
   border: 1px solid rgba(255, 77, 79, 0.3);
 }
 
@@ -445,7 +446,7 @@
 
 .tagCritical {
   background: #ff4d4f;
-  color: #ffffff;
+  color: #181817;
 }
 
 .tagWarning {

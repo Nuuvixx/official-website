@@ -115,7 +115,14 @@ export async function POST(request: Request) {
     // 3. Safe JSON Body Parsing
     let body: unknown;
     try {
-      body = await request.json();
+      const rawBody = await request.text();
+      if (Buffer.byteLength(rawBody, "utf8") > 65536) {
+        return NextResponse.json(
+          { success: false, error: "Payload Too Large. Inquiries must not exceed 64KB." },
+          { status: 413 }
+        );
+      }
+      body = JSON.parse(rawBody);
     } catch {
       return NextResponse.json(
         { success: false, error: "Invalid JSON request payload." },
@@ -299,7 +306,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "Thank you for reaching out. A Nuuvixx engineering lead will review your submission and reply within 24 business hours.",
+      message: "Thank you for reaching out. We have received your inquiry and will review the details you provided.",
       inquiryId: saveResult.inquiryRef,
     });
   } catch (err: unknown) {

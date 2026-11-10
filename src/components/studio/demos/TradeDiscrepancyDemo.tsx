@@ -1,136 +1,309 @@
 "use client";
 
-import { useState } from "react";
-import { Play } from "@phosphor-icons/react";
+import { useState, useMemo } from "react";
+import {
+  ShieldCheck,
+  FileCsv,
+  ArrowRight,
+  Scales,
+  ArrowsLeftRight,
+} from "@phosphor-icons/react";
 import styles from "./demos.module.css";
-
-const SYNTHETIC_TRADE_DOCS = `=== DOCUMENT A: COMMERCIAL INVOICE #CI-2026-881 ===
-Consignee: Global Tech Logistics BV (Rotterdam, Netherlands)
-Incoterm: CIF Rotterdam
-Item 1: Model X Industrial Edge Gateway (QTY: 500 units @ $120.00 = $60,000.00)
-        HS Tariff Code: 8471.30.0100
-        Total Gross Weight: 2,450.00 KGS
-Item 2: Heavy-Duty IP67 Mounting Bracket (QTY: 500 units @ $15.00 = $7,500.00)
-        HS Tariff Code: 8302.49.0000
-        Total Gross Weight: 1,800.00 KGS
-Declared Grand Total: $67,500.00 USD
-Declared Total Gross Weight: 4,250.00 KGS
-
-=== DOCUMENT B: PACKING LIST #PL-2026-881 ===
-Container Number: MSCU-992184-7
-Seal Number: SL-49201
-Item 1: Model X Industrial Edge Gateway (50 Pallets, 500 units)
-        HS Tariff Code: 8471.50.0100  <-- VARIANCE DETECTED
-        Actual Net Weight: 2,100 KGS | Actual Gross Weight: 2,450 KGS
-Item 2: Heavy-Duty IP67 Mounting Bracket (25 Pallets, 500 units)
-        HS Tariff Code: 8302.49.0000
-        Actual Net Weight: 1,650 KGS | Actual Gross Weight: 2,120 KGS  <-- VARIANCE DETECTED (+320 KGS)
-Total Manifest Gross Weight: 4,570.00 KGS  <-- MISMATCH (+320 KGS over Commercial Invoice!)`;
+import {
+  reconcileTradeDocuments,
+  generateTradeReconciliationCsv,
+} from "@/lib/trade/reconciler";
+import {
+  ALL_SAMPLE_TRADE_PAIRS,
+  SAMPLE_DISCREPANT_TRADE,
+} from "@/lib/trade/sampleTradeDocs";
+import { TradeReconciliationResult } from "@/lib/trade/types";
 
 export default function TradeDiscrepancyDemo() {
-  const [analyzed, setAnalyzed] = useState(false);
-  const [isChecking, setIsChecking] = useState(false);
+  const [selectedPairId, setSelectedPairId] = useState(SAMPLE_DISCREPANT_TRADE.id);
+  const [invoiceText, setInvoiceText] = useState(SAMPLE_DISCREPANT_TRADE.invoice);
+  const [packingListText, setPackingListText] = useState(SAMPLE_DISCREPANT_TRADE.packingList);
 
-  const handleReconcile = () => {
-    setIsChecking(true);
-    setTimeout(() => {
-      setIsChecking(false);
-      setAnalyzed(true);
-    }, 600);
+  const result: TradeReconciliationResult = useMemo(() => {
+    return reconcileTradeDocuments(invoiceText, packingListText);
+  }, [invoiceText, packingListText]);
+
+  const handleSelectPreset = (id: string) => {
+    const found = ALL_SAMPLE_TRADE_PAIRS.find((p) => p.id === id);
+    if (found) {
+      setSelectedPairId(found.id);
+      setInvoiceText(found.invoice);
+      setPackingListText(found.packingList);
+    }
   };
+
+  const handleDownloadCsv = () => {
+    const csvContent = generateTradeReconciliationCsv(result);
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `trade-reconciliation-${result.invoiceNumber}-${result.packingListNumber}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const activeMeta = ALL_SAMPLE_TRADE_PAIRS.find((p) => p.id === selectedPairId);
 
   return (
     <div className={styles.demoContainer}>
+      {/* Header */}
       <div className={styles.demoHeader}>
         <div className={styles.demoTitleRow}>
-          <span className={styles.demoBadge}>Interactive Prototype</span>
-          <h4 className={styles.demoTitle}>Trade Intelligence: Multi-Document Reconciliation Engine</h4>
+          <span className={styles.demoBadge}>Reconciliation Engine</span>
+          <h4 className={styles.demoTitle}>
+            Trade Intelligence: Multi-Document Variance Reconciler
+          </h4>
         </div>
         <div className={styles.demoControls}>
-          <button
-            onClick={handleReconcile}
-            disabled={isChecking}
-            className={styles.actionBtn}
-          >
-            {isChecking ? "Reconciling Documents..." : "Reconcile Trade Records"}
-            <Play size={14} weight="bold" />
-          </button>
+          {ALL_SAMPLE_TRADE_PAIRS.map((pair) => (
+            <button
+              key={pair.id}
+              type="button"
+              className={`${styles.presetBtn} ${
+                selectedPairId === pair.id ? styles.presetBtnActive : ""
+              }`}
+              onClick={() => handleSelectPreset(pair.id)}
+            >
+              {pair.name}
+            </button>
+          ))}
         </div>
       </div>
 
       <div className={styles.demoBody}>
-        <p style={{ fontSize: "0.85rem", color: "var(--color-text-secondary)", marginBottom: "12px" }}>
-          Synthetic Cross-Border Document Pair: <code>Commercial_Invoice_881.pdf vs Packing_List_881.pdf</code>
+        {/* Zero Data Leak Privacy Notice */}
+        <div className={styles.privacyBanner}>
+          <ShieldCheck size={16} weight="fill" color="#52C41A" />
+          <span>
+            <strong>Confidential Local Processing:</strong> Trade manifests, commercial invoices, and bill of lading documents are reconciled strictly in browser memory. Never shared with external APIs.
+          </span>
+        </div>
+
+        <p style={{ fontSize: "0.85rem", color: "var(--color-text-secondary)", marginBottom: "8px" }}>
+          Target Documents: <code>{result.invoiceNumber}</code> vs <code>{result.packingListNumber}</code> — {activeMeta?.description}
         </p>
-        <div className={styles.codeArea}>{SYNTHETIC_TRADE_DOCS}</div>
 
-        {analyzed && (
-          <div className={styles.resultsPanel}>
-            <div className={styles.scorecard}>
-              <div className={styles.scoreItem}>
-                <div className={styles.scoreLabel}>Customs Risk Score</div>
-                <div className={`${styles.scoreValue} ${styles.scoreValueCritical}`}>HIGH RISK</div>
-              </div>
-              <div className={styles.scoreItem}>
-                <div className={styles.scoreLabel}>Weight Discrepancy</div>
-                <div className={`${styles.scoreValue} ${styles.scoreValueCritical}`}>+320.00 KGS</div>
-              </div>
-              <div className={styles.scoreItem}>
-                <div className={styles.scoreLabel}>HS Code Mismatch</div>
-                <div className={`${styles.scoreValue} ${styles.scoreValueWarning}`}>1 Item</div>
-              </div>
-              <div className={styles.scoreItem}>
-                <div className={styles.scoreLabel}>Est. Demurrage Saved</div>
-                <div className={`${styles.scoreValue} ${styles.scoreValueGood}`}>$1,200 – $4,500</div>
-              </div>
+        {/* Side-by-side or stacked Document Editors */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "16px" }}>
+          <div>
+            <div style={{ fontSize: "0.75rem", textTransform: "uppercase", color: "#A6A095", marginBottom: "4px", fontWeight: 600 }}>
+              Document A: Commercial Invoice
             </div>
+            <textarea
+              aria-label="Commercial invoice text"
+              value={invoiceText}
+              onChange={(e) => setInvoiceText(e.target.value)}
+              className={styles.codeTextarea}
+              rows={8}
+              spellCheck={false}
+              style={{ minHeight: "150px" }}
+            />
+          </div>
 
-            <div className={styles.issuesList}>
-              <div className={styles.issueCard}>
-                <div className={styles.issueHeader}>
-                  <span className={`${styles.issueTag} ${styles.tagCritical}`}>Weight Variance · Port Hold Warning</span>
-                  <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#ff6b6b" }}>Gross Weight Mismatch</span>
-                </div>
-                <div className={styles.issueTitle}>Declared 4,250 kg on Invoice vs 4,570 kg on Packing List</div>
-                <div className={styles.issueDetails}>
-                  A weight variance exceeding 5% triggers mandatory customs x-ray scanning and weighing bridge detention at Rotterdam Port terminals.
-                </div>
-                <div className={styles.remediationCode}>
-                  Action: Adjust Commercial Invoice Item 2 gross weight from 1,800.00 KGS to 2,120.00 KGS to match certified scale manifest before Bill of Lading filing.
-                </div>
-              </div>
-
-              <div className={`${styles.issueCard} ${styles.issueCardWarning}`}>
-                <div className={styles.issueHeader}>
-                  <span className={`${styles.issueTag} ${styles.tagWarning}`}>Harmonized Tariff Discrepancy</span>
-                  <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#ffaa00" }}>Item 1: Edge Gateway</span>
-                </div>
-                <div className={styles.issueTitle}>HS Code 8471.30 (Portable) vs 8471.50 (Processing Units)</div>
-                <div className={styles.issueDetails}>
-                  Commercial Invoice specifies portable automatic data processing machine (8471.30) while Packing List references standalone unit (8471.50). Inconsistent declaration leads to incorrect tariff duty assessment.
-                </div>
-                <div className={styles.remediationCode}>
-                  Action: Harmonize to validated technical classification 8471.50 across all export declarations.
-                </div>
-              </div>
-
-              <div className={`${styles.issueCard} ${styles.issueCardPass}`}>
-                <div className={styles.issueHeader}>
-                  <span className={`${styles.issueTag} ${styles.tagPass}`}>Nuuvixx Trade Intelligence</span>
-                  <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#00e676" }}>Verified Matrix Output</span>
-                </div>
-                <div className={styles.issueTitle}>Clean Structured JSON/CSV Export Ready</div>
-                <div className={styles.issueDetails}>
-                  Automated validation report and rectified dataset ready for one-click upload to your customs broker or ERP system.
-                </div>
-              </div>
+          <div>
+            <div style={{ fontSize: "0.75rem", textTransform: "uppercase", color: "#A6A095", marginBottom: "4px", fontWeight: 600 }}>
+              Document B: Packing List / Manifest
             </div>
+            <textarea
+              aria-label="Packing list text"
+              value={packingListText}
+              onChange={(e) => setPackingListText(e.target.value)}
+              className={styles.codeTextarea}
+              rows={8}
+              spellCheck={false}
+              style={{ minHeight: "150px" }}
+            />
+          </div>
+        </div>
 
-            <div className={styles.disclaimer}>
-              Nuuvixx Trade Intelligence · Automated Multi-Document Reconciliation v1.0
+        {/* Scorecard */}
+        <div className={styles.scorecard}>
+          <div className={styles.scoreItem}>
+            <div className={styles.scoreLabel}>Field Discrepancies</div>
+            <div
+              className={`${styles.scoreValue} ${
+                result.discrepancies.length > 0 ? styles.scoreValueCritical : styles.scoreValueSuccess
+              }`}
+            >
+              {result.discrepancies.length} Flagged
+            </div>
+            <div style={{ fontSize: "0.72rem", color: "#A6A095", marginTop: "2px" }}>
+              Tested manifest fields
             </div>
           </div>
-        )}
+
+          <div className={styles.scoreItem}>
+            <div className={styles.scoreLabel}>Tariff Code Mismatches</div>
+            <div
+              className={`${styles.scoreValue} ${
+                result.discrepancies.some((d) => d.type === "hs_code_mismatch")
+                  ? styles.scoreValueCritical
+                  : styles.scoreValueSuccess
+              }`}
+            >
+              {result.discrepancies.filter((d) => d.type === "hs_code_mismatch").length} Items
+            </div>
+            <div style={{ fontSize: "0.72rem", color: "#A6A095", marginTop: "2px" }}>
+              HS subheading shifts
+            </div>
+          </div>
+
+          <div className={styles.scoreItem}>
+            <div className={styles.scoreLabel}>Gross Weight Difference</div>
+            <div
+              className={`${styles.scoreValue} ${
+                result.weightVarianceKg > 20 ? styles.scoreValueCritical : styles.scoreValueSuccess
+              }`}
+            >
+              {result.weightVarianceKg > 0 ? `±${result.weightVarianceKg.toFixed(0)} KGS` : "0.00 KGS"}
+            </div>
+            <div style={{ fontSize: "0.72rem", color: "#A6A095", marginTop: "2px" }}>
+              Invoice vs manifest scale
+            </div>
+          </div>
+
+          <div className={styles.scoreItem}>
+            <div className={styles.scoreLabel}>Reconciliation Status</div>
+            <div
+              className={`${styles.scoreValue} ${
+                result.discrepancies.length > 0 ? styles.scoreValueCritical : styles.scoreValueSuccess
+              }`}
+              style={{ fontSize: "0.85rem" }}
+            >
+              {result.discrepancies.length > 0 ? "REVIEW DIFFERENCES" : "TESTED FIELDS MATCH"}
+            </div>
+            <div style={{ fontSize: "0.72rem", color: "#A6A095", marginTop: "2px" }}>
+              {result.discrepancies.length > 0 ? "Confirm against source records" : "No differences on tested fields"}
+            </div>
+          </div>
+        </div>
+
+        {/* Boundary & Scope Disclosure */}
+        <div style={{ marginBottom: "16px", padding: "10px 14px", background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "4px", fontSize: "0.78rem", color: "#A6A095", lineHeight: 1.5 }}>
+          <strong style={{ color: "#E5DFD6" }}>Reconciliation Scope Notice:</strong> This engine performs field-level comparison between Commercial Invoices and Packing Lists (tariff numbers, gross/tare weights, and quantities) to catch paperwork anomalies before bill of lading submission. It does NOT predict border agency enforcement actions, guarantee port clearance, or replace licensed customs brokerage filings.
+        </div>
+
+        {/* Results Panel */}
+        <div className={styles.resultsPanel}>
+          <div className={styles.resultsHeader}>
+            <div className={styles.statusIndicator}>
+              <ArrowsLeftRight size={18} weight="bold" color="var(--color-orange)" />
+              <span style={{ color: "#FFFFFF" }}>
+                Reconciled {result.itemsReconciled} Manifest Items across Documents
+              </span>
+            </div>
+
+            <button
+              type="button"
+              className={styles.presetBtn}
+              onClick={handleDownloadCsv}
+              style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
+            >
+              <FileCsv size={16} weight="bold" />
+              <span>Export Reconciliation Matrix (.CSV)</span>
+            </button>
+          </div>
+
+          {result.discrepancies.length === 0 ? (
+            <div
+              style={{
+                padding: "20px",
+                background: "rgba(82, 196, 26, 0.05)",
+                border: "1px solid rgba(82, 196, 26, 0.2)",
+                borderRadius: "4px",
+                fontSize: "0.85rem",
+                color: "#E5DFD6",
+              }}
+            >
+          <strong style={{ color: "#95DE64" }}>Sample fields matched:</strong> The compared HS codes, weights, and consignee fields match in these two sample records. This does not establish customs clearance or document completeness.
+            </div>
+          ) : (
+            result.discrepancies.map((disc) => (
+              <div
+                key={disc.id}
+                className={`${styles.issueCard} ${
+                  disc.severity === "critical"
+                    ? styles.issueCardCritical
+                    : styles.issueCardWarning
+                }`}
+              >
+                <div className={styles.issueHeader}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span
+                      className={
+                        disc.severity === "critical" ? styles.tagCritical : styles.tagWarning
+                      }
+                    >
+                      {disc.type.toUpperCase()} · {disc.severity}
+                    </span>
+                    <span className={styles.issueTitle}>{disc.itemReference}</span>
+                  </div>
+                  <span style={{ fontFamily: "monospace", fontSize: "0.78rem", color: "#FF8585" }}>
+                    {disc.difference}
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "8px",
+                    background: "#0B0B0C",
+                    padding: "8px 12px",
+                    borderRadius: "4px",
+                    fontSize: "0.78rem",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <div>
+                    <span style={{ color: "#A6A095", textTransform: "uppercase", fontSize: "0.7rem", display: "block" }}>
+                      Invoice Value
+                    </span>
+                    <span style={{ color: "#FFFFFF", fontFamily: "monospace" }}>{disc.invoiceValue}</span>
+                  </div>
+
+                  <div>
+                    <span style={{ color: "#A6A095", textTransform: "uppercase", fontSize: "0.7rem", display: "block" }}>
+                      Packing List Value
+                    </span>
+                    <span style={{ color: "#FF8585", fontFamily: "monospace" }}>{disc.packingListValue}</span>
+                  </div>
+                </div>
+
+                <p className={styles.issueDesc}>{disc.customsRiskExplanation}</p>
+
+                <div className={styles.remediationBox}>
+                  <div className={styles.remediationTitle}>
+                    <Scales size={14} weight="bold" />
+                    <span>Remediation Guidance:</span>
+                  </div>
+                  <div style={{ fontSize: "0.8rem", color: "#D9D3CA" }}>
+                    {disc.remediation}
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+
+          {/* CTA Bar */}
+          <div className={styles.ctaBar}>
+            <div style={{ fontSize: "0.85rem", color: "#A6A095" }}>
+              Need help reviewing document differences in a defined workflow?
+            </div>
+            <a href="#intake" className={styles.ctaButton}>
+              <span>Request a scoped reconciliation review</span>
+              <ArrowRight size={14} weight="bold" />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

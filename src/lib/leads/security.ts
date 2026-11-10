@@ -1,14 +1,16 @@
 import crypto from "node:crypto";
 
-const IP_SALT = process.env.LEADS_IP_SALT || "nuuvixx-inquiry-salt-v1";
-
 /**
  * Anonymizes client IP address using SHA-256 HMAC with server-side salt.
  * Ensures zero plaintext IP storage, complying with GDPR/CCPA data minimization.
  */
 export function anonymizeIp(ip: string): string {
+  const ipSalt = process.env.LEADS_IP_SALT;
+  if (process.env.NODE_ENV === "production" && !ipSalt) {
+    throw new Error("LEADS_IP_SALT is required for production inquiry intake");
+  }
   const cleanIp = ip.split(",")[0].trim().replace(/:\d+$/, "");
-  return crypto.createHmac("sha256", IP_SALT).update(cleanIp).digest("hex").slice(0, 32);
+  return crypto.createHmac("sha256", ipSalt || "local-development-only").update(cleanIp).digest("hex").slice(0, 32);
 }
 
 /**

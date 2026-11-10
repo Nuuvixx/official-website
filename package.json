@@ -8,12 +8,19 @@
     "start": "next start",
     "lint": "eslint",
     "db:migrate": "node --env-file=.env scripts/migrate.mjs",
-    "test:db": "node --env-file=.env scratch/test-supabase-persistence.mjs",
+    "test:db": "node --env-file=.env tests/test-supabase-persistence.mjs",
     "db:cleanup": "node --env-file=.env scripts/retention-cleanup.mjs",
-    "test:commerce": "npx tsx scratch/test-commerce-rescue.mjs",
-    "test:browser": "node scratch/test-browser-commerce.mjs",
-    "test:readiness": "npx tsx --env-file=.env scratch/verify-db-production-readiness.mjs",
-    "test:roles": "node --env-file=.env scratch/test-restricted-roles.mjs"
+    "test:commerce": "npx tsx tests/test-commerce-rescue.mjs",
+    "test:secure": "npx tsx tests/test-secure-engine.mjs",
+    "test:bids": "npx tsx tests/test-bid-engine.mjs",
+    "test:creative": "npx tsx tests/test-creative-brief.mjs",
+    "test:trade": "npx tsx tests/test-trade-engine.mjs",
+    "test:failclosed": "npx tsx tests/test-inquiry-fail-closed.mjs",
+    "test:journeys": "node tests/test-all-product-journeys.mjs",
+    "test:all": "npm run test:commerce && npm run test:secure && npm run test:bids && npm run test:creative && npm run test:trade && npm run test:failclosed",
+    "test:browser": "node tests/test-browser-commerce.mjs",
+    "test:readiness": "npx tsx --env-file=.env tests/verify-db-production-readiness.mjs",
+    "test:roles": "node --env-file=.env tests/test-restricted-roles.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -27,7 +34,8 @@
     "framer-motion": "^12.42.2",
     "geist": "^1.7.2",
     "gsap": "^3.15.0",
-    "next": "16.2.10",
+    "lucide-react": "^1.70.0",
+    "next": "^16.4.6",
     "pg": "^8.23.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -40,7 +48,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "^16.4.6",
     "playwright": "^1.64.1",
     "typescript": "^5"
   }

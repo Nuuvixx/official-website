@@ -1,11 +1,17 @@
 import { FeedAuditSummary } from "./types";
 
 /**
- * Escapes a string field for RFC 4180 CSV export.
+ * Escapes a string field for RFC 4180 CSV export with defense against Formula Injection (CWE-1236).
  */
 function escapeCsv(value: string | number | undefined): string {
   if (value === undefined || value === null) return "";
-  const str = String(value);
+  let str = String(value);
+
+  // Mitigate CSV / Formula Injection: prepend ' to cells starting with formula triggers
+  if (/^[=\+\-@\t\r]/.test(str)) {
+    str = `'${str}`;
+  }
+
   if (str.includes('"') || str.includes(",") || str.includes("\n") || str.includes("\r")) {
     return `"${str.replace(/"/g, '""')}"`;
   }
@@ -28,9 +34,11 @@ export function generateCsvReport(summary: FeedAuditSummary): string {
     "Details",
     "Suggested Correction",
     "Specification Reference",
+    "Audit Notice",
   ];
 
   const rows: string[] = [headers.join(",")];
+  const auditNotice = "Preliminary static check by Nuuvixx Commerce Rescue. Not affiliated with Google LLC. GMC crawler validation required.";
 
   for (const finding of summary.findings) {
     const statusLabel =
@@ -54,6 +62,7 @@ export function generateCsvReport(summary: FeedAuditSummary): string {
           escapeCsv("Product passed local static attribute checks against Google Merchant Center specification rules."),
           escapeCsv("No local action required. Note: Google performs live landing page price/stock crawls upon feed submission."),
           escapeCsv("https://support.google.com/merchants/answer/7052112"),
+          escapeCsv(auditNotice),
         ].join(",")
       );
     } else {
@@ -71,6 +80,7 @@ export function generateCsvReport(summary: FeedAuditSummary): string {
             escapeCsv(issue.message),
             escapeCsv(issue.remediation),
             escapeCsv(issue.specCitation || ""),
+            escapeCsv(auditNotice),
           ].join(",")
         );
       }

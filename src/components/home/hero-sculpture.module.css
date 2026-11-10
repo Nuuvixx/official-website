@@ -1,0 +1,29 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.centerpieceImg {
+  display: block;
+  width: min(86%, 590px);
+  height: auto;
+  object-fit: contain;
+  animation: sculptureFloat 9s ease-in-out infinite;
+}
+
+@keyframes sculptureFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@media (max-width: 767px) {
+  .wrapper { height: auto; }
+
+  .centerpieceImg {
+    width: min(92%, 340px);
+    max-width: none;
+  }
+}

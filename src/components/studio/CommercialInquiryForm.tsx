@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PaperPlaneRight, CheckCircle, WarningCircle, CircleNotch } from "@phosphor-icons/react";
+import { ArrowRight, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import styles from "./commercial-inquiry.module.css";
 import { STUDIO_SERVICES } from "@/data/studioServices";
 
@@ -113,13 +113,12 @@ export default function CommercialInquiryForm({
   if (status === "success") {
     return (
       <div className={styles.formCard}>
-        <div className={styles.successBox}>
-          <CheckCircle size={56} weight="fill" className={styles.successIcon} />
+        <div className={styles.successBox} role="status" aria-live="polite">
+          <CheckCircle size={48} className={styles.successIcon} />
           <h3 className={styles.successTitle}>Inquiry Confirmed</h3>
           <p className={styles.successDesc}>
             Thank you for reaching out. We have registered your inquiry
-            {inquiryId ? ` (Ref: ${inquiryId})` : ""}. A dedicated Nuuvixx technical lead will review your
-            requirements and respond within 24 business hours with initial diagnostic steps.
+            {inquiryId ? ` (Reference: ${inquiryId})` : ""}. We will review the details you provided and follow up about the next step.
           </p>
           <button onClick={handleReset} className={styles.resetBtn}>
             Submit Another Project Inquiry
@@ -132,10 +131,9 @@ export default function CommercialInquiryForm({
   return (
     <div className={styles.formCard}>
       <div className={styles.formHeader}>
-        <div className={styles.badge}>Commercial Intake</div>
-        <h3 className={styles.formTitle}>Initiate Technical Project</h3>
+        <h3 className={styles.formTitle}>Tell us about your project.</h3>
         <p className={styles.formSubtitle}>
-          Direct scope qualification with our founding engineers. No generic sales reps or spam.
+          Share what you&apos;re working on and the problem you need solved. We&apos;ll review your inquiry and discuss the next steps.
         </p>
       </div>
 
@@ -204,7 +202,7 @@ export default function CommercialInquiryForm({
 
           <div className={styles.formGroup}>
             <label htmlFor="service" className={styles.label}>
-              Commercial Division <span className={styles.required}>*</span>
+              Service Division <span className={styles.required}>*</span>
             </label>
             <select
               id="service"
@@ -226,13 +224,13 @@ export default function CommercialInquiryForm({
 
         <div className={styles.formGroup}>
           <label htmlFor="problem" className={styles.label}>
-            Problem Description & Scope <span className={styles.required}>*</span>
+            Problem Description &amp; Scope <span className={styles.required}>*</span>
           </label>
           <textarea
             id="problem"
             name="problem"
             rows={4}
-            placeholder="Describe the technical bottleneck, error codes, affected SKUs, repo stack, or timeline urgency..."
+            placeholder="Describe the technical bottleneck, error codes, affected SKUs, repository stack, or timeline..."
             value={formData.problem}
             onChange={handleChange}
             className={styles.textarea}
@@ -253,9 +251,9 @@ export default function CommercialInquiryForm({
               className={styles.select}
             >
               <option value="">Select an introductory tier...</option>
-              <option value="intro-100-250">$99 – $250 (Fixed-Scope Pilot / Diagnostic)</option>
-              <option value="tier-250-500">$250 – $500 (Comprehensive Remediation)</option>
-              <option value="tier-500-1500">$500 – $1,500 (Complex Multi-System Engagement)</option>
+              <option value="intro-100-250">Up to $250</option>
+              <option value="tier-250-500">$250 – $500</option>
+              <option value="tier-500-1500">$500 – $1,500</option>
               <option value="custom">Custom / Retainer</option>
             </select>
           </div>
@@ -271,7 +269,7 @@ export default function CommercialInquiryForm({
               onChange={handleChange}
               className={styles.select}
             >
-              <option value="immediate">Immediate / Critical (within 24-48 hrs)</option>
+              <option value="immediate">Immediate / Urgent</option>
               <option value="this-week">Within this week</option>
               <option value="this-month">Planning for this month</option>
               <option value="exploratory">Exploratory / Discovery</option>
@@ -290,15 +288,15 @@ export default function CommercialInquiryForm({
             required
           />
           <label htmlFor="consent" className={styles.checkboxLabel}>
-            I confirm that I am an authorized technical or business representative. I consent to Nuuvixx
+            I confirm that I am an authorized representative. I consent to Nuuvixx
             reviewing this brief under mutual professional confidentiality. (Never submit passwords or live credentials).
           </label>
         </div>
 
         {errorMessage && (
-          <div className={`${styles.statusMessage} ${styles.errorMessage}`}>
-            <WarningCircle size={18} weight="fill" style={{ marginRight: 6, verticalAlign: "middle" }} />
-            {errorMessage}
+          <div className={`${styles.statusMessage} ${styles.errorMessage}`} role="alert">
+            <AlertCircle size={18} className={styles.errorIcon} />
+            <span>{errorMessage}</span>
           </div>
         )}
 
@@ -309,13 +307,13 @@ export default function CommercialInquiryForm({
         >
           {status === "submitting" ? (
             <>
-              <CircleNotch size={18} className="animate-spin" />
-              Submitting Brief...
+              <Loader2 size={18} className="animate-spin" />
+              <span>Submitting Brief...</span>
             </>
           ) : (
             <>
-              Submit Technical Project Brief
-              <PaperPlaneRight size={18} weight="bold" />
+              <span>Submit Project Inquiry</span>
+              <ArrowRight size={17} strokeWidth={2.2} />
             </>
           )}
         </button>

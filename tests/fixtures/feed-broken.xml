@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>Acme Outdoor Store Feed</title>
+    <link>https://example.com</link>
+    <description>Acme Outdoor Store Product Inventory</description>
+    <item>
+      <g:id>XML-BAD-01</g:id>
+      <g:title>FREE SHIPPING Winter Down Jacket Men's Red</g:title>
+      <g:description>Premium cold-weather insulated down parka jacket.</g:description>
+      <g:link>https://example.com/parka</g:link>
+      <g:image_link>http://insecure.example.com/parka.jpg</g:image_link>
+      <g:availability>in stock</g:availability>
+      <g:price>299.00 USD</g:price>
+      <g:sale_price>349.00 USD</g:sale_price>
+      <g:brand>Acme</g:brand>
+      <g:gtin>012345678909</g:gtin>
+    </item>
+    <item>
+      <g:id>XML-CLEAN-02</g:id>
+      <g:title>Trail Trekking Poles Carbon Fiber Pair</g:title>
+      <g:description>Ultralight carbon composite hiking poles with quick-lock flick mechanism.</g:description>
+      <g:link>https://example.com/poles</g:link>
+      <g:image_link>https://example.com/images/poles.jpg</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:price>89.00 USD</g:price>
+      <g:brand>Acme</g:brand>
+      <g:gtin>00012345678905</g:gtin>
+    </item>
+  </channel>
+</rss>

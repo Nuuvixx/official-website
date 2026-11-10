@@ -1,0 +1,338 @@
+.heroSection {
+  position: relative;
+  background: radial-gradient(ellipse 59% 80% at 76% 50%, #F2C9A5 0%, #F7DECA 34%, #F8EEE5 67%, var(--color-canvas) 100%);
+  padding-top: clamp(16px, 2.2vw, 32px);
+  padding-bottom: clamp(20px, 2.5vw, 36px);
+  border-bottom: 1px solid var(--color-rule);
+  min-height: 610px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 3.5vw, 48px);
+  position: relative;
+  min-height: 570px;
+  display: flex;
+  align-items: center;
+}
+
+/* Left Content Column (approx 38-42%): Headline, Subcopy & CTAs */
+.contentCol {
+  position: relative;
+  z-index: 10;
+  max-width: 520px;
+  width: 100%;
+  pointer-events: auto;
+  flex-shrink: 0;
+  animation: heroEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.eyebrowRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: var(--space-4);
+}
+
+.eyebrowText {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.eyebrowHairline {
+  height: 1px;
+  background-color: var(--color-rule);
+  width: 80px;
+}
+
+.headline {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 5.1vw, 5.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-5);
+  display: flex;
+  flex-direction: column;
+}
+
+.headLine {
+  display: block;
+  font-weight: 400;
+}
+
+.orangeWork {
+  color: var(--color-accent-text);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.subcopy {
+  font-family: var(--font-sans);
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  line-height: 1.5;
+  color: var(--color-muted);
+  max-width: 420px;
+  margin-bottom: var(--space-6);
+}
+
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 4px Corner Radius CTAs with Crisp Borders */
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-ink);
+  color: #FFFFFF;
+  padding: 11px 22px;
+  min-height: 44px;
+  border-radius: 4px;
+  border: 1px solid var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.primaryBtn:hover {
+  background-color: #2D2D2A;
+  border-color: #2D2D2A;
+}
+
+.primaryBtn:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 2px;
+}
+
+.btnArrow {
+  transition: transform 0.15s ease;
+}
+
+.primaryBtn:hover .btnArrow {
+  transform: translate(2px, -2px);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-ink);
+  padding: 11px 20px;
+  min-height: 44px;
+  border-radius: 4px;
+  border: 1px solid var(--color-rule);
+  background-color: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.secondaryBtn:hover {
+  border-color: var(--color-ink);
+  background-color: rgba(24, 24, 23, 0.03);
+}
+
+.secondaryBtn:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 2px;
+}
+
+/* Dedicated Artwork Layer: Unified Canvas Integration on Desktop */
+.artworkLayer {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: min(58vw, 690px);
+  height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.artworkLabels {
+  position: absolute;
+  inset: 0;
+}
+
+.artworkLabel {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(155, 61, 18, 0.3);
+  background: rgba(247, 244, 239, 0.88);
+  padding: 6px 9px;
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  line-height: 1.25;
+  white-space: nowrap;
+  box-shadow: 0 3px 12px rgba(115, 61, 27, 0.06);
+  animation: labelEnter 0.7s ease-out both;
+}
+
+.artworkLabel::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--color-accent-text);
+}
+
+.labelCommerce { top: 11%; left: 9%; animation-delay: 0.25s; }
+.labelSecure { top: 15%; right: 2%; animation-delay: 0.36s; }
+.labelCreative { top: 69%; right: 1%; animation-delay: 0.47s; }
+.labelTrade { bottom: 12%; left: 6%; animation-delay: 0.58s; }
+.labelBids { bottom: 3%; right: 19%; animation-delay: 0.69s; }
+
+@keyframes heroEnter {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes labelEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Laptop / Small Desktop (1025px - 1280px) */
+@media (max-width: 1280px) {
+  .heroSection {
+    min-height: 540px;
+  }
+
+  .contentCol {
+    max-width: 440px;
+  }
+
+  .headline {
+    font-size: clamp(2.6rem, 3.8vw, 4.2rem);
+  }
+
+  .artworkLayer {
+    width: 57vw;
+    height: 520px;
+  }
+
+  .artworkLabel { font-size: 0.58rem; }
+}
+
+/* Tablet (769px - 1024px) */
+@media (max-width: 1024px) {
+  .heroSection {
+    min-height: 500px;
+  }
+
+  .contentCol {
+    max-width: 380px;
+  }
+
+  .headline {
+    font-size: clamp(2.3rem, 3.6vw, 3.4rem);
+  }
+
+  .artworkLayer {
+    width: 58vw;
+    height: 470px;
+  }
+
+  .artworkLabels { display: none; }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .heroSection {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
+    min-height: auto;
+    display: block;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto;
+    padding-inline: 20px;
+  }
+
+  .contentCol {
+    max-width: 100%;
+  }
+
+  .eyebrowHairline {
+    width: 50px;
+  }
+
+  .headline {
+    font-size: clamp(2.4rem, 10vw, 3.4rem);
+  }
+
+  .subcopy {
+    max-width: 100%;
+    margin-bottom: var(--space-5);
+  }
+
+  .ctaGroup {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    justify-content: center;
+  }
+
+  /* Artwork layered cleanly beneath headline on mobile */
+  .artworkLayer {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    max-width: 390px;
+    margin-inline: auto;
+    height: auto;
+    flex-direction: column;
+    margin-top: var(--space-3);
+  }
+
+  .artworkLabels {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: -8px;
+  }
+
+  .artworkLabel {
+    position: static;
+    padding: 5px 8px;
+    font-size: 0.65rem;
+  }
+}

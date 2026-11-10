@@ -1,0 +1,75 @@
+.logoLockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+  text-decoration: none;
+}
+
+.symbolWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.symbolImg {
+  display: block;
+  object-fit: contain;
+  height: auto;
+  width: auto;
+}
+
+.wordmark {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-ink);
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.registeredMark {
+  font-size: 0.55em;
+  font-weight: 400;
+  margin-left: 2px;
+  vertical-align: super;
+  color: var(--color-ink);
+  opacity: 0.7;
+}
+
+/* Size Variants */
+.sm .symbolImg {
+  max-height: 18px;
+  max-width: 26px;
+}
+.sm .wordmark {
+  font-size: 0.95rem;
+}
+
+.md .symbolImg {
+  max-height: 22px;
+  max-width: 32px;
+}
+.md .wordmark {
+  font-size: 1.15rem;
+}
+
+.lg .symbolImg {
+  max-height: 28px;
+  max-width: 40px;
+}
+.lg .wordmark {
+  font-size: 1.4rem;
+}
+
+@media (max-width: 640px) {
+  .md .symbolImg {
+    max-height: 18px;
+    max-width: 26px;
+  }
+  .md .wordmark {
+    font-size: 1.05rem;
+  }
+}

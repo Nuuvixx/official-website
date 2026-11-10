@@ -203,6 +203,7 @@ export default function CommerceRescueValidator() {
           type="file"
           accept=".csv,.tsv,.xml,.txt"
           className={styles.fileInput}
+          aria-label="Upload a product feed file"
           onChange={(e) => {
             const file = e.target.files?.[0];
             if (file) handleFileUpload(file);
@@ -219,7 +220,7 @@ export default function CommerceRescueValidator() {
             className={styles.sampleBtn}
             onClick={() => handleLoadSample("xml-broken")}
           >
-            Shopify XML Feed (Simulated Disapproval Triggers)
+            Shopify XML Feed (Sample Issues)
           </button>
           <button
             type="button"
@@ -329,7 +330,7 @@ export default function CommerceRescueValidator() {
               href="#intake"
               className={styles.remediationCta}
             >
-              Request Human Feed Remediation ($99 – $249)
+              Request a scoped feed review
               <ArrowRight size={14} weight="bold" />
             </a>
           </div>

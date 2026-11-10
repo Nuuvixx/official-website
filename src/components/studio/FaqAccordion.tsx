@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+import { ChevronDown } from "lucide-react";
 import styles from "@/app/studio/studio.module.css";
 
 interface FaqItem {
@@ -28,13 +28,13 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
               aria-expanded={isOpen}
             >
               <span>{item.question}</span>
-              <CaretDown
+              <ChevronDown
                 size={18}
-                weight="bold"
                 style={{
                   transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                  transition: "transform 0.25s ease",
-                  color: isOpen ? "var(--color-volt)" : "var(--color-text-secondary)",
+                  transition: "transform 0.2s ease",
+                  color: isOpen ? "var(--color-orange)" : "var(--color-muted)",
+                  flexShrink: 0,
                 }}
               />
             </button>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, CheckCircle, Warning, ShoppingCart } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, CheckCircle2, AlertTriangle, ShoppingCart } from "lucide-react";
 import styles from "../studio.module.css";
 import { STUDIO_SERVICES } from "@/data/studioServices";
 import CommercialInquiryForm from "@/components/studio/CommercialInquiryForm";
@@ -10,7 +10,7 @@ const service = STUDIO_SERVICES.find((s) => s.slug === "commerce")!;
 
 export const metadata: Metadata = {
   title: "Nuuvixx Commerce Rescue — Google Merchant Center Feed Diagnostics & Fixes",
-  description: "Diagnose broken product feeds, variant mismatches, and Google Merchant Center disapprovals. Fixed-scope audit and remediation for Shopify stores.",
+  description: "Run local checks on CSV, TSV and XML product feeds, inspect findings and request a scoped remediation review.",
 };
 
 export default function CommerceRescuePage() {
@@ -19,22 +19,23 @@ export default function CommerceRescuePage() {
       {/* Hero */}
       <header className={styles.hero}>
         <div className={styles.eyebrow}>
-          <ShoppingCart size={14} weight="fill" />
-          {"// "} {service.division}
+          <ShoppingCart size={14} />
+          <span>{service.division}</span>
         </div>
         <h1 className={styles.heroTitle}>
-          Fix Broken Product Feeds &amp; <br />
-          <span className={styles.textVolt}>GMC Disapprovals at the Source.</span>
+          Check product feeds for <br />
+          <span className={styles.textVolt}>common data issues.</span>
         </h1>
         <p className={styles.heroSubtitle}>
           {service.description}
         </p>
         <div className={styles.heroCtas}>
           <a href="#intake" className={styles.primaryCta}>
-            Request Feed Remediation ({service.introPricing.range}) <ArrowRight size={16} weight="bold" />
+            <span>Request a feed review</span>
+            <ArrowRight size={15} strokeWidth={2.2} />
           </a>
           <a href="#demo" className={styles.secondaryCta}>
-            Try Live Feed Diagnostic Demo
+            <span>Try Live Feed Diagnostic Demo</span>
           </a>
         </div>
       </header>
@@ -42,10 +43,10 @@ export default function CommerceRescuePage() {
       {/* Interactive Tool Section */}
       <section id="demo" className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.sectionEyebrow}>{"// WORKING COMMERCIAL TOOL"}</div>
-          <h2 className={styles.sectionTitle}>Diagnose Merchant Center Disapprovals Instantly</h2>
+          <div className={styles.sectionEyebrow}>Diagnostic Tool</div>
+          <h2 className={styles.sectionTitle}>Check a product feed in your browser.</h2>
           <p className={styles.sectionSubtitle}>
-            Upload your production CSV, TSV, or Google Base XML feed. Our diagnostic engine evaluates every product against official Google Merchant Center specifications and generates actionable remediation code.
+            Upload a CSV, TSV or XML feed. The local validator checks selected fields and explains findings; Google makes its own crawler and account decisions.
           </p>
         </div>
         <CommerceRescueValidator />
@@ -56,8 +57,8 @@ export default function CommerceRescuePage() {
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle}>
-              <CheckCircle size={22} weight="fill" color="var(--color-volt)" />
-              Who We Serve
+              <CheckCircle2 size={20} color="var(--color-orange)" />
+              <span>Who we serve</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.targetAudience.map((target, idx) => (
@@ -71,8 +72,8 @@ export default function CommerceRescuePage() {
 
           <div className={styles.boxCard}>
             <h3 className={styles.boxTitle}>
-              <Warning size={22} weight="fill" color="#ffaa00" />
-              The Exact Catalog Problems We Solve
+              <AlertTriangle size={20} color="var(--color-orange)" />
+              <span>Catalog problems we solve</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.primaryProblems.map((prob, idx) => (
@@ -89,8 +90,8 @@ export default function CommerceRescuePage() {
       {/* Deliverables & Transparent Scope */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.sectionEyebrow}>{"// DELIVERABLES & SCOPE"}</div>
-          <h2 className={styles.sectionTitle}>Engineered Deliverables with Zero Ambiguity</h2>
+          <div className={styles.sectionEyebrow}>Deliverables &amp; Scope</div>
+          <h2 className={styles.sectionTitle}>Engineered deliverables with zero ambiguity.</h2>
           <p className={styles.sectionSubtitle}>
             We provide concrete code, proxy endpoints, and documented fixes. Here is what is strictly included and excluded.
           </p>
@@ -98,19 +99,19 @@ export default function CommerceRescuePage() {
 
         <div className={styles.twoColGrid}>
           <div className={styles.boxCard}>
-            <h3 className={styles.boxTitle} style={{ color: "#00e676" }}>
-              Included in Every Remediation
+            <h3 className={styles.boxTitle} style={{ color: "var(--color-success)" }}>
+              <span>Included in every remediation</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.deliverables.map((del, idx) => (
                 <li key={idx} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "#00e676", fontWeight: 700 }}>✓</span>
+                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
                   <span>{del}</span>
                 </li>
               ))}
               {service.scopeAndExclusions.included.map((inc, idx) => (
                 <li key={`inc-${idx}`} className={styles.scopeIncludedItem}>
-                  <span style={{ color: "#00e676", fontWeight: 700 }}>✓</span>
+                  <span style={{ color: "var(--color-success)", fontWeight: 700 }}>✓</span>
                   <span>{inc}</span>
                 </li>
               ))}
@@ -118,19 +119,19 @@ export default function CommerceRescuePage() {
           </div>
 
           <div className={styles.boxCard}>
-            <h3 className={styles.boxTitle} style={{ color: "#ff6b6b" }}>
-              Explicit Exclusions
+            <h3 className={styles.boxTitle} style={{ color: "var(--color-error)" }}>
+              <span>Explicit exclusions</span>
             </h3>
             <ul className={styles.scopeList}>
               {service.scopeAndExclusions.excluded.map((exc, idx) => (
                 <li key={idx} className={styles.scopeExcludedItem}>
-                  <span style={{ color: "#ff6b6b", fontWeight: 700 }}>✗</span>
+                  <span style={{ color: "var(--color-error)", fontWeight: 700 }}>✗</span>
                   <span>{exc}</span>
                 </li>
               ))}
             </ul>
-            <div style={{ marginTop: "24px", padding: "16px", background: "rgba(255,255,255,0.03)", borderRadius: "8px", fontSize: "0.8rem", color: "var(--color-text-secondary)" }}>
-              <strong>Note on Google Authority:</strong> We provide rigorous engineering remediation for documented feed schema and attribute specification errors. Policy reinstatement decisions ultimately reside solely with Google LLC; resolving underlying data and crawl discrepancies is the mandatory prerequisite.
+            <div style={{ marginTop: "20px", padding: "14px", background: "rgba(24,24,23,0.03)", border: "1px solid var(--color-rule)", borderRadius: "4px", fontSize: "0.82rem", color: "var(--color-muted)", lineHeight: 1.5 }}>
+              <strong>Notice:</strong> We provide rigorous engineering remediation for documented feed schema and attribute specification errors. Policy reinstatement decisions ultimately reside with platform operators; resolving underlying data discrepancies is the mandatory prerequisite.
             </div>
           </div>
         </div>
@@ -139,10 +140,10 @@ export default function CommerceRescuePage() {
       {/* Process */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.sectionEyebrow}>{"// OUR FOUR-STEP PROCESS"}</div>
-          <h2 className={styles.sectionTitle}>From Ingestion to Approved Merchant Feeds</h2>
+          <div className={styles.sectionEyebrow}>Our Process</div>
+          <h2 className={styles.sectionTitle}>From local checks to a scoped fix.</h2>
           <p className={styles.sectionSubtitle}>
-            Fast turnaround designed to unblock paused Google Ads and Meta shopping campaigns within 24–48 hours.
+            Review the findings, export a report, and discuss any engineering work needed to address them.
           </p>
         </div>
 
@@ -159,22 +160,23 @@ export default function CommerceRescuePage() {
 
       {/* Pricing & Future Roadmap */}
       <section className={styles.section}>
-        <div className={styles.boxCard} style={{ borderColor: "rgba(255, 107, 44, 0.4)", background: "rgba(255, 107, 44, 0.04)" }}>
+        <div className={styles.boxCard}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "24px" }}>
             <div>
-              <span className={styles.sectionEyebrow}>INTRODUCTORY PILOT TIERS</span>
-              <h3 style={{ fontSize: "1.8rem", color: "#ffffff", marginTop: "4px" }}>
-                {service.introPricing.range} <span style={{ fontSize: "1rem", color: "var(--color-text-secondary)", fontWeight: 400 }}>/ {service.introPricing.model}</span>
+              <span className={styles.sectionEyebrow}>Scope and pricing</span>
+              <h3 style={{ fontSize: "1.8rem", color: "var(--color-ink)", marginTop: "4px", fontFamily: "var(--font-serif)", fontWeight: 400 }}>
+                {service.introPricing.range} <span style={{ fontSize: "1rem", color: "var(--color-muted)", fontFamily: "var(--font-sans)" }}>/ {service.introPricing.model}</span>
               </h3>
-              <p style={{ color: "var(--color-text-secondary)", fontSize: "0.95rem", maxWidth: "600px", marginTop: "8px" }}>
+              <p style={{ color: "var(--color-muted)", fontSize: "0.95rem", maxWidth: "600px", marginTop: "8px", lineHeight: 1.5 }}>
                 {service.introPricing.note}
               </p>
-              <div style={{ marginTop: "16px", fontSize: "0.85rem", color: "var(--color-volt)" }}>
-                <strong>Future Subscription Roadmap:</strong> {service.futureRoadmap}
+              <div style={{ marginTop: "14px", fontSize: "0.85rem", color: "var(--color-accent-text)" }}>
+                <strong>Current limitation:</strong> {service.futureRoadmap}
               </div>
             </div>
-            <a href="#intake" className={styles.primaryCta} style={{ marginTop: "12px" }}>
-              Book Catalog Audit Now →
+            <a href="#intake" className={styles.primaryCta} style={{ marginTop: "8px" }}>
+              <span>Book Catalog Audit</span>
+              <ArrowRight size={15} />
             </a>
           </div>
         </div>
@@ -183,8 +185,8 @@ export default function CommerceRescuePage() {
       {/* FAQ */}
       <section className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>{"// QUESTIONS & ANSWERS"}</div>
-          <h2 className={styles.sectionTitle}>Frequently Asked Technical Questions</h2>
+          <div className={styles.sectionEyebrow}>Questions &amp; Answers</div>
+          <h2 className={styles.sectionTitle}>Frequently asked technical questions.</h2>
         </div>
         <FaqAccordion items={service.faqs} />
       </section>
@@ -192,10 +194,10 @@ export default function CommerceRescuePage() {
       {/* Commercial Qualification Form */}
       <section id="intake" className={styles.section}>
         <div className={styles.sectionHeaderCenter}>
-          <div className={styles.sectionEyebrow}>{"// SECURE INTAKE"}</div>
-          <h2 className={styles.sectionTitle}>Initiate Commerce Rescue Engagement</h2>
+          <div className={styles.sectionEyebrow}>Direct Intake</div>
+          <h2 className={styles.sectionTitle}>Initiate Commerce Rescue engagement.</h2>
           <p className={styles.sectionSubtitle} style={{ margin: "0 auto" }}>
-            Provide your store URL and primary feed symptoms. An engineer will inspect your feed headers and respond within 24 hours.
+            Provide your store URL and primary feed symptoms. An engineer will inspect your feed headers and respond with next steps.
           </p>
         </div>
 
